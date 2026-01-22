@@ -1,0 +1,109 @@
+{
+    "id": "simraki-character-monitor",
+    "title": "Simraki's Character Monitor",
+    "description": "GM-only monitoring of player character sheet changes for D&D 5e",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Simraki",
+            "url": "https://github.com/Simraki/"
+        }
+    ],
+    "license": "MIT",
+    "compatibility": {
+        "minimum": "13",
+        "verified": "13"
+    },
+    "relationships": {
+        "systems": [
+            {
+                "id": "dnd5e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "5.0.0",
+                    "verified": "5.2.5"
+                }
+            }
+        ],
+        "requires": [
+            {
+                "id": "lib-wrapper",
+                "type": "module",
+                "compatibility": {
+                    "minimum": "1",
+                    "verified": "1.13.4.0"
+                }
+            },
+            {
+                "id": "socketlib",
+                "type": "module",
+                "compatibility": {
+                    "minimum": "1.1.0",
+                    "verified": "1.1.3"
+                }
+            }
+        ]
+    },
+    "esmodules": [
+        "./scripts/main.js"
+    ],
+    "styles": [
+        "./styles/character-monitor.css"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "./languages/en.json"
+        },
+        {
+            "lang": "ja",
+            "name": "日本語",
+            "path": "./languages/ja.json"
+        },
+        {
+            "lang": "es",
+            "name": "Español",
+            "path": "./languages/es.json"
+        },
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "./languages/fr.json"
+        },
+        {
+            "lang": "it",
+            "name": "Italiano",
+            "path": "./languages/it.json"
+        },
+        {
+            "lang": "de",
+            "name": "Deutsch",
+            "path": "./languages/de.json"
+        },
+        {
+            "lang": "pt-BR",
+            "name": "Português (Brasil)",
+            "path": "./languages/pt-BR.json"
+        },
+        {
+            "lang": "zh-CN",
+            "name": "中文 (简体)",
+            "path": "./languages/zh-CN.json"
+        },
+        {
+            "lang": "ru",
+            "name": "Русский",
+            "path": "./languages/ru.json"
+        },
+        {
+            "lang": "ko",
+            "name": "한국어",
+            "path": "./languages/ko.json"
+        }
+    ],
+    "socket": true,
+    "url": "https://github.com/Simraki/simraki-character-monitor",
+    "manifest": "https://github.com/Simraki/simraki-character-monitor/releases/latest/download/module.json",
+    "download": "https://github.com/Simraki/simraki-character-monitor/releases/latest/download/module.zip"
+}

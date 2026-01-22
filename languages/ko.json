@@ -1,0 +1,115 @@
+{
+    "characterMonitor": {
+        "settings": {
+            "monitorHP": {
+                "name": "HP 추적",
+                "hint": "캐릭터의 생명점 변화를 추적합니다."
+            },
+            "monitorXP": {
+                "name": "경험치 추적",
+                "hint": "캐릭터 시트의 경험치 변화를 추적합니다."
+            },
+            "monitorLevel": {
+                "name": "레벨 추적",
+                "hint": "캐릭터 시트의 레벨 변화를 추적합니다."
+            },
+            "monitorSpellPrep": {
+                "name": "주문 준비 추적",
+                "hint": "캐릭터가 주문을 준비하거나 제거할 때 추적합니다."
+            },
+            "monitorSpellSlots": {
+                "name": "주문 슬롯 추적",
+                "hint": "캐릭터 시트의 주문 슬롯 변화를 추적합니다."
+            },
+            "monitorAC": {
+                "name": "방어도(AC) 추적",
+                "hint": "캐릭터 시트의 AC 변화를 추적합니다."
+            },
+            "monitorAbility": {
+                "name": "능력치 추적",
+                "hint": "캐릭터 능력치 변화를 추적합니다."
+            },
+            "monitorSkillProficiency": {
+                "name": "기술 숙련 추적",
+                "hint": "캐릭터 기술 숙련 변화를 추적합니다."
+            },
+            "monitorSaveProficiency": {
+                "name": "저항 굴림 숙련 추적",
+                "hint": "캐릭터 저항 굴림 숙련 변화를 추적합니다."
+            },
+            "monitorToolProficiency": {
+                "name": "도구 숙련 추적",
+                "hint": "캐릭터 도구 숙련 변화를 추적합니다."
+            },
+            "monitorCurrency": {
+                "name": "화폐 추적",
+                "hint": "캐릭터 시트의 화폐 변화를 추적합니다."
+            },
+            "monitorEffects": {
+                "name": "활성 효과 추적",
+                "hint": "캐릭터 시트의 활성 효과 변화를 추적합니다."
+            },
+            "monitorItemQuantity": {
+                "name": "아이템 수량 추적",
+                "hint": "캐릭터 아이템 수량 변화를 추적합니다."
+            },
+            "monitorItemNameDesc": {
+                "name": "아이템 이름 및 설명 추적",
+                "hint": "캐릭터 시트의 아이템 이름/설명 변화를 추적합니다."
+            },
+            "monitorItemEquip": {
+                "name": "장비 착용 추적",
+                "hint": "캐릭터가 장비를 착용하거나 벗을 때 추적합니다."
+            },
+            "monitorItemAttune": {
+                "name": "조율 추적",
+                "hint": "캐릭터가 아이템을 조율하거나 조율을 잃을 때 추적합니다."
+            },
+            "monitorItemIdentify": {
+                "name": "아이템 식별 추적",
+                "hint": "캐릭터 시트에서 아이템 식별/미식별 상태 변화를 추적합니다."
+            },
+            "monitorItemCharges": {
+                "name": "아이템 사용 횟수 추적",
+                "hint": "캐릭터 시트에서 아이템 사용 횟수 변화를 추적합니다."
+            },
+            "monitorSheetMode": {
+                "name": "시트 모드 추적",
+                "hint": "캐릭터 시트의 게임 모드/편집 모드 전환을 추적합니다."
+            },
+            "monitorInspiration": {
+                "name": "영감 추적",
+                "hint": "캐릭터 시트의 영감 상태 변화를 추적합니다."
+            },
+            "monitorDeathSave": {
+                "name": "죽음 세이브 추적",
+                "hint": "캐릭터 시트의 죽음 세이브 결과 변화를 추적합니다."
+            }
+        },
+        "chatMessage": {
+            "sheetMode": "시트 모드",
+            "description": "설명",
+            "descriptionChanged": "설명이 변경됨",
+            "hp": {
+                "value": "HP",
+                "max": "최대 HP",
+                "temp": "임시 HP",
+                "tempmax": "임시 최대 HP"
+            },
+            "equipped": "착용함",
+            "unequipped": "벗음",
+            "prepared": "준비함",
+            "unprepared": "준비 해제",
+            "attunesTo": "조율함",
+            "breaksAttune": "조율 해제",
+            "enabled": "활성",
+            "disabled": "비활성",
+            "added": "추가됨",
+            "deleted": "삭제됨",
+            "identified": "식별됨",
+            "unidentified": "미식별",
+            "old": "이전",
+            "new": "현재"
+        }
+    }
+}

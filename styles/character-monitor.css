@@ -1,0 +1,304 @@
+/* -------------------------------
+   Variables
+   ------------------------------- */
+li.chat-message.cm-msg {
+    --cm-plus: #1b5e20;
+    --cm-minus: #8b1e1e;
+
+    /* HP Changes */
+    --cm-hp-plus: #1b5e20;
+    --cm-hp-minus: #8b1e1e;
+    --cm-max-hp: #5b0426;
+
+    /* Temp HP and Temp Max HP */
+    --cm-temp-hp: #0d47a1;
+    --cm-temp-max-hp: #006064;
+
+    /* XP */
+    --cm-xp: #e3bb34;
+    --cm-level: #a0a82e;
+
+    /* Currency */
+    --cm-currency-plus: #c87f1f;
+    --cm-currency-minus: #a02a3a;
+
+    /* Spell Slots */
+    --cm-spellslot-plus: #7b1fa2;
+    --cm-spellslot-minus: #4a148c;
+
+    /* Spell Preparation */
+    --cm-spellprep: #283593;
+
+    /* AC / checks */
+    --cm-ac: #37908a;
+    --cm-ability: #09524c;
+    --cm-skill-prof: #207a75;
+    --cm-save-prof: #207a75;
+    --cm-tool-prof: #207a75;
+
+    /* Items */
+    --cm-item-plus: #0a6b4a;
+    --cm-item-minus: #a02a3a;
+    --cm-item-name-desc: #37474f;
+    --cm-item-equip: #0e520e;
+    --cm-item-unequip: #720e14;
+    --cm-item-attune: #720e70;
+    --cm-item-charges: #425af5;
+    --cm-item-identify: #425af5;
+
+    /* Effects */
+    --cm-effect: #7c4108;
+
+    /* Sheet Mode */
+    --cm-sheet-mode: #000000;
+
+    /* Inspiration */
+    --cm-inspiration: #ff8f00;
+
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin-top: 1px;
+    margin-bottom: 1px;
+    background-clip: padding-box;
+}
+
+/* -------------------------------
+   Content Layout
+   ------------------------------- */
+li.chat-message.cm-msg .message-header {
+    display: none;
+}
+
+li.chat-message.cm-msg .message-content {
+    padding: 3px 6px;
+    margin: 0;
+}
+
+li.chat-message.cm-msg .message-content .cm-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #ffffff;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+li.chat-message.cm-msg .cm-line > i {
+    flex: 0 0 auto;
+    opacity: 0.9;
+    font-size: 12px;
+    align-self: center;
+}
+
+/* -------------------------------
+   Foundry UUID Link Overrides
+   ------------------------------- */
+li.chat-message.cm-msg .cm-line .content-link {
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: inherit;
+    padding: 0 4px;
+    margin: 0 2px;
+    border-radius: 3px;
+    text-decoration: none;
+    vertical-align: baseline;
+}
+
+li.chat-message.cm-msg .cm-line .content-link:hover {
+    background: rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+li.chat-message.cm-msg .cm-line .content-link i {
+    display: none;
+}
+
+/* -------------------------------
+   Spoiler / Details
+   ------------------------------- */
+li.chat-message.cm-msg details.cm-spoiler {
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 4px;
+    padding: 4px 6px;
+    margin: 2px 0;
+    color: #ffffff;
+}
+
+li.chat-message.cm-msg details.cm-spoiler summary {
+    list-style: none;
+    font-weight: 700;
+    font-size: 12px;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 6px;
+}
+
+li.chat-message.cm-msg details.cm-spoiler summary::-webkit-details-marker {
+    display: none;
+}
+
+li.chat-message.cm-msg details.cm-spoiler[open] summary {
+    font-weight: bold;
+}
+
+li.chat-message.cm-msg details.cm-spoiler .spoiler-content {
+    padding: 4px 6px 0 6px;
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    white-space: normal;
+    word-break: break-word;
+}
+
+li.chat-message.cm-msg details.cm-spoiler .spoiler-content hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 2px 0;
+}
+
+/* -------------------------------
+   Color Themes
+   ------------------------------- */
+/* General */
+li.chat-message.cm-msg.cm-plus {
+    background-color: var(--cm-plus);
+}
+
+li.chat-message.cm-msg.cm-minus {
+    background-color: var(--cm-minus);
+}
+
+/* HP */
+li.chat-message.cm-msg.cm-hp-plus {
+    background-color: var(--cm-hp-plus);
+}
+
+li.chat-message.cm-msg.cm-hp-minus {
+    background-color: var(--cm-hp-minus);
+}
+
+li.chat-message.cm-msg.cm-max-hp {
+    background-color: var(--cm-max-hp);
+}
+
+/* Temp HP */
+li.chat-message.cm-msg.cm-temp-hp {
+    background-color: var(--cm-temp-hp);
+}
+
+li.chat-message.cm-msg.cm-temp-max-hp {
+    background-color: var(--cm-temp-max-hp);
+}
+
+/* XP */
+li.chat-message.cm-msg.cm-xp {
+    background-color: var(--cm-xp);
+}
+
+li.chat-message.cm-msg.cm-level {
+    background-color: var(--cm-level);
+}
+
+/* Spell Slots */
+li.chat-message.cm-msg.cm-spellslot-plus {
+    background-color: var(--cm-spellslot-plus);
+}
+
+li.chat-message.cm-msg.cm-spellslot-minus {
+    background-color: var(--cm-spellslot-minus);
+}
+
+/* Spell Preparation */
+li.chat-message.cm-msg.cm-spellprep {
+    background-color: var(--cm-spellprep);
+}
+
+/* Currency */
+li.chat-message.cm-msg.cm-currency-plus {
+    background-color: var(--cm-currency-plus);
+}
+
+li.chat-message.cm-msg.cm-currency-minus {
+    background-color: var(--cm-currency-minus);
+}
+
+/* AC & Proficiency & Ability */
+li.chat-message.cm-msg.cm-ac {
+    background-color: var(--cm-ac);
+}
+
+li.chat-message.cm-msg.cm-ability {
+    background-color: var(--cm-ability);
+}
+
+li.chat-message.cm-msg.cm-skill-prof {
+    background-color: var(--cm-skill-prof);
+}
+
+li.chat-message.cm-msg.cm-save-prof {
+    background-color: var(--cm-save-prof);
+}
+
+li.chat-message.cm-msg.cm-tool-prof {
+    background-color: var(--cm-tool-prof);
+}
+
+/* Items */
+li.chat-message.cm-msg.cm-item-plus {
+    background-color: var(--cm-item-plus);
+}
+
+li.chat-message.cm-msg.cm-item-minus {
+    background-color: var(--cm-item-minus);
+}
+
+li.chat-message.cm-msg.cm-item-name-desc {
+    background-color: var(--cm-item-name-desc);
+}
+
+li.chat-message.cm-msg.cm-item-equip {
+    background-color: var(--cm-item-equip);
+}
+
+li.chat-message.cm-msg.cm-item-unequip {
+    background-color: var(--cm-item-unequip);
+}
+
+li.chat-message.cm-msg.cm-item-attune {
+    background-color: var(--cm-item-attune);
+}
+
+li.chat-message.cm-msg.cm-item-charges {
+    background-color: var(--cm-item-charges);
+}
+
+li.chat-message.cm-msg.cm-item-identify {
+    background-color: var(--cm-item-identify);
+}
+
+/* Effects */
+li.chat-message.cm-msg.cm-effect {
+    background-color: var(--cm-effect);
+}
+
+/* Sheet Mode */
+li.chat-message.cm-msg.cm-sheet-mode {
+    background-color: var(--cm-sheet-mode);
+}
+
+/* Inspiration */
+li.chat-message.cm-msg.cm-inspiration {
+    background-color: var(--cm-inspiration);
+}

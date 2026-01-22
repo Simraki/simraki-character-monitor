@@ -1,0 +1,12 @@
+{
+    "name": "simraki-character-monitor",
+    "version": "1.0.0",
+    "description": "Log an alert in chat when certain changes to an actor are made.",
+    "main": "scripts/main.js",
+    "type": "module",
+    "scripts": {
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    },
+    "author": "Simraki",
+    "license": "MIT"
+}
