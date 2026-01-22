@@ -1,5 +1,8 @@
 name: Release Creation
 
+permissions:
+    contents: write
+
 on: 
   release:
     types: [published]
