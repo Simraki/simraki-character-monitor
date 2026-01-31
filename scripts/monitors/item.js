@@ -1,8 +1,8 @@
-import { BaseMonitor } from './base.js';
-import { Settings } from '../settings.js';
-import { Logger } from '../logger.js';
-import { getActorLink, getDeltaText, truncateName, will } from '../utils.js';
-import { classes, DEBOUNCE_MS, icons, MODULE_ID } from '../config.js';
+import {BaseMonitor} from './base.js';
+import {Settings} from '../settings.js';
+import {Logger} from '../logger.js';
+import {getActorLink, getDeltaText, truncateName, VALID_TYPES, will} from '../utils.js';
+import {classes, DEBOUNCE_MS, icons, MODULE_ID} from '../config.js';
 
 
 export class ItemMonitor extends BaseMonitor {
@@ -39,19 +39,20 @@ export class ItemMonitor extends BaseMonitor {
         }
 
         if (Settings.getBool(`monitorItemCharges`) && sys.uses && will(update, 'system.uses')) {
-            stash.uses = duplicate(sys.uses);
+            stash.uses = foundry.utils.duplicate(sys.uses);
         }
 
         if (Settings.getBool(`monitorItemIdentify`) && will(update, 'system.identified')) {
             stash.identified = sys.identified ?? false;
         }
 
-        if (Settings.getBool(`monitorItemNameDesc`) && will(update, 'system.description.value')) {
-            stash.description = sys.description?.value ?? '';
-        }
-
-        if (Settings.getBool(`monitorItemNameDesc`) && will(update, 'name')) {
-            stash.name = item.name;
+        if (Settings.getBool(`monitorItemNameDesc`)) {
+            if (will(update, 'system.description.value')) {
+                stash.description = sys.description?.value ?? '';
+            }
+            if (will(update, 'name')) {
+                stash.name = item.name;
+            }
         }
 
         options[MODULE_ID] = stash;
@@ -92,6 +93,7 @@ export class ItemMonitor extends BaseMonitor {
 
         /* Quantity */
         if (old.quantity !== undefined) {
+            console.log('change quantity', item, old)
             const curr = sys.quantity ?? 0;
             if (curr !== old.quantity) {
                 const deltaText = getDeltaText(curr, old.quantity);
@@ -172,30 +174,34 @@ export class ItemMonitor extends BaseMonitor {
     }
 
     async onCreate(item, options, userId) {
+        if (userId !== game.user.id || !Settings.getBool(`monitorItemQuantity`)) return;
+
         const actor = item.parent;
-        if (!actor || actor.type !== 'character') return;
-        if (!Settings.getBool(`monitorItemQuantity`)) return;
-        if (userId !== game.user.id) return;
+        if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return;
 
         const link = getActorLink(actor);
         const qty = item.system.quantity ?? 1;
 
-        const preText = game.i18n.localize('characterMonitor.chatMessage.added');
-        const text = `${preText} ${truncateName(item.name)} x${qty}`;
+        const typeText = VALID_TYPES.includes(item.type) ? ` (${game.i18n.localize(`TYPES.Item.${item.type}`)})` : '';
+        const actionText = game.i18n.localize('characterMonitor.chatMessage.added');
+
+        const text = `${actionText} ${truncateName(item.name)} x${qty}${typeText}`;
 
         await Logger.logFlat(link, text, classes.itemPlus, icons.itemQty);
     }
 
     async onDelete(item, options, userId) {
+        if (userId !== game.user.id || !Settings.getBool(`monitorItemQuantity`)) return;
+
         const actor = item.parent;
-        if (!actor || actor.type !== 'character') return;
-        if (!Settings.getBool(`monitorItemQuantity`)) return;
-        if (userId !== game.user.id) return;
+        if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return;
 
         const link = getActorLink(actor);
 
-        const preText = game.i18n.localize('characterMonitor.chatMessage.deleted');
-        const text = `${preText} ${truncateName(item.name)}`;
+        const typeText = VALID_TYPES.includes(item.type) ? ` (${game.i18n.localize(`TYPES.Item.${item.type}`)})` : '';
+        const actionText = game.i18n.localize('characterMonitor.chatMessage.deleted');
+
+        const text = `${actionText} ${truncateName(item.name)}${typeText}`;
         await Logger.logFlat(link, text, classes.itemMinus, icons.itemQty);
     }
 }

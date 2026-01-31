@@ -1,5 +1,6 @@
-import { MAX_NAME_CHARS } from './config.js';
+import {MAX_NAME_CHARS} from './config.js';
 
+export const VALID_TYPES = ["feat", "spell", "consumable", "container", "equipment", "loot", "tool", "weapon"];
 
 export function truncateName(name) {
     if (name.length > MAX_NAME_CHARS) {
