@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.2 (2026-01-31)
+- Fix module version
+
 ## 1.1.1 (2026-01-31)
 
 - Updated Russian localization
