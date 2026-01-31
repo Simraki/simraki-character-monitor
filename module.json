@@ -44,12 +44,8 @@
             }
         ]
     },
-    "esmodules": [
-        "./scripts/main.js"
-    ],
-    "styles": [
-        "./styles/character-monitor.css"
-    ],
+    "esmodules": ["./scripts/main.js"],
+    "styles": ["./styles/character-monitor.css"],
     "languages": [
         {
             "lang": "en",

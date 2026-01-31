@@ -11,7 +11,8 @@
 
 **Simraki's Character Monitor** is a GM–only monitoring module for **D&D5e** (5.0+).
 
-The module logs important changes made to player character sheets directly into the chat, allowing the GM to passively observe character progression, inventory management, and mechanical changes without interrupting gameplay.
+The module logs important changes made to player character sheets directly into the chat, allowing the GM to passively
+observe character progression, inventory management, and mechanical changes without interrupting gameplay.
 
 Players never see these messages.
 
@@ -80,14 +81,15 @@ All changes are logged in a compact, color-coded format with icons for quick rea
 This module is based on ideas and prior work from:
 
 - jessev14 & enso
-  - https://github.com/jessev14/dnd5e-character-monitor
+    - https://github.com/jessev14/dnd5e-character-monitor
 - Shr1mps
-  - https://github.com/Shr1mps/dnd5e-character-monitor
+    - https://github.com/Shr1mps/dnd5e-character-monitor
 - nschoenwald
-  - https://github.com/nschoenwald/tiny-hp-monitor
+    - https://github.com/nschoenwald/tiny-hp-monitor
 
 ---
 
 ## License
 
-This package is under an [MIT](LICENSE) license and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).
+This package is under an [MIT](LICENSE) license and
+the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).

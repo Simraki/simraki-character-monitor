@@ -1,115 +1,115 @@
 {
-  "characterMonitor": {
-    "settings": {
-      "monitorHP": {
-        "name": "HPを監視",
-        "hint": "キャラクターのヒットポイントの変化を監視します。"
-      },
-      "monitorXP": {
-        "name": "経験値を監視",
-        "hint": "キャラクターシートの経験値の変化を監視します。"
-      },
-      "monitorLevel": {
-        "name": "レベルを監視",
-        "hint": "キャラクターシートのレベル変化を監視します。"
-      },
-      "monitorSpellPrep": {
-        "name": "呪文準備を監視",
-        "hint": "キャラクターが呪文を準備/解除したときに監視します。"
-      },
-      "monitorSpellSlots": {
-        "name": "呪文スロットを監視",
-        "hint": "キャラクターシートの呪文スロットの変化を監視します。"
-      },
-      "monitorAC": {
-        "name": "アーマークラス(AC)を監視",
-        "hint": "キャラクターシートのACの変化を監視します。"
-      },
-      "monitorAbility": {
-        "name": "能力値を監視",
-        "hint": "キャラクターの能力値の変化を監視します。"
-      },
-      "monitorSkillProficiency": {
-        "name": "技能習熟を監視",
-        "hint": "キャラクターの技能習熟の変化を監視します。"
-      },
-      "monitorSaveProficiency": {
-        "name": "セーヴィングスロー習熟を監視",
-        "hint": "キャラクターのセーヴィングスロー習熟の変化を監視します。"
-      },
-      "monitorToolProficiency": {
-        "name": "道具習熟を監視",
-        "hint": "キャラクターの道具習熟の変化を監視します。"
-      },
-      "monitorCurrency": {
-        "name": "通貨を監視",
-        "hint": "キャラクターシートの通貨の変化を監視します。"
-      },
-      "monitorEffects": {
-        "name": "アクティブ効果を監視",
-        "hint": "キャラクターシートのアクティブ効果の変化を監視します。"
-      },
-      "monitorItemQuantity": {
-        "name": "アイテム数量を監視",
-        "hint": "キャラクターのアイテム数量の変化を監視します。"
-      },
-      "monitorItemNameDesc": {
-        "name": "アイテム名と説明を監視",
-        "hint": "キャラクターシートのアイテム名または説明の変化を監視します。"
-      },
-      "monitorItemEquip": {
-        "name": "装備を監視",
-        "hint": "キャラクターが装備/解除したときに監視します。"
-      },
-      "monitorItemAttune": {
-        "name": "同調を監視",
-        "hint": "キャラクターがアイテムに同調/同調解除したときに監視します。"
-      },
-      "monitorItemIdentify": {
-        "name": "アイテム識別を監視",
-        "hint": "キャラクターシートのアイテムの識別/未識別の変化を監視します。"
-      },
-      "monitorItemCharges": {
-        "name": "アイテム使用回数を監視",
-        "hint": "キャラクターシートのアイテム使用回数の変化を監視します。"
-      },
-      "monitorSheetMode": {
-        "name": "シートモードを監視",
-        "hint": "キャラクターシートの編集モードとプレイモードの切替を監視します。"
-      },
-      "monitorInspiration": {
-        "name": "インスピレーションを監視",
-        "hint": "キャラクターシートのインスピレーションの変化を監視します。"
-      },
-      "monitorDeathSave": {
-        "name": "デスセーヴを監視",
-        "hint": "キャラクターシートのデスセーヴの結果の変化を監視します。"
-      }
-    },
-    "chatMessage": {
-      "sheetMode": "シートモード",
-      "description": "説明",
-      "descriptionChanged": "説明が変更されました",
-      "hp": {
-        "value": "HP",
-        "max": "最大HP",
-        "temp": "一時HP",
-        "tempmax": "最大一時HP"
-      },
-      "equipped": "装備した",
-      "unequipped": "装備を外した",
-      "prepared": "準備した",
-      "unprepared": "準備解除",
-      "attunesTo": "同調した",
-      "breaksAttune": "同調を失った",
-      "enabled": "有効",
-      "disabled": "無効",
-      "added": "追加された",
-      "deleted": "削除された",
-      "identified": "識別済み",
-      "unidentified": "未識別",
-      "old": "以前",
-      "new": "現在"
+    "characterMonitor": {
+        "settings": {
+            "monitorHP": {
+                "name": "HPを監視",
+                "hint": "キャラクターのヒットポイントの変化を監視します。"
+            },
+            "monitorXP": {
+                "name": "経験値を監視",
+                "hint": "キャラクターシートの経験値の変化を監視します。"
+            },
+            "monitorLevel": {
+                "name": "レベルを監視",
+                "hint": "キャラクターシートのレベル変化を監視します。"
+            },
+            "monitorSpellPrep": {
+                "name": "呪文準備を監視",
+                "hint": "キャラクターが呪文を準備/解除したときに監視します。"
+            },
+            "monitorSpellSlots": {
+                "name": "呪文スロットを監視",
+                "hint": "キャラクターシートの呪文スロットの変化を監視します。"
+            },
+            "monitorAC": {
+                "name": "アーマークラス(AC)を監視",
+                "hint": "キャラクターシートのACの変化を監視します。"
+            },
+            "monitorAbility": {
+                "name": "能力値を監視",
+                "hint": "キャラクターの能力値の変化を監視します。"
+            },
+            "monitorSkillProficiency": {
+                "name": "技能習熟を監視",
+                "hint": "キャラクターの技能習熟の変化を監視します。"
+            },
+            "monitorSaveProficiency": {
+                "name": "セーヴィングスロー習熟を監視",
+                "hint": "キャラクターのセーヴィングスロー習熟の変化を監視します。"
+            },
+            "monitorToolProficiency": {
+                "name": "道具習熟を監視",
+                "hint": "キャラクターの道具習熟の変化を監視します。"
+            },
+            "monitorCurrency": {
+                "name": "通貨を監視",
+                "hint": "キャラクターシートの通貨の変化を監視します。"
+            },
+            "monitorEffects": {
+                "name": "アクティブ効果を監視",
+                "hint": "キャラクターシートのアクティブ効果の変化を監視します。"
+            },
+            "monitorItemQuantity": {
+                "name": "アイテム数量を監視",
+                "hint": "キャラクターのアイテム数量の変化を監視します。"
+            },
+            "monitorItemNameDesc": {
+                "name": "アイテム名と説明を監視",
+                "hint": "キャラクターシートのアイテム名または説明の変化を監視します。"
+            },
+            "monitorItemEquip": {
+                "name": "装備を監視",
+                "hint": "キャラクターが装備/解除したときに監視します。"
+            },
+            "monitorItemAttune": {
+                "name": "同調を監視",
+                "hint": "キャラクターがアイテムに同調/同調解除したときに監視します。"
+            },
+            "monitorItemIdentify": {
+                "name": "アイテム識別を監視",
+                "hint": "キャラクターシートのアイテムの識別/未識別の変化を監視します。"
+            },
+            "monitorItemCharges": {
+                "name": "アイテム使用回数を監視",
+                "hint": "キャラクターシートのアイテム使用回数の変化を監視します。"
+            },
+            "monitorSheetMode": {
+                "name": "シートモードを監視",
+                "hint": "キャラクターシートの編集モードとプレイモードの切替を監視します。"
+            },
+            "monitorInspiration": {
+                "name": "インスピレーションを監視",
+                "hint": "キャラクターシートのインスピレーションの変化を監視します。"
+            },
+            "monitorDeathSave": {
+                "name": "デスセーヴを監視",
+                "hint": "キャラクターシートのデスセーヴの結果の変化を監視します。"
+            }
+        },
+        "chatMessage": {
+            "sheetMode": "シートモード",
+            "description": "説明",
+            "descriptionChanged": "説明が変更されました",
+            "hp": {
+                "value": "HP",
+                "max": "最大HP",
+                "temp": "一時HP",
+                "tempmax": "最大一時HP"
+            },
+            "equipped": "装備した",
+            "unequipped": "装備を外した",
+            "prepared": "準備した",
+            "unprepared": "準備解除",
+            "attunesTo": "同調した",
+            "breaksAttune": "同調を失った",
+            "enabled": "有効",
+            "disabled": "無効",
+            "added": "追加された",
+            "deleted": "削除された",
+            "identified": "識別済み",
+            "unidentified": "未識別",
+            "old": "以前",
+            "new": "現在"
+        }
     }
-  }
 }

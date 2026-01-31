@@ -1,115 +1,115 @@
 {
-  "characterMonitor": {
-    "settings": {
-      "monitorHP": {
-        "name": "Surveiller les PV",
-        "hint": "Surveille les changements de points de vie du personnage."
-      },
-      "monitorXP": {
-        "name": "Surveiller l'expérience",
-        "hint": "Surveille les changements de points d'expérience."
-      },
-      "monitorLevel": {
-        "name": "Surveiller le niveau",
-        "hint": "Surveille les changements de niveau du personnage."
-      },
-      "monitorSpellPrep": {
-        "name": "Surveiller la préparation des sorts",
-        "hint": "Surveille quand un sort est préparé ou retiré."
-      },
-      "monitorSpellSlots": {
-        "name": "Surveiller les emplacements de sorts",
-        "hint": "Surveille les changements d'emplacements de sorts."
-      },
-      "monitorAC": {
-        "name": "Surveiller la CA",
-        "hint": "Surveille les changements de la classe d'armure du personnage."
-      },
-      "monitorAbility": {
-        "name": "Surveiller les caractéristiques",
-        "hint": "Surveille les changements des valeurs de caractéristiques."
-      },
-      "monitorSkillProficiency": {
-        "name": "Surveiller les compétences",
-        "hint": "Surveille les changements de maîtrise des compétences."
-      },
-      "monitorSaveProficiency": {
-        "name": "Surveiller les jets de sauvegarde",
-        "hint": "Surveille les changements de maîtrise des jets de sauvegarde."
-      },
-      "monitorToolProficiency": {
-        "name": "Surveiller les outils",
-        "hint": "Surveille les changements de maîtrise des outils."
-      },
-      "monitorCurrency": {
-        "name": "Surveiller la monnaie",
-        "hint": "Surveille les changements de la monnaie du personnage."
-      },
-      "monitorEffects": {
-        "name": "Surveiller les effets actifs",
-        "hint": "Surveille les changements des effets actifs."
-      },
-      "monitorItemQuantity": {
-        "name": "Surveiller la quantité d'objets",
-        "hint": "Surveille les changements de quantité d'objets."
-      },
-      "monitorItemNameDesc": {
-        "name": "Surveiller nom et description des objets",
-        "hint": "Surveille les changements du nom et/ou de la description des objets."
-      },
-      "monitorItemEquip": {
-        "name": "Surveiller l'équipement",
-        "hint": "Surveille quand un objet est équipé ou retiré."
-      },
-      "monitorItemAttune": {
-        "name": "Surveiller l'affinité",
-        "hint": "Surveille quand le personnage s'accorde à un objet ou perd l'affinité."
-      },
-      "monitorItemIdentify": {
-        "name": "Surveiller l'identification des objets",
-        "hint": "Surveille les changements identifié/non identifié des objets."
-      },
-      "monitorItemCharges": {
-        "name": "Surveiller les charges des objets",
-        "hint": "Surveille les changements des charges des objets."
-      },
-      "monitorSheetMode": {
-        "name": "Surveiller le mode de fiche",
-        "hint": "Surveille le changement entre mode jeu et édition."
-      },
-      "monitorInspiration": {
-        "name": "Surveiller l'inspiration",
-        "hint": "Surveille les changements d'inspiration."
-      },
-      "monitorDeathSave": {
-        "name": "Surveiller les jets de sauvegarde de mort",
-        "hint": "Surveille les changements des jets de sauvegarde de mort."
-      }
-    },
-    "chatMessage": {
-      "sheetMode": "Mode de fiche",
-      "description": "Description",
-      "descriptionChanged": "Description modifiée",
-      "hp": {
-        "value": "PV",
-        "max": "PV max",
-        "temp": "PV temp",
-        "tempmax": "PV max temp"
-      },
-      "equipped": "équipe",
-      "unequipped": "déséquipe",
-      "prepared": "prépare",
-      "unprepared": "retire la préparation",
-      "attunesTo": "s'accorde à",
-      "breaksAttune": "perd l'affinité sur",
-      "enabled": "activé",
-      "disabled": "désactivé",
-      "added": "ajouté",
-      "deleted": "supprimé",
-      "identified": "identifié",
-      "unidentified": "non identifié",
-      "old": "Ancien",
-      "new": "Nouveau"
+    "characterMonitor": {
+        "settings": {
+            "monitorHP": {
+                "name": "Surveiller les PV",
+                "hint": "Surveille les changements de points de vie du personnage."
+            },
+            "monitorXP": {
+                "name": "Surveiller l'expérience",
+                "hint": "Surveille les changements de points d'expérience."
+            },
+            "monitorLevel": {
+                "name": "Surveiller le niveau",
+                "hint": "Surveille les changements de niveau du personnage."
+            },
+            "monitorSpellPrep": {
+                "name": "Surveiller la préparation des sorts",
+                "hint": "Surveille quand un sort est préparé ou retiré."
+            },
+            "monitorSpellSlots": {
+                "name": "Surveiller les emplacements de sorts",
+                "hint": "Surveille les changements d'emplacements de sorts."
+            },
+            "monitorAC": {
+                "name": "Surveiller la CA",
+                "hint": "Surveille les changements de la classe d'armure du personnage."
+            },
+            "monitorAbility": {
+                "name": "Surveiller les caractéristiques",
+                "hint": "Surveille les changements des valeurs de caractéristiques."
+            },
+            "monitorSkillProficiency": {
+                "name": "Surveiller les compétences",
+                "hint": "Surveille les changements de maîtrise des compétences."
+            },
+            "monitorSaveProficiency": {
+                "name": "Surveiller les jets de sauvegarde",
+                "hint": "Surveille les changements de maîtrise des jets de sauvegarde."
+            },
+            "monitorToolProficiency": {
+                "name": "Surveiller les outils",
+                "hint": "Surveille les changements de maîtrise des outils."
+            },
+            "monitorCurrency": {
+                "name": "Surveiller la monnaie",
+                "hint": "Surveille les changements de la monnaie du personnage."
+            },
+            "monitorEffects": {
+                "name": "Surveiller les effets actifs",
+                "hint": "Surveille les changements des effets actifs."
+            },
+            "monitorItemQuantity": {
+                "name": "Surveiller la quantité d'objets",
+                "hint": "Surveille les changements de quantité d'objets."
+            },
+            "monitorItemNameDesc": {
+                "name": "Surveiller nom et description des objets",
+                "hint": "Surveille les changements du nom et/ou de la description des objets."
+            },
+            "monitorItemEquip": {
+                "name": "Surveiller l'équipement",
+                "hint": "Surveille quand un objet est équipé ou retiré."
+            },
+            "monitorItemAttune": {
+                "name": "Surveiller l'affinité",
+                "hint": "Surveille quand le personnage s'accorde à un objet ou perd l'affinité."
+            },
+            "monitorItemIdentify": {
+                "name": "Surveiller l'identification des objets",
+                "hint": "Surveille les changements identifié/non identifié des objets."
+            },
+            "monitorItemCharges": {
+                "name": "Surveiller les charges des objets",
+                "hint": "Surveille les changements des charges des objets."
+            },
+            "monitorSheetMode": {
+                "name": "Surveiller le mode de fiche",
+                "hint": "Surveille le changement entre mode jeu et édition."
+            },
+            "monitorInspiration": {
+                "name": "Surveiller l'inspiration",
+                "hint": "Surveille les changements d'inspiration."
+            },
+            "monitorDeathSave": {
+                "name": "Surveiller les jets de sauvegarde de mort",
+                "hint": "Surveille les changements des jets de sauvegarde de mort."
+            }
+        },
+        "chatMessage": {
+            "sheetMode": "Mode de fiche",
+            "description": "Description",
+            "descriptionChanged": "Description modifiée",
+            "hp": {
+                "value": "PV",
+                "max": "PV max",
+                "temp": "PV temp",
+                "tempmax": "PV max temp"
+            },
+            "equipped": "équipe",
+            "unequipped": "déséquipe",
+            "prepared": "prépare",
+            "unprepared": "retire la préparation",
+            "attunesTo": "s'accorde à",
+            "breaksAttune": "perd l'affinité sur",
+            "enabled": "activé",
+            "disabled": "désactivé",
+            "added": "ajouté",
+            "deleted": "supprimé",
+            "identified": "identifié",
+            "unidentified": "non identifié",
+            "old": "Ancien",
+            "new": "Nouveau"
+        }
     }
-  }
 }

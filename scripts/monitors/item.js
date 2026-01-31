@@ -96,7 +96,6 @@ export class ItemMonitor extends BaseMonitor {
 
         /* Quantity */
         if (old.quantity !== undefined) {
-            console.log('change quantity', item, old)
             const curr = sys.quantity ?? 0
             if (curr !== old.quantity) {
                 const deltaText = getDeltaText(curr, old.quantity)
