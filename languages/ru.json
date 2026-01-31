@@ -102,12 +102,12 @@
             "unprepared": "снимает подготовку",
             "attunesTo": "настраивается на",
             "breaksAttune": "теряет настройку на",
-            "enabled": "включен",
-            "disabled": "отключен",
-            "added": "добавлен",
-            "deleted": "удален",
-            "identified": "опознал",
-            "unidentified": "скрыл опознание",
+            "enabled": "включает",
+            "disabled": "отключает",
+            "added": "добавляет",
+            "deleted": "удаляет",
+            "identified": "опознаёт",
+            "unidentified": "скрывает опознание",
             "old": "Было",
             "new": "Стало"
         }
