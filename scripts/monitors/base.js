@@ -1,8 +1,7 @@
 export class BaseMonitor {
     constructor() {
-        this.init();
+        this.init()
     }
 
-    init() {
-    }
+    init() {}
 }

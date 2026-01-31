@@ -1,6 +1,6 @@
-export const MODULE_ID = 'simraki-character-monitor';
-export const MAX_NAME_CHARS = 25;
-export const DEBOUNCE_MS = 300;
+export const MODULE_ID = 'simraki-character-monitor'
+export const MAX_NAME_CHARS = 25
+export const DEBOUNCE_MS = 300
 
 export const icons = {
     def: '<i class="fas fa-list"></i>',
@@ -49,7 +49,7 @@ export const icons = {
     // Death save
     deathSuccess: '<i class="fas fa-heart-pulse"></i>',
     deathFailure: '<i class="fas fa-skull"></i>',
-};
+}
 
 export const classes = {
     // General
@@ -102,4 +102,4 @@ export const classes = {
 
     // Inspiration
     inspiration: 'cm-inspiration',
-};
+}

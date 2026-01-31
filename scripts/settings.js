@@ -1,9 +1,8 @@
-import { MODULE_ID } from './config.js';
-
+import { MODULE_ID } from './config.js'
 
 export class Settings {
     static init() {
-        this.registerSettings();
+        this.registerSettings()
     }
 
     static registerSettings() {
@@ -19,7 +18,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         // Progress
         game.settings.register(MODULE_ID, `monitorXP`, {
@@ -29,7 +28,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorLevel`, {
             name: game.i18n.localize('characterMonitor.settings.monitorLevel.name'),
@@ -38,7 +37,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         // Magic
         game.settings.register(MODULE_ID, `monitorSpellPrep`, {
@@ -48,7 +47,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorSpellSlots`, {
             name: game.i18n.localize('characterMonitor.settings.monitorSpellSlots.name'),
@@ -57,7 +56,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         // AC & Proficiency & Ability
         game.settings.register(MODULE_ID, `monitorAC`, {
@@ -67,7 +66,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorAbility`, {
             name: game.i18n.localize('characterMonitor.settings.monitorAbility.name'),
@@ -76,7 +75,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorSkillProficiency`, {
             name: game.i18n.localize('characterMonitor.settings.monitorSkillProficiency.name'),
@@ -85,7 +84,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorSaveProficiency`, {
             name: game.i18n.localize('characterMonitor.settings.monitorSaveProficiency.name'),
@@ -94,7 +93,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorToolProficiency`, {
             name: game.i18n.localize('characterMonitor.settings.monitorToolProficiency.name'),
@@ -103,7 +102,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         // Currency
         game.settings.register(MODULE_ID, `monitorCurrency`, {
@@ -113,7 +112,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         // Effects
         game.settings.register(MODULE_ID, `monitorEffects`, {
@@ -123,7 +122,7 @@ export class Settings {
             type: Boolean,
             default: false,
             config: true,
-        });
+        })
 
         // Items
         game.settings.register(MODULE_ID, `monitorItemQuantity`, {
@@ -133,7 +132,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorItemNameDesc`, {
             name: game.i18n.localize('characterMonitor.settings.monitorItemNameDesc.name'),
@@ -142,7 +141,7 @@ export class Settings {
             type: Boolean,
             default: false,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorItemEquip`, {
             name: game.i18n.localize('characterMonitor.settings.monitorItemEquip.name'),
@@ -151,7 +150,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorItemAttune`, {
             name: game.i18n.localize('characterMonitor.settings.monitorItemAttune.name'),
@@ -160,7 +159,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorItemIdentify`, {
             name: game.i18n.localize('characterMonitor.settings.monitorItemIdentify.name'),
@@ -169,7 +168,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         game.settings.register(MODULE_ID, `monitorItemCharges`, {
             name: game.i18n.localize('characterMonitor.settings.monitorItemCharges.name'),
@@ -178,7 +177,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         // Sheet mode
         game.settings.register(MODULE_ID, `monitorSheetMode`, {
@@ -188,7 +187,7 @@ export class Settings {
             type: Boolean,
             default: true,
             config: true,
-        });
+        })
 
         // Inspiration
         game.settings.register(MODULE_ID, `monitorInspiration`, {
@@ -198,7 +197,7 @@ export class Settings {
             type: Boolean,
             default: false,
             config: true,
-        });
+        })
 
         // Death save
         game.settings.register(MODULE_ID, `monitorDeathSave`, {
@@ -208,10 +207,10 @@ export class Settings {
             type: Boolean,
             default: false,
             config: true,
-        });
+        })
     }
 
     static getBool(key) {
-        return !!game.settings.get(MODULE_ID, key);
+        return !!game.settings.get(MODULE_ID, key)
     }
 }

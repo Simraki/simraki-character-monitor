@@ -1,115 +1,115 @@
 {
-    "characterMonitor": {
-        "settings": {
-            "monitorHP": {
-                "name": "监控生命值",
-                "hint": "追踪角色生命值的变化。"
-            },
-            "monitorXP": {
-                "name": "监控经验值",
-                "hint": "追踪角色经验值的变化。"
-            },
-            "monitorLevel": {
-                "name": "监控等级",
-                "hint": "追踪角色等级的变化。"
-            },
-            "monitorSpellPrep": {
-                "name": "监控法术准备",
-                "hint": "追踪角色准备或移除法术的情况。"
-            },
-            "monitorSpellSlots": {
-                "name": "监控法术位",
-                "hint": "追踪角色法术位的变化。"
-            },
-            "monitorAC": {
-                "name": "监控护甲等级(AC)",
-                "hint": "追踪角色护甲等级的变化。"
-            },
-            "monitorAbility": {
-                "name": "监控能力值",
-                "hint": "追踪角色能力值的变化。"
-            },
-            "monitorSkillProficiency": {
-                "name": "监控技能熟练",
-                "hint": "追踪角色技能熟练的变化。"
-            },
-            "monitorSaveProficiency": {
-                "name": "监控豁免熟练",
-                "hint": "追踪角色豁免熟练的变化。"
-            },
-            "monitorToolProficiency": {
-                "name": "监控工具熟练",
-                "hint": "追踪角色工具熟练的变化。"
-            },
-            "monitorCurrency": {
-                "name": "监控货币",
-                "hint": "追踪角色货币的变化。"
-            },
-            "monitorEffects": {
-                "name": "监控活跃效果",
-                "hint": "追踪角色活跃效果的变化。"
-            },
-            "monitorItemQuantity": {
-                "name": "监控物品数量",
-                "hint": "追踪角色物品数量的变化。"
-            },
-            "monitorItemNameDesc": {
-                "name": "监控物品名称和描述",
-                "hint": "追踪角色物品名称和/或描述的变化。"
-            },
-            "monitorItemEquip": {
-                "name": "监控装备",
-                "hint": "追踪角色装备或卸下物品的情况。"
-            },
-            "monitorItemAttune": {
-                "name": "监控调谐",
-                "hint": "追踪角色调谐或失去调谐的情况。"
-            },
-            "monitorItemIdentify": {
-                "name": "监控物品识别",
-                "hint": "追踪角色物品的识别/未识别状态变化。"
-            },
-            "monitorItemCharges": {
-                "name": "监控物品充能",
-                "hint": "追踪角色物品充能的变化。"
-            },
-            "monitorSheetMode": {
-                "name": "监控角色表模式",
-                "hint": "追踪角色表在游戏模式和编辑模式之间的切换。"
-            },
-            "monitorInspiration": {
-                "name": "监控灵感",
-                "hint": "追踪角色灵感的变化。"
-            },
-            "monitorDeathSave": {
-                "name": "监控死亡豁免",
-                "hint": "追踪角色死亡豁免结果的变化。"
-            }
-        },
-        "chatMessage": {
-            "sheetMode": "角色表模式",
-            "description": "描述",
-            "descriptionChanged": "描述已更改",
-            "hp": {
-                "value": "生命值",
-                "max": "最大生命值",
-                "temp": "临时生命值",
-                "tempmax": "最大临时生命值"
-            },
-            "equipped": "装备了",
-            "unequipped": "卸下了",
-            "prepared": "准备了",
-            "unprepared": "取消准备",
-            "attunesTo": "调谐了",
-            "breaksAttune": "失去调谐",
-            "enabled": "启用",
-            "disabled": "禁用",
-            "added": "添加",
-            "deleted": "删除",
-            "identified": "已识别",
-            "unidentified": "未识别",
-            "old": "之前",
-            "new": "现在"
-        }
+  "characterMonitor": {
+    "settings": {
+      "monitorHP": {
+        "name": "监控生命值",
+        "hint": "追踪角色生命值的变化。"
+      },
+      "monitorXP": {
+        "name": "监控经验值",
+        "hint": "追踪角色经验值的变化。"
+      },
+      "monitorLevel": {
+        "name": "监控等级",
+        "hint": "追踪角色等级的变化。"
+      },
+      "monitorSpellPrep": {
+        "name": "监控法术准备",
+        "hint": "追踪角色准备或移除法术的情况。"
+      },
+      "monitorSpellSlots": {
+        "name": "监控法术位",
+        "hint": "追踪角色法术位的变化。"
+      },
+      "monitorAC": {
+        "name": "监控护甲等级(AC)",
+        "hint": "追踪角色护甲等级的变化。"
+      },
+      "monitorAbility": {
+        "name": "监控能力值",
+        "hint": "追踪角色能力值的变化。"
+      },
+      "monitorSkillProficiency": {
+        "name": "监控技能熟练",
+        "hint": "追踪角色技能熟练的变化。"
+      },
+      "monitorSaveProficiency": {
+        "name": "监控豁免熟练",
+        "hint": "追踪角色豁免熟练的变化。"
+      },
+      "monitorToolProficiency": {
+        "name": "监控工具熟练",
+        "hint": "追踪角色工具熟练的变化。"
+      },
+      "monitorCurrency": {
+        "name": "监控货币",
+        "hint": "追踪角色货币的变化。"
+      },
+      "monitorEffects": {
+        "name": "监控活跃效果",
+        "hint": "追踪角色活跃效果的变化。"
+      },
+      "monitorItemQuantity": {
+        "name": "监控物品数量",
+        "hint": "追踪角色物品数量的变化。"
+      },
+      "monitorItemNameDesc": {
+        "name": "监控物品名称和描述",
+        "hint": "追踪角色物品名称和/或描述的变化。"
+      },
+      "monitorItemEquip": {
+        "name": "监控装备",
+        "hint": "追踪角色装备或卸下物品的情况。"
+      },
+      "monitorItemAttune": {
+        "name": "监控调谐",
+        "hint": "追踪角色调谐或失去调谐的情况。"
+      },
+      "monitorItemIdentify": {
+        "name": "监控物品识别",
+        "hint": "追踪角色物品的识别/未识别状态变化。"
+      },
+      "monitorItemCharges": {
+        "name": "监控物品充能",
+        "hint": "追踪角色物品充能的变化。"
+      },
+      "monitorSheetMode": {
+        "name": "监控角色表模式",
+        "hint": "追踪角色表在游戏模式和编辑模式之间的切换。"
+      },
+      "monitorInspiration": {
+        "name": "监控灵感",
+        "hint": "追踪角色灵感的变化。"
+      },
+      "monitorDeathSave": {
+        "name": "监控死亡豁免",
+        "hint": "追踪角色死亡豁免结果的变化。"
+      }
+    },
+    "chatMessage": {
+      "sheetMode": "角色表模式",
+      "description": "描述",
+      "descriptionChanged": "描述已更改",
+      "hp": {
+        "value": "生命值",
+        "max": "最大生命值",
+        "temp": "临时生命值",
+        "tempmax": "最大临时生命值"
+      },
+      "equipped": "装备了",
+      "unequipped": "卸下了",
+      "prepared": "准备了",
+      "unprepared": "取消准备",
+      "attunesTo": "调谐了",
+      "breaksAttune": "失去调谐",
+      "enabled": "启用",
+      "disabled": "禁用",
+      "added": "添加",
+      "deleted": "删除",
+      "identified": "已识别",
+      "unidentified": "未识别",
+      "old": "之前",
+      "new": "现在"
     }
+  }
 }

@@ -1,21 +1,20 @@
-import { icons, MODULE_ID } from './config.js';
-import { SocketHandler } from './socket.js';
-
+import { icons, MODULE_ID } from './config.js'
+import { SocketHandler } from './socket.js'
 
 export class Logger {
     static async logFlat(actorLink, text, cls, icon) {
-        const defIcon = icons.def;
-        const template = `<div class="cm-line">${icon ?? defIcon} ${actorLink} ${text}</div>`;
+        const defIcon = icons.def
+        const template = `<div class="cm-line">${icon ?? defIcon} ${actorLink} ${text}</div>`
 
-        const flags = { [MODULE_ID]: { cls } };
+        const flags = { [MODULE_ID]: { cls } }
 
-        const whisper = game.users.filter(u => u.isGM).map(u => u.id);
+        const whisper = game.users.filter((u) => u.isGM).map((u) => u.id)
 
-        await SocketHandler.executeAsGM('createMonitorMessage', flags, template, whisper);
+        await SocketHandler.executeAsGM('createMonitorMessage', flags, template, whisper)
     }
 
     static async logWithSpoiler(actorLink, text, summaryText, detailsText, cls, icon) {
-        const defIcon = icons.def;
+        const defIcon = icons.def
         const template = `
                         <div>
                             <div class="cm-line">${icon ?? defIcon} ${actorLink} ${text}</div>
@@ -24,12 +23,12 @@ export class Logger {
                               <div class="spoiler-content">${detailsText}</div>
                             </details>
                         </div>
-                        `;
+                        `
 
-        const flags = { [MODULE_ID]: { cls } };
+        const flags = { [MODULE_ID]: { cls } }
 
-        const whisper = game.users.filter(u => u.isGM).map(u => u.id);
+        const whisper = game.users.filter((u) => u.isGM).map((u) => u.id)
 
-        await SocketHandler.executeAsGM('createMonitorMessage', flags, template, whisper);
+        await SocketHandler.executeAsGM('createMonitorMessage', flags, template, whisper)
     }
 }
