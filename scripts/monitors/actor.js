@@ -39,7 +39,7 @@ export class ActorMonitor extends BaseMonitor {
         const sys = actor.system;
 
         if (Settings.getBool('monitorHP') && will(update, 'system.attributes.hp')) {
-            stash.hp = duplicate(sys.attributes.hp);
+            stash.hp = foundry.utils.duplicate(sys.attributes.hp);
         }
 
         if (Settings.getBool('monitorAC') && will(update, 'system.attributes.ac.flat')) {
@@ -59,11 +59,11 @@ export class ActorMonitor extends BaseMonitor {
         }
 
         if (Settings.getBool('monitorCurrency') && will(update, 'system.currency')) {
-            stash.currency = duplicate(sys.currency);
+            stash.currency = foundry.utils.duplicate(sys.currency);
         }
 
         if (Settings.getBool('monitorSpellSlots') && will(update, 'system.spells')) {
-            stash.spells = duplicate(sys.spells);
+            stash.spells = foundry.utils.duplicate(sys.spells);
         }
 
         if (Settings.getBool('monitorSaveProficiency') && will(update, 'system.abilities')) {

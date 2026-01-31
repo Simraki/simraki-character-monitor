@@ -1,8 +1,8 @@
-import { BaseMonitor } from './base.js';
-import { Settings } from '../settings.js';
-import { Logger } from '../logger.js';
-import { getActorLink } from '../utils.js';
-import { classes, DEBOUNCE_MS, icons, MODULE_ID } from '../config.js';
+import {BaseMonitor} from './base.js';
+import {Settings} from '../settings.js';
+import {Logger} from '../logger.js';
+import {getActorLink} from '../utils.js';
+import {classes, DEBOUNCE_MS, icons, MODULE_ID} from '../config.js';
 
 
 export class EffectMonitor extends BaseMonitor {
@@ -36,9 +36,7 @@ export class EffectMonitor extends BaseMonitor {
         const uuid = effect.uuid;
         const stash = options[MODULE_ID];
 
-        // TODO || Setting toggle for effect
-
-        const pending = this.EFFECT_QUEUE.get(uuid) ?? { old: {}, timer: null };
+        const pending = this.EFFECT_QUEUE.get(uuid) ?? {old: {}, timer: null};
 
         if (pending.timer) clearTimeout(pending.timer);
         if (stash.disabled !== undefined && pending.old.disabled === undefined) pending.old.disabled = stash.disabled;
@@ -63,20 +61,20 @@ export class EffectMonitor extends BaseMonitor {
     }
 
     async onCreate(effect, options, userId) {
+        if (userId !== game.user.id || !Settings.getBool('monitorEffects')) return;
+
         const actor = effect.parent;
         if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return;
-        if (!Settings.getBool('monitorEffects')) return;
-        if (userId !== game.user.id) return;
 
         const text = `${effect.name} ${game.i18n.localize('characterMonitor.chatMessage.added')}`;
         await Logger.logWithSpoiler(getActorLink(actor), text, game.i18n.localize('characterMonitor.chatMessage.description'), effect.description, classes.effect, icons.effect);
     }
 
     async onDelete(effect, options, userId) {
+        if (userId !== game.user.id || !Settings.getBool('monitorEffects')) return;
+
         const actor = effect.parent;
         if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return;
-        if (!Settings.getBool('monitorEffects')) return;
-        if (userId !== game.user.id) return;
 
         const text = `${effect.name} ${game.i18n.localize('characterMonitor.chatMessage.deleted')}`;
         await Logger.logWithSpoiler(getActorLink(actor), text, game.i18n.localize('characterMonitor.chatMessage.description'), effect.description, classes.effect, icons.effect);
