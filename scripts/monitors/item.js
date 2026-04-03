@@ -17,6 +17,7 @@ export class ItemMonitor extends BaseMonitor {
     async onPreUpdate(item, update, options, userId) {
         const actor = item.parent
         if (!actor || !(item.parent instanceof Actor) || actor.type !== 'character') return
+        if (game.system.id === 'dnd5e' && 'isAdvancement' in options) return
 
         const stash = (options[MODULE_ID] ??= {})
         const sys = item.system

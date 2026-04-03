@@ -16,11 +16,15 @@ export class Logger {
     }
 
     static async logWithSpoiler(actorLink, text, summaryText, detailsText, cls, icon = icons.def) {
-        let template = `<div><div class="cm-line">${icon} ${actorLink} ${text}</div>`
-        if (detailsText) {
-            template += `<details class="cm-spoiler"><summary>${summaryText}</summary><div class="spoiler-content">${detailsText}</div></details>`
-        }
-        template += '</div>'
+        const template = `
+                        <div>
+                            <div class="cm-line">${icon} ${actorLink} ${text}</div>
+                            <details class="cm-spoiler">
+                              <summary>${summaryText}</summary>
+                              <div class="spoiler-content">${detailsText}</div>
+                            </details>
+                        </div>
+                        `
         await Logger.log(template, cls)
     }
 }

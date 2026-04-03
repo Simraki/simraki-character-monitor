@@ -37,7 +37,6 @@ export class ActorMonitor extends BaseMonitor {
 
     async onPreUpdate(actor, update, options, userId) {
         if (actor.type !== 'character') return
-        if (game.system.id === 'dnd5e' && 'isAdvancement' in options) return
 
         const stash = (options[MODULE_ID] ??= {})
 
@@ -46,6 +45,8 @@ export class ActorMonitor extends BaseMonitor {
         if (Settings.getBool('monitorHP') && will(update, 'system.attributes.hp')) {
             stash.hp = foundry.utils.duplicate(sys.attributes.hp)
         }
+
+        if (game.system.id === 'dnd5e' && 'isAdvancement' in options) return
 
         if (Settings.getBool('monitorAC') && will(update, 'system.attributes.ac.flat')) {
             stash.ac = sys.attributes.ac.flat
