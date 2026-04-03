@@ -112,7 +112,9 @@ export class ItemMonitor extends BaseMonitor {
         /* Equip */
         if (old.equipped !== undefined && sys.equipped !== old.equipped) {
             const preText = game.i18n.localize(
-                sys.equipped ? 'characterMonitor.chatMessage.equipped' : 'characterMonitor.chatMessage.unequipped',
+                sys.equipped
+                    ? 'simraki-character-monitor.chatMessage.equipped'
+                    : 'simraki-character-monitor.chatMessage.unequipped',
             )
             const text = `${preText} ${itemName}`
             await Logger.logFlat(
@@ -126,7 +128,9 @@ export class ItemMonitor extends BaseMonitor {
         /* Attunement */
         if (old.attuned !== undefined && sys.attuned !== old.attuned) {
             const preText = game.i18n.localize(
-                sys.attuned ? 'characterMonitor.chatMessage.attunesTo' : 'characterMonitor.chatMessage.breaksAttune',
+                sys.attuned
+                    ? 'simraki-character-monitor.chatMessage.attunesTo'
+                    : 'simraki-character-monitor.chatMessage.breaksAttune',
             )
             const text = `${preText} ${itemName}`
             await Logger.logFlat(actorLink, text, classes.itemAttune, icons.itemAttune)
@@ -135,7 +139,9 @@ export class ItemMonitor extends BaseMonitor {
         /* Spell Prepared */
         if (old.prepared !== undefined && Boolean(sys.prepared) !== old.prepared) {
             const preText = game.i18n.localize(
-                sys.prepared ? 'characterMonitor.chatMessage.prepared' : 'characterMonitor.chatMessage.unprepared',
+                sys.prepared
+                    ? 'simraki-character-monitor.chatMessage.prepared'
+                    : 'simraki-character-monitor.chatMessage.unprepared',
             )
             const lvlText =
                 sys.level !== undefined ? ` (${game.i18n.localize(`DND5E.SPELLCASTING.SLOTS.spell${sys.level}`)})` : ''
@@ -164,8 +170,8 @@ export class ItemMonitor extends BaseMonitor {
         if (old.identified !== undefined && Boolean(sys.identified) !== old.identified) {
             const preText = game.i18n.localize(
                 sys.identified
-                    ? 'characterMonitor.chatMessage.identified'
-                    : 'characterMonitor.chatMessage.unidentified',
+                    ? 'simraki-character-monitor.chatMessage.identified'
+                    : 'simraki-character-monitor.chatMessage.unidentified',
             )
             const text = `${preText} ${itemName}`
             await Logger.logFlat(actorLink, text, classes.itemIdentify, icons.itemIdentify)
@@ -177,17 +183,17 @@ export class ItemMonitor extends BaseMonitor {
             if (curr !== old.description) {
                 const text = `
                           <hr>
-                          <strong>${game.i18n.localize('characterMonitor.chatMessage.old')}</strong>
+                          <strong>${game.i18n.localize('simraki-character-monitor.chatMessage.old')}</strong>
                           ${old.description || '<em>—</em>'}
                           <hr>
-                          <strong>${game.i18n.localize('characterMonitor.chatMessage.new')}</strong>
+                          <strong>${game.i18n.localize('simraki-character-monitor.chatMessage.new')}</strong>
                           ${curr || '<em>—</em>'}
                         `
 
                 await Logger.logWithSpoiler(
                     getActorLink(item.parent),
                     `${itemName}`,
-                    `${game.i18n.localize('characterMonitor.chatMessage.descriptionChanged')}`,
+                    `${game.i18n.localize('simraki-character-monitor.chatMessage.descriptionChanged')}`,
                     text,
                     classes.itemNameDesc,
                     icons.itemNameDesc,
@@ -206,7 +212,7 @@ export class ItemMonitor extends BaseMonitor {
         const qty = item.system.quantity ?? 1
 
         const typeText = VALID_TYPES.includes(item.type) ? ` (${game.i18n.localize(`TYPES.Item.${item.type}`)})` : ''
-        const actionText = game.i18n.localize('characterMonitor.chatMessage.added')
+        const actionText = game.i18n.localize('simraki-character-monitor.chatMessage.added')
 
         const text = `${actionText} ${truncateName(item.name)} x${qty}${typeText}`
 
@@ -222,7 +228,7 @@ export class ItemMonitor extends BaseMonitor {
         const link = getActorLink(actor)
 
         const typeText = VALID_TYPES.includes(item.type) ? ` (${game.i18n.localize(`TYPES.Item.${item.type}`)})` : ''
-        const actionText = game.i18n.localize('characterMonitor.chatMessage.deleted')
+        const actionText = game.i18n.localize('simraki-character-monitor.chatMessage.deleted')
 
         const text = `${actionText} ${truncateName(item.name)}${typeText}`
         await Logger.logFlat(link, text, classes.itemMinus, icons.itemQty)

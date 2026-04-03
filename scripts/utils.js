@@ -4,7 +4,7 @@ export const VALID_TYPES = ['feat', 'spell', 'consumable', 'container', 'equipme
 
 export function truncateName(name) {
     if (name.length > MAX_NAME_CHARS) {
-        return name.substring(0, MAX_NAME_CHARS) + '...'
+        return name.substring(0, MAX_NAME_CHARS) + '…'
     } else {
         return name
     }

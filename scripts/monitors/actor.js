@@ -21,15 +21,15 @@ export class ActorMonitor extends BaseMonitor {
         }
     }
 
-    async monitorSheetMode(wrapped, event) {
-        await wrapped(event)
+    async monitorSheetMode(wrapped, ...args) {
+        await wrapped(...args)
         if (!Settings.getBool('monitorSheetMode')) return
 
         const actorLink = getActorLink(this.actor)
         const sheetMode =
             this._mode === 1 ? game.i18n.localize('DND5E.SheetModePlay') : game.i18n.localize('DND5E.SheetModeEdit')
 
-        const label = game.i18n.localize('characterMonitor.chatMessage.sheetMode')
+        const label = game.i18n.localize('simraki-character-monitor.chatMessage.sheetMode')
         const text = `${label}: ${sheetMode}`
 
         await Logger.logFlat(actorLink, text, classes.sheetMode, icons.sheetMode)
@@ -132,7 +132,7 @@ export class ActorMonitor extends BaseMonitor {
                 if (curr === prev) continue
 
                 const deltaText = getDeltaText(curr, prev)
-                const label = game.i18n.localize(`characterMonitor.chatMessage.hp.${kind}`)
+                const label = game.i18n.localize(`simraki-character-monitor.chatMessage.hp.${kind}`)
                 const text = `${label}: ${deltaText}`
                 let cls = curr > prev ? classes.hpPlus : classes.hpMinus
                 let icon = icons.hp

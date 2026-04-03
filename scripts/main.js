@@ -7,6 +7,7 @@ import { EffectMonitor } from './monitors/effect.js'
 
 Hooks.once('init', async () => {
     Settings.init()
+    // eslint-disable-next-line no-console
     console.log(`[${MODULE_ID}] initialized.`)
 })
 

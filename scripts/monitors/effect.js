@@ -54,11 +54,11 @@ export class EffectMonitor extends BaseMonitor {
 
         if (old.disabled !== undefined && effect.disabled !== old.disabled) {
             const enabled = !effect.disabled
-            const text = `${effectName} ${game.i18n.localize(enabled ? 'characterMonitor.chatMessage.enabled' : 'characterMonitor.chatMessage.disabled')}`
+            const text = `${effectName} ${game.i18n.localize(enabled ? 'simraki-character-monitor.chatMessage.enabled' : 'simraki-character-monitor.chatMessage.disabled')}`
             await Logger.logWithSpoiler(
                 actorLink,
                 text,
-                game.i18n.localize('characterMonitor.chatMessage.description'),
+                game.i18n.localize('simraki-character-monitor.chatMessage.description'),
                 effect.description,
                 classes.effect,
                 icons.effect,
@@ -72,11 +72,11 @@ export class EffectMonitor extends BaseMonitor {
         const actor = effect.parent
         if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
 
-        const text = `${effect.name} ${game.i18n.localize('characterMonitor.chatMessage.added')}`
+        const text = `${effect.name} ${game.i18n.localize('simraki-character-monitor.chatMessage.added')}`
         await Logger.logWithSpoiler(
             getActorLink(actor),
             text,
-            game.i18n.localize('characterMonitor.chatMessage.description'),
+            game.i18n.localize('simraki-character-monitor.chatMessage.description'),
             effect.description,
             classes.effect,
             icons.effect,
@@ -89,11 +89,11 @@ export class EffectMonitor extends BaseMonitor {
         const actor = effect.parent
         if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
 
-        const text = `${effect.name} ${game.i18n.localize('characterMonitor.chatMessage.deleted')}`
+        const text = `${effect.name} ${game.i18n.localize('simraki-character-monitor.chatMessage.deleted')}`
         await Logger.logWithSpoiler(
             getActorLink(actor),
             text,
-            game.i18n.localize('characterMonitor.chatMessage.description'),
+            game.i18n.localize('simraki-character-monitor.chatMessage.description'),
             effect.description,
             classes.effect,
             icons.effect,
