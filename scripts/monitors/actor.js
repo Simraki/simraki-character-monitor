@@ -100,8 +100,9 @@ export class ActorMonitor extends BaseMonitor {
 
     async onUpdate(actor, update, options, userId) {
         if (userId !== game.user.id || !options?.[MODULE_ID]) return
-        const stash = options[MODULE_ID]
         const uuid = actor.uuid
+        const stash = options[MODULE_ID]
+        if (Object.keys(stash).length === 0) return
 
         const pending = this.ACTOR_QUEUE.get(uuid) ?? {
             old: {},
@@ -110,8 +111,8 @@ export class ActorMonitor extends BaseMonitor {
 
         if (pending.timer) clearTimeout(pending.timer)
 
-        for (const [k, v] of Object.entries(stash)) {
-            if (pending.old[k] === undefined) pending.old[k] = v
+        for (const k in stash) {
+            if (pending.old[k] === undefined) pending.old[k] = stash[k]
         }
         pending.timer = setTimeout(() => {
             this.process(actor, pending.old)
@@ -122,6 +123,8 @@ export class ActorMonitor extends BaseMonitor {
     }
 
     async process(actor, old) {
+        const logPromises = []
+
         const link = getActorLink(actor)
         const sys = actor.system
 
@@ -147,7 +150,7 @@ export class ActorMonitor extends BaseMonitor {
                     cls = classes.maxHp
                     icon = icons.maxHp
                 }
-                await Logger.logFlat(link, text, cls, icon)
+                logPromises.push(Logger.logFlat(link, text, cls, icon))
             }
         }
 
@@ -158,7 +161,7 @@ export class ActorMonitor extends BaseMonitor {
                 const label = game.i18n.localize('DND5E.ArmorClass')
                 const deltaText = getDeltaText(curr, old.ac)
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(link, text, classes.ac, icons.ac)
+                logPromises.push(Logger.logFlat(link, text, classes.ac, icons.ac))
             }
         }
 
@@ -169,7 +172,7 @@ export class ActorMonitor extends BaseMonitor {
                 const label = game.i18n.localize('DND5E.ExperiencePoints.Label')
                 const deltaText = getDeltaText(curr, old.xp)
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(link, text, classes.xp, icons.xp)
+                logPromises.push(Logger.logFlat(link, text, classes.xp, icons.xp))
             }
         }
 
@@ -180,44 +183,49 @@ export class ActorMonitor extends BaseMonitor {
                 const label = game.i18n.localize('DND5E.Level')
                 const deltaText = getDeltaText(curr, old.level)
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(link, text, classes.level, icons.level)
+                logPromises.push(Logger.logFlat(link, text, classes.level, icons.level))
             }
         }
 
         /* Abilities */
         if (old.abilities !== undefined) {
-            for (const [abil, prev] of Object.entries(old.abilities)) {
+            for (const abil in old.abilities) {
+                const prev = old.abilities[abil]
                 const curr = sys.abilities[abil]?.value
                 if (curr === prev) continue
 
                 const label = CONFIG.DND5E.abilities[abil].label
                 const deltaText = getDeltaText(curr, prev)
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(link, text, classes.ability, icons.ability)
+                logPromises.push(Logger.logFlat(link, text, classes.ability, icons.ability))
             }
         }
 
         /* Currency */
         if (old.currency !== undefined) {
-            for (const [c, prev] of Object.entries(old.currency)) {
+            for (const c in old.currency) {
+                const prev = old.currency[c]
                 const curr = sys.currency[c]
                 if (curr === prev) continue
 
                 const label = game.i18n.localize(`DND5E.CurrencyAbbr${c.toUpperCase()}`)
                 const deltaText = getDeltaText(curr, prev)
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(
-                    link,
-                    text,
-                    curr > prev ? classes.currencyPlus : classes.currencyMinus,
-                    icons.currency,
+                logPromises.push(
+                    Logger.logFlat(
+                        link,
+                        text,
+                        curr > prev ? classes.currencyPlus : classes.currencyMinus,
+                        icons.currency,
+                    ),
                 )
             }
         }
 
         /* Spell Slots */
         if (old.spells !== undefined) {
-            for (const [lvl, prev] of Object.entries(old.spells)) {
+            for (const lvl in old.spells) {
+                const prev = old.spells[lvl]
                 const curr = sys.spells[lvl]
                 const deltaValue = curr.value - prev.value
                 const deltaMax = curr.max - prev.max
@@ -227,18 +235,21 @@ export class ActorMonitor extends BaseMonitor {
                 const label = CONFIG.DND5E.spellLevels[n]
                 const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(
-                    link,
-                    text,
-                    deltaValue > 0 || deltaMax > 0 ? classes.spellSlotPlus : classes.spellSlotMinus,
-                    icons.spellSlot,
+                logPromises.push(
+                    Logger.logFlat(
+                        link,
+                        text,
+                        deltaValue > 0 || deltaMax > 0 ? classes.spellSlotPlus : classes.spellSlotMinus,
+                        icons.spellSlot,
+                    ),
                 )
             }
         }
 
         /* Skill Proficiency */
         if (old.skills !== undefined) {
-            for (const [skl, prev] of Object.entries(old.skills)) {
+            for (const skl in old.skills) {
+                const prev = old.skills[skl]
                 const curr = sys.skills[skl]?.value
                 if (curr === prev) continue
 
@@ -248,13 +259,14 @@ export class ActorMonitor extends BaseMonitor {
                     CONFIG.DND5E.proficiencyLevels[prev],
                 )
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(link, text, classes.skill, icons.skillProf)
+                logPromises.push(Logger.logFlat(link, text, classes.skill, icons.skillProf))
             }
         }
 
         /* Save Proficiency */
         if (old.saves !== undefined) {
-            for (const [abil, prev] of Object.entries(old.saves)) {
+            for (const abil in old.saves) {
+                const prev = old.saves[abil]
                 const curr = sys.abilities[abil]?.proficient ?? 0
                 if (curr === prev) continue
 
@@ -265,7 +277,7 @@ export class ActorMonitor extends BaseMonitor {
                 )
 
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(link, text, classes.save, icons.saveProf)
+                logPromises.push(Logger.logFlat(link, text, classes.save, icons.saveProf))
             }
         }
 
@@ -275,7 +287,7 @@ export class ActorMonitor extends BaseMonitor {
             const currTools = Object.fromEntries(Object.entries(sys.tools).map(([k, v]) => [k, v.value ?? 0]))
             const allKeys = new Set([...Object.keys(prevTools), ...Object.keys(currTools)])
 
-            for (const tool of allKeys) {
+            for (const tool in { ...prevTools, ...currTools }) {
                 const prev = prevTools[tool] ?? 0
                 const curr = currTools[tool] ?? 0
                 const toolId = CONFIG.DND5E.tools[tool]?.id
@@ -288,7 +300,7 @@ export class ActorMonitor extends BaseMonitor {
                 )
 
                 const text = `${label}: ${deltaText}`
-                await Logger.logFlat(link, text, classes.tool, icons.toolProf)
+                logPromises.push(Logger.logFlat(link, text, classes.tool, icons.toolProf))
             }
         }
 
@@ -298,7 +310,7 @@ export class ActorMonitor extends BaseMonitor {
             if (curr !== old.inspiration) {
                 const label = game.i18n.localize('DND5E.Inspiration')
                 const text = `${label}: ${curr ? '+' : '−'}`
-                await Logger.logFlat(link, text, classes.inspiration, icons.inspiration)
+                logPromises.push(Logger.logFlat(link, text, classes.inspiration, icons.inspiration))
             }
         }
 
@@ -311,11 +323,13 @@ export class ActorMonitor extends BaseMonitor {
                 const label = game.i18n.localize('DND5E.DeathSaveSuccesses')
                 const deltaText = getDeltaText(`${curr.success}/3`, `${old.death.success}/3`)
                 const text = `${generalLabel} (${label}): ${deltaText}`
-                await Logger.logFlat(
-                    link,
-                    text,
-                    curr.success > old.death.success ? classes.plus : classes.minus,
-                    icons.deathSuccess,
+                logPromises.push(
+                    Logger.logFlat(
+                        link,
+                        text,
+                        curr.success > old.death.success ? classes.plus : classes.minus,
+                        icons.deathSuccess,
+                    ),
                 )
             }
 
@@ -323,13 +337,17 @@ export class ActorMonitor extends BaseMonitor {
                 const label = game.i18n.localize('DND5E.DeathSaveFailures')
                 const deltaText = getDeltaText(`${curr.failure}/3`, `${old.death.failure}/3`)
                 const text = `${generalLabel} (${label}): ${deltaText}`
-                await Logger.logFlat(
-                    link,
-                    text,
-                    curr.failure < old.death.failure ? classes.plus : classes.minus,
-                    icons.deathFailure,
+                logPromises.push(
+                    Logger.logFlat(
+                        link,
+                        text,
+                        curr.failure < old.death.failure ? classes.plus : classes.minus,
+                        icons.deathFailure,
+                    ),
                 )
             }
         }
+
+        await Promise.all(logPromises)
     }
 }

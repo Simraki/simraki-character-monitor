@@ -34,6 +34,7 @@ export class EffectMonitor extends BaseMonitor {
 
         const uuid = effect.uuid
         const stash = options[MODULE_ID]
+        if (Object.keys(stash).length === 0) return
 
         const pending = this.EFFECT_QUEUE.get(uuid) ?? { old: {}, timer: null }
 
@@ -88,6 +89,10 @@ export class EffectMonitor extends BaseMonitor {
 
         const actor = effect.parent
         if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
+        const uuid = effect.uuid
+        const pending = this.EFFECT_QUEUE.get(uuid)
+        if (pending?.timer) clearTimeout(pending.timer)
+        this.EFFECT_QUEUE.delete(uuid)
 
         const text = `${effect.name} ${game.i18n.localize('simraki-character-monitor.chatMessage.deleted')}`
         await Logger.logWithSpoiler(

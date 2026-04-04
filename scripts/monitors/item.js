@@ -15,8 +15,9 @@ export class ItemMonitor extends BaseMonitor {
     }
 
     async onPreUpdate(item, update, options, userId) {
+        if (!(item.parent instanceof Actor)) return
         const actor = item.parent
-        if (!actor || !(item.parent instanceof Actor) || actor.type !== 'character') return
+        if (!actor || actor.type !== 'character') return
         if (game.system.id === 'dnd5e' && 'isAdvancement' in options) return
 
         const stash = (options[MODULE_ID] ??= {})
@@ -48,6 +49,7 @@ export class ItemMonitor extends BaseMonitor {
 
         if (Settings.getBool(`monitorItemIdentify`) && will(update, 'system.identified')) {
             stash.identified = sys.identified ?? false
+            stash.identifiedName = item.name
         }
 
         if (Settings.getBool(`monitorItemNameDesc`)) {
@@ -74,6 +76,7 @@ export class ItemMonitor extends BaseMonitor {
 
         const uuid = item.uuid
         const stash = options[MODULE_ID]
+        if (Object.keys(stash).length === 0) return
 
         const pending = this.ITEM_QUEUE.get(uuid) ?? {
             old: {},
@@ -82,8 +85,8 @@ export class ItemMonitor extends BaseMonitor {
 
         if (pending.timer) clearTimeout(pending.timer)
 
-        for (const [k, v] of Object.entries(stash)) {
-            if (pending.old[k] === undefined) pending.old[k] = v
+        for (const k in stash) {
+            if (pending.old[k] === undefined) pending.old[k] = stash[k]
         }
 
         pending.timer = setTimeout(() => {
@@ -95,6 +98,8 @@ export class ItemMonitor extends BaseMonitor {
     }
 
     async process(item, old) {
+        const logPromises = []
+
         const actorLink = getActorLink(item.parent)
         const sys = item.system
         const itemName = truncateName(item.name)
@@ -105,11 +110,13 @@ export class ItemMonitor extends BaseMonitor {
             if (curr !== old.quantity) {
                 const deltaText = getDeltaText(curr, old.quantity)
                 const text = `${itemName}: ${deltaText}`
-                await Logger.logFlat(
-                    actorLink,
-                    text,
-                    curr > old.quantity ? classes.itemPlus : classes.itemMinus,
-                    icons.itemQty,
+                logPromises.push(
+                    Logger.logFlat(
+                        actorLink,
+                        text,
+                        curr > old.quantity ? classes.itemPlus : classes.itemMinus,
+                        icons.itemQty,
+                    ),
                 )
             }
         }
@@ -122,11 +129,13 @@ export class ItemMonitor extends BaseMonitor {
                     : 'simraki-character-monitor.chatMessage.unequipped',
             )
             const text = `${preText} ${itemName}`
-            await Logger.logFlat(
-                actorLink,
-                text,
-                sys.equipped ? classes.itemEquip : classes.itemUnequip,
-                icons.itemEquip,
+            logPromises.push(
+                Logger.logFlat(
+                    actorLink,
+                    text,
+                    sys.equipped ? classes.itemEquip : classes.itemUnequip,
+                    icons.itemEquip,
+                ),
             )
         }
 
@@ -138,7 +147,7 @@ export class ItemMonitor extends BaseMonitor {
                     : 'simraki-character-monitor.chatMessage.breaksAttune',
             )
             const text = `${preText} ${itemName}`
-            await Logger.logFlat(actorLink, text, classes.itemAttune, icons.itemAttune)
+            logPromises.push(Logger.logFlat(actorLink, text, classes.itemAttune, icons.itemAttune))
         }
 
         /* Spell Prepared */
@@ -151,7 +160,7 @@ export class ItemMonitor extends BaseMonitor {
             const lvlText =
                 sys.level !== undefined ? ` (${game.i18n.localize(`DND5E.SPELLCASTING.SLOTS.spell${sys.level}`)})` : ''
             const text = `${preText} ${itemName}${lvlText}`
-            await Logger.logFlat(actorLink, text, classes.spellPrep, icons.spellPrep)
+            logPromises.push(Logger.logFlat(actorLink, text, classes.spellPrep, icons.spellPrep))
         }
 
         /* Uses / Charges */
@@ -161,14 +170,14 @@ export class ItemMonitor extends BaseMonitor {
             if (curr && (curr.value !== prev.value || curr.max !== prev.max)) {
                 const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
                 const text = `${itemName}: ${deltaText}`
-                await Logger.logFlat(actorLink, text, classes.itemCharges, icons.itemCharges)
+                logPromises.push(Logger.logFlat(actorLink, text, classes.itemCharges, icons.itemCharges))
             }
         }
 
         /* Rename */
         if (old.name && item.name !== old.name) {
             const text = `${old.name} → ${item.name}`
-            await Logger.logFlat(actorLink, text, classes.itemNameDesc, icons.itemNameDesc)
+            logPromises.push(Logger.logFlat(actorLink, text, classes.itemNameDesc, icons.itemNameDesc))
         }
 
         /* Identify */
@@ -178,8 +187,9 @@ export class ItemMonitor extends BaseMonitor {
                     ? 'simraki-character-monitor.chatMessage.identified'
                     : 'simraki-character-monitor.chatMessage.unidentified',
             )
-            const text = `${preText} ${itemName}`
-            await Logger.logFlat(actorLink, text, classes.itemIdentify, icons.itemIdentify)
+            const prevName = truncateName(old.identifiedName)
+            const text = `${preText} ${prevName} → ${itemName}`
+            logPromises.push(Logger.logFlat(actorLink, text, classes.itemIdentify, icons.itemIdentify))
         }
 
         /* Description */
@@ -195,13 +205,15 @@ export class ItemMonitor extends BaseMonitor {
                           ${curr || '<em>—</em>'}
                         `
 
-                await Logger.logWithSpoiler(
-                    getActorLink(item.parent),
-                    `${itemName}`,
-                    `${game.i18n.localize('simraki-character-monitor.chatMessage.descriptionChanged')}`,
-                    text,
-                    classes.itemNameDesc,
-                    icons.itemNameDesc,
+                logPromises.push(
+                    Logger.logWithSpoiler(
+                        actorLink,
+                        itemName,
+                        game.i18n.localize('simraki-character-monitor.chatMessage.descriptionChanged'),
+                        text,
+                        classes.itemNameDesc,
+                        icons.itemNameDesc,
+                    ),
                 )
             }
         }
@@ -213,7 +225,7 @@ export class ItemMonitor extends BaseMonitor {
 
             const allKeys = new Set([...Object.keys(prev), ...Object.keys(curr)])
 
-            for (const c of allKeys) {
+            for (const c in { ...prev, ...curr }) {
                 const p = prev[c] ?? 0
                 const n = curr[c] ?? 0
                 if (p === n) continue
@@ -222,14 +234,18 @@ export class ItemMonitor extends BaseMonitor {
                 const deltaText = getDeltaText(n, p)
                 const text = `${itemName}: ${label}: ${deltaText}`
 
-                await Logger.logFlat(
-                    actorLink,
-                    text,
-                    n > p ? classes.currencyPlus : classes.currencyMinus,
-                    icons.currency,
+                logPromises.push(
+                    Logger.logFlat(
+                        actorLink,
+                        text,
+                        n > p ? classes.currencyPlus : classes.currencyMinus,
+                        icons.currency,
+                    ),
                 )
             }
         }
+
+        await Promise.all(logPromises)
     }
 
     async onCreate(item, options, userId) {
@@ -254,6 +270,10 @@ export class ItemMonitor extends BaseMonitor {
 
         const actor = item.parent
         if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
+        const uuid = item.uuid
+        const pending = this.ITEM_QUEUE.get(uuid)
+        if (pending?.timer) clearTimeout(pending.timer)
+        this.ITEM_QUEUE.delete(uuid)
 
         const link = getActorLink(actor)
 
