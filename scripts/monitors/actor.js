@@ -271,11 +271,17 @@ export class ActorMonitor extends BaseMonitor {
 
         /* Tool Proficiency */
         if (old.tools !== undefined) {
-            for (const [tool, prev] of Object.entries(old.tools)) {
-                const curr = sys.tools[tool]?.value ?? 0
-                if (curr === prev) continue
+            const prevTools = old.tools
+            const currTools = Object.fromEntries(Object.entries(sys.tools).map(([k, v]) => [k, v.value ?? 0]))
+            const allKeys = new Set([...Object.keys(prevTools), ...Object.keys(currTools)])
 
-                const label = fromUuidSync(CONFIG.DND5E.tools[tool].id).name
+            for (const tool of allKeys) {
+                const prev = prevTools[tool] ?? 0
+                const curr = currTools[tool] ?? 0
+                const toolId = CONFIG.DND5E.tools[tool]?.id
+                if (!toolId || curr === prev) continue
+
+                const label = fromUuidSync(toolId).name
                 const deltaText = getDeltaText(
                     CONFIG.DND5E.proficiencyLevels[curr],
                     CONFIG.DND5E.proficiencyLevels[prev],
