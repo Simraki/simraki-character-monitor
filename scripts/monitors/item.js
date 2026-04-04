@@ -59,6 +59,10 @@ export class ItemMonitor extends BaseMonitor {
             }
         }
 
+        if (Settings.getBool(`monitorCurrency`) && will(update, 'system.currency')) {
+            stash.currency = foundry.utils.duplicate(sys.currency)
+        }
+
         options[MODULE_ID] = stash
     }
 
@@ -198,6 +202,31 @@ export class ItemMonitor extends BaseMonitor {
                     text,
                     classes.itemNameDesc,
                     icons.itemNameDesc,
+                )
+            }
+        }
+
+        /* Item Currency */
+        if (old.currency !== undefined) {
+            const prev = old.currency
+            const curr = sys.currency ?? {}
+
+            const allKeys = new Set([...Object.keys(prev), ...Object.keys(curr)])
+
+            for (const c of allKeys) {
+                const p = prev[c] ?? 0
+                const n = curr[c] ?? 0
+                if (p === n) continue
+
+                const label = game.i18n.localize(`DND5E.CurrencyAbbr${c.toUpperCase()}`)
+                const deltaText = getDeltaText(n, p)
+                const text = `${itemName}: ${label}: ${deltaText}`
+
+                await Logger.logFlat(
+                    actorLink,
+                    text,
+                    n > p ? classes.currencyPlus : classes.currencyMinus,
+                    icons.currency,
                 )
             }
         }
