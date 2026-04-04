@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 (2026-04-04)
+- Optimization
+- Fix container (item) currency monitoring
+- Hide 'Description' (spoiler) button if description is empty
+- Update to FoundryVTT 14+
+
 ## 1.1.3 (2026-04-04)
 - Updated to D&D5e 5.3.0
 - Remove unnecessary logs during level-up
