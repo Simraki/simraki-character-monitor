@@ -1,15 +1,12 @@
 import { BaseMonitor } from './base.js'
-import { Settings } from '../settings.js'
 import { Logger } from '../logger.js'
-import { getActorLink, getDeltaText, will } from '../utils.js'
-import { classes, DEBOUNCE_MS, icons, MODULE_ID } from '../config.js'
+import { _loc, capitalize, getActorLink, getDeltaText, getSetting, revalueMap, will } from '../utils.js'
+import { classes, icons, MODULE_ID, SETTING } from '../config.js'
 
 export class ActorMonitor extends BaseMonitor {
-    ACTOR_QUEUE = new Map()
-
     init() {
-        Hooks.on('preUpdateActor', this.onPreUpdate.bind(this))
-        Hooks.on('updateActor', this.onUpdate.bind(this))
+        Hooks.on('preUpdateActor', this._onPreUpdate.bind(this))
+        Hooks.on('updateActor', this._onUpdate.bind(this))
 
         if (game.modules.get('lib-wrapper')?.active) {
             libWrapper.register(
@@ -23,106 +20,79 @@ export class ActorMonitor extends BaseMonitor {
 
     async monitorSheetMode(wrapped, ...args) {
         await wrapped(...args)
-        if (!Settings.getBool('monitorSheetMode')) return
+        if (!getSetting(SETTING.MONITOR_SHEET_MODE)) return
 
         const actorLink = getActorLink(this.actor)
-        const sheetMode =
-            this._mode === 1 ? game.i18n.localize('DND5E.SheetModePlay') : game.i18n.localize('DND5E.SheetModeEdit')
+        const sheetMode = _loc(this._mode === 1 ? 'DND5E.SheetModePlay' : 'DND5E.SheetModeEdit')
 
-        const label = game.i18n.localize('simraki-character-monitor.chatMessage.sheetMode')
+        const label = _loc(`${MODULE_ID}.ChatMessage.SheetMode`)
         const text = `${label}: ${sheetMode}`
 
-        await Logger.logFlat(actorLink, text, classes.sheetMode, icons.sheetMode)
+        await Logger.log(actorLink, text, classes.sheetMode, icons.sheetMode)
     }
 
-    async onPreUpdate(actor, update, options, userId) {
-        if (actor.type !== 'character') return
+    isRelevantEntity(entity, update, options) {
+        return !('isAdvancement' in options)
+    }
 
-        const stash = (options[MODULE_ID] ??= {})
-
+    extractStash(actor, update) {
+        const stash = {}
         const sys = actor.system
 
-        if (Settings.getBool('monitorHP') && will(update, 'system.attributes.hp')) {
+        if (getSetting(SETTING.MONITOR_HP) && will(update, 'system.attributes.hp')) {
             stash.hp = foundry.utils.duplicate(sys.attributes.hp)
         }
 
-        if (game.system.id === 'dnd5e' && 'isAdvancement' in options) return
-
-        if (Settings.getBool('monitorAC') && will(update, 'system.attributes.ac.flat')) {
+        if (getSetting(SETTING.MONITOR_AC) && will(update, 'system.attributes.ac.flat')) {
             stash.ac = sys.attributes.ac.flat
         }
 
-        if (Settings.getBool('monitorXP') && will(update, 'system.details.xp.value')) {
+        if (getSetting(SETTING.MONITOR_XP) && will(update, 'system.details.xp.value')) {
             stash.xp = sys.details.xp.value
         }
 
-        if (Settings.getBool('monitorLevel') && will(update, 'system.details.level')) {
+        if (getSetting(SETTING.MONITOR_LEVEL) && will(update, 'system.details.level')) {
             stash.level = sys.details.level
         }
 
-        if (Settings.getBool('monitorAbility') && will(update, 'system.abilities')) {
-            stash.abilities = Object.fromEntries(Object.entries(sys.abilities).map(([k, v]) => [k, v.value]))
+        if (getSetting(SETTING.MONITOR_ABILITY) && will(update, 'system.abilities')) {
+            stash.abilities = revalueMap(sys.abilities, (v) => v.value)
         }
 
-        if (Settings.getBool('monitorCurrency') && will(update, 'system.currency')) {
+        if (getSetting(SETTING.MONITOR_CURRENCY) && will(update, 'system.currency')) {
             stash.currency = foundry.utils.duplicate(sys.currency)
         }
 
-        if (Settings.getBool('monitorSpellSlots') && will(update, 'system.spells')) {
+        if (getSetting(SETTING.MONITOR_SPELL_SLOTS) && will(update, 'system.spells')) {
             stash.spells = foundry.utils.duplicate(sys.spells)
         }
 
-        if (Settings.getBool('monitorSaveProficiency') && will(update, 'system.abilities')) {
-            stash.saves = Object.fromEntries(Object.entries(sys.abilities).map(([k, v]) => [k, v.proficient ?? 0]))
+        if (getSetting(SETTING.MONITOR_SAVE_PROF) && will(update, 'system.abilities')) {
+            stash.saves = revalueMap(sys.abilities, (v) => v.proficient)
         }
 
-        if (Settings.getBool('monitorSkillProficiency') && will(update, 'system.skills')) {
-            stash.skills = Object.fromEntries(Object.entries(sys.skills).map(([k, v]) => [k, v.value]))
+        if (getSetting(SETTING.MONITOR_SKILL_PROF) && will(update, 'system.skills')) {
+            stash.skills = revalueMap(sys.skills, (v) => v.value)
         }
 
-        if (Settings.getBool('monitorToolProficiency') && will(update, 'system.tools')) {
-            stash.tools = Object.fromEntries(Object.entries(sys.tools).map(([k, v]) => [k, v.value ?? 0]))
+        if (getSetting(SETTING.MONITOR_TOOL_PROF) && will(update, 'system.tools')) {
+            stash.tools = revalueMap(sys.tools, (v) => v.value ?? 0)
         }
 
-        if (Settings.getBool('monitorInspiration') && will(update, 'system.attributes.inspiration')) {
+        if (getSetting(SETTING.MONITOR_INSPIRATION) && will(update, 'system.attributes.inspiration')) {
             stash.inspiration = sys.attributes.inspiration
         }
 
-        if (Settings.getBool('monitorDeathSave') && will(update, 'system.attributes.death')) {
+        if (getSetting(SETTING.MONITOR_DEATH_SAVE) && will(update, 'system.attributes.death')) {
             stash.death = {
                 success: sys.attributes.death.success,
                 failure: sys.attributes.death.failure,
             }
         }
-
-        options[MODULE_ID] = stash
+        return stash
     }
 
-    async onUpdate(actor, update, options, userId) {
-        if (userId !== game.user.id || !options?.[MODULE_ID]) return
-        const uuid = actor.uuid
-        const stash = options[MODULE_ID]
-        if (Object.keys(stash).length === 0) return
-
-        const pending = this.ACTOR_QUEUE.get(uuid) ?? {
-            old: {},
-            timer: null,
-        }
-
-        if (pending.timer) clearTimeout(pending.timer)
-
-        for (const k in stash) {
-            if (pending.old[k] === undefined) pending.old[k] = stash[k]
-        }
-        pending.timer = setTimeout(() => {
-            this.process(actor, pending.old)
-            this.ACTOR_QUEUE.delete(uuid)
-        }, DEBOUNCE_MS)
-
-        this.ACTOR_QUEUE.set(uuid, pending)
-    }
-
-    async process(actor, old) {
+    async processChanges(actor, old) {
         const logPromises = []
 
         const link = getActorLink(actor)
@@ -136,7 +106,7 @@ export class ActorMonitor extends BaseMonitor {
                 if (curr === prev) continue
 
                 const deltaText = getDeltaText(curr, prev)
-                const label = game.i18n.localize(`simraki-character-monitor.chatMessage.hp.${kind}`)
+                const label = _loc(`${MODULE_ID}.ChatMessage.HP.${capitalize(kind)}`)
                 const text = `${label}: ${deltaText}`
                 let cls = curr > prev ? classes.hpPlus : classes.hpMinus
                 let icon = icons.hp
@@ -150,7 +120,7 @@ export class ActorMonitor extends BaseMonitor {
                     cls = classes.maxHp
                     icon = icons.maxHp
                 }
-                logPromises.push(Logger.logFlat(link, text, cls, icon))
+                logPromises.push(Logger.log(link, text, cls, icon))
             }
         }
 
@@ -158,10 +128,10 @@ export class ActorMonitor extends BaseMonitor {
         if (old.ac !== undefined) {
             const curr = sys.attributes.ac.flat
             if (curr !== old.ac) {
-                const label = game.i18n.localize('DND5E.ArmorClass')
+                const label = _loc('DND5E.ArmorClass')
                 const deltaText = getDeltaText(curr, old.ac)
                 const text = `${label}: ${deltaText}`
-                logPromises.push(Logger.logFlat(link, text, classes.ac, icons.ac))
+                logPromises.push(Logger.log(link, text, classes.ac, icons.ac))
             }
         }
 
@@ -169,10 +139,10 @@ export class ActorMonitor extends BaseMonitor {
         if (old.xp !== undefined) {
             const curr = sys.details.xp.value
             if (curr !== old.xp) {
-                const label = game.i18n.localize('DND5E.ExperiencePoints.Label')
+                const label = _loc('DND5E.ExperiencePoints.Label')
                 const deltaText = getDeltaText(curr, old.xp)
                 const text = `${label}: ${deltaText}`
-                logPromises.push(Logger.logFlat(link, text, classes.xp, icons.xp))
+                logPromises.push(Logger.log(link, text, classes.xp, icons.xp))
             }
         }
 
@@ -180,10 +150,10 @@ export class ActorMonitor extends BaseMonitor {
         if (old.level !== undefined) {
             const curr = sys.details.level
             if (curr !== old.level) {
-                const label = game.i18n.localize('DND5E.Level')
+                const label = _loc('DND5E.Level')
                 const deltaText = getDeltaText(curr, old.level)
                 const text = `${label}: ${deltaText}`
-                logPromises.push(Logger.logFlat(link, text, classes.level, icons.level))
+                logPromises.push(Logger.log(link, text, classes.level, icons.level))
             }
         }
 
@@ -197,7 +167,7 @@ export class ActorMonitor extends BaseMonitor {
                 const label = CONFIG.DND5E.abilities[abil].label
                 const deltaText = getDeltaText(curr, prev)
                 const text = `${label}: ${deltaText}`
-                logPromises.push(Logger.logFlat(link, text, classes.ability, icons.ability))
+                logPromises.push(Logger.log(link, text, classes.ability, icons.ability))
             }
         }
 
@@ -208,16 +178,11 @@ export class ActorMonitor extends BaseMonitor {
                 const curr = sys.currency[c]
                 if (curr === prev) continue
 
-                const label = game.i18n.localize(`DND5E.CurrencyAbbr${c.toUpperCase()}`)
+                const label = _loc(`DND5E.CurrencyAbbr${c.toUpperCase()}`)
                 const deltaText = getDeltaText(curr, prev)
                 const text = `${label}: ${deltaText}`
                 logPromises.push(
-                    Logger.logFlat(
-                        link,
-                        text,
-                        curr > prev ? classes.currencyPlus : classes.currencyMinus,
-                        icons.currency,
-                    ),
+                    Logger.log(link, text, curr > prev ? classes.currencyPlus : classes.currencyMinus, icons.currency),
                 )
             }
         }
@@ -236,7 +201,7 @@ export class ActorMonitor extends BaseMonitor {
                 const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
                 const text = `${label}: ${deltaText}`
                 logPromises.push(
-                    Logger.logFlat(
+                    Logger.log(
                         link,
                         text,
                         deltaValue > 0 || deltaMax > 0 ? classes.spellSlotPlus : classes.spellSlotMinus,
@@ -259,7 +224,7 @@ export class ActorMonitor extends BaseMonitor {
                     CONFIG.DND5E.proficiencyLevels[prev],
                 )
                 const text = `${label}: ${deltaText}`
-                logPromises.push(Logger.logFlat(link, text, classes.skill, icons.skillProf))
+                logPromises.push(Logger.log(link, text, classes.skill, icons.skillProf))
             }
         }
 
@@ -270,22 +235,21 @@ export class ActorMonitor extends BaseMonitor {
                 const curr = sys.abilities[abil]?.proficient ?? 0
                 if (curr === prev) continue
 
-                const label = `${game.i18n.localize('DND5E.SavingThrow')} ${CONFIG.DND5E.abilities[abil].label}`
+                const label = `${_loc('DND5E.SavingThrow')} ${CONFIG.DND5E.abilities[abil].label}`
                 const deltaText = getDeltaText(
                     CONFIG.DND5E.proficiencyLevels[curr],
                     CONFIG.DND5E.proficiencyLevels[prev],
                 )
 
                 const text = `${label}: ${deltaText}`
-                logPromises.push(Logger.logFlat(link, text, classes.save, icons.saveProf))
+                logPromises.push(Logger.log(link, text, classes.save, icons.saveProf))
             }
         }
 
         /* Tool Proficiency */
         if (old.tools !== undefined) {
             const prevTools = old.tools
-            const currTools = Object.fromEntries(Object.entries(sys.tools).map(([k, v]) => [k, v.value ?? 0]))
-            const allKeys = new Set([...Object.keys(prevTools), ...Object.keys(currTools)])
+            const currTools = revalueMap(sys.tools, (v) => v.value ?? 0)
 
             for (const tool in { ...prevTools, ...currTools }) {
                 const prev = prevTools[tool] ?? 0
@@ -293,14 +257,14 @@ export class ActorMonitor extends BaseMonitor {
                 const toolId = CONFIG.DND5E.tools[tool]?.id
                 if (!toolId || curr === prev) continue
 
-                const label = fromUuidSync(toolId).name
+                const label = (await fromUuid(toolId))?.name
                 const deltaText = getDeltaText(
                     CONFIG.DND5E.proficiencyLevels[curr],
                     CONFIG.DND5E.proficiencyLevels[prev],
                 )
 
                 const text = `${label}: ${deltaText}`
-                logPromises.push(Logger.logFlat(link, text, classes.tool, icons.toolProf))
+                logPromises.push(Logger.log(link, text, classes.tool, icons.toolProf))
             }
         }
 
@@ -308,23 +272,23 @@ export class ActorMonitor extends BaseMonitor {
         if (old.inspiration !== undefined) {
             const curr = sys.attributes.inspiration
             if (curr !== old.inspiration) {
-                const label = game.i18n.localize('DND5E.Inspiration')
+                const label = _loc('DND5E.Inspiration')
                 const text = `${label}: ${curr ? '+' : '−'}`
-                logPromises.push(Logger.logFlat(link, text, classes.inspiration, icons.inspiration))
+                logPromises.push(Logger.log(link, text, classes.inspiration, icons.inspiration))
             }
         }
 
         /* Death Saves */
         if (old.death) {
             const curr = sys.attributes.death
-            const generalLabel = game.i18n.localize('DND5E.DeathSave')
+            const generalLabel = _loc('DND5E.DeathSave')
 
             if (curr.success !== old.death.success) {
-                const label = game.i18n.localize('DND5E.DeathSaveSuccesses')
+                const label = _loc('DND5E.DeathSaveSuccesses')
                 const deltaText = getDeltaText(`${curr.success}/3`, `${old.death.success}/3`)
                 const text = `${generalLabel} (${label}): ${deltaText}`
                 logPromises.push(
-                    Logger.logFlat(
+                    Logger.log(
                         link,
                         text,
                         curr.success > old.death.success ? classes.plus : classes.minus,
@@ -334,11 +298,11 @@ export class ActorMonitor extends BaseMonitor {
             }
 
             if (curr.failure !== old.death.failure) {
-                const label = game.i18n.localize('DND5E.DeathSaveFailures')
+                const label = _loc('DND5E.DeathSaveFailures')
                 const deltaText = getDeltaText(`${curr.failure}/3`, `${old.death.failure}/3`)
                 const text = `${generalLabel} (${label}): ${deltaText}`
                 logPromises.push(
-                    Logger.logFlat(
+                    Logger.log(
                         link,
                         text,
                         curr.failure < old.death.failure ? classes.plus : classes.minus,

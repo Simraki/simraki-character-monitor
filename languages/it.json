@@ -1,115 +1,115 @@
 {
     "simraki-character-monitor": {
-        "settings": {
-            "monitorHP": {
-                "name": "Traccia HP",
-                "hint": "Traccia le modifiche dei punti ferita del personaggio."
+        "Settings": {
+            "MonitorHP": {
+                "Name": "Traccia HP",
+                "Hint": "Traccia le modifiche dei punti ferita del personaggio."
             },
-            "monitorXP": {
-                "name": "Traccia punti esperienza",
-                "hint": "Traccia le modifiche dei punti esperienza nel foglio del personaggio."
+            "MonitorXP": {
+                "Name": "Traccia punti esperienza",
+                "Hint": "Traccia le modifiche dei punti esperienza nel foglio del personaggio."
             },
-            "monitorLevel": {
-                "name": "Traccia livello",
-                "hint": "Traccia le modifiche del livello nel foglio del personaggio."
+            "MonitorLevel": {
+                "Name": "Traccia livello",
+                "Hint": "Traccia le modifiche del livello nel foglio del personaggio."
             },
-            "monitorSpellPrep": {
-                "name": "Traccia preparazione incantesimi",
-                "hint": "Traccia quando un incantesimo viene preparato o rimosso."
+            "MonitorSpellPrep": {
+                "Name": "Traccia preparazione incantesimi",
+                "Hint": "Traccia quando un incantesimo viene preparato o rimosso."
             },
-            "monitorSpellSlots": {
-                "name": "Traccia slot incantesimi",
-                "hint": "Traccia le modifiche degli slot incantesimi."
+            "MonitorSpellSlots": {
+                "Name": "Traccia slot incantesimi",
+                "Hint": "Traccia le modifiche degli slot incantesimi."
             },
-            "monitorAC": {
-                "name": "Traccia classe armatura (CA)",
-                "hint": "Traccia le modifiche della classe armatura del personaggio."
+            "MonitorAC": {
+                "Name": "Traccia classe armatura (CA)",
+                "Hint": "Traccia le modifiche della classe armatura del personaggio."
             },
-            "monitorAbility": {
-                "name": "Traccia caratteristiche",
-                "hint": "Traccia le modifiche dei valori delle caratteristiche."
+            "MonitorAbility": {
+                "Name": "Traccia caratteristiche",
+                "Hint": "Traccia le modifiche dei valori delle caratteristiche."
             },
-            "monitorSkillProficiency": {
-                "name": "Traccia competenze",
-                "hint": "Traccia le modifiche della competenza nelle abilità."
+            "MonitorSkillProficiency": {
+                "Name": "Traccia competenze",
+                "Hint": "Traccia le modifiche della competenza nelle abilità."
             },
-            "monitorSaveProficiency": {
-                "name": "Traccia tiri salvezza",
-                "hint": "Traccia le modifiche della competenza nei tiri salvezza."
+            "MonitorSaveProficiency": {
+                "Name": "Traccia tiri salvezza",
+                "Hint": "Traccia le modifiche della competenza nei tiri salvezza."
             },
-            "monitorToolProficiency": {
-                "name": "Traccia strumenti",
-                "hint": "Traccia le modifiche della competenza negli strumenti."
+            "MonitorToolProficiency": {
+                "Name": "Traccia strumenti",
+                "Hint": "Traccia le modifiche della competenza negli strumenti."
             },
-            "monitorCurrency": {
-                "name": "Traccia valuta",
-                "hint": "Traccia le modifiche della valuta del personaggio."
+            "MonitorCurrency": {
+                "Name": "Traccia valuta",
+                "Hint": "Traccia le modifiche della valuta del personaggio."
             },
-            "monitorEffects": {
-                "name": "Traccia effetti attivi",
-                "hint": "Traccia le modifiche degli effetti attivi."
+            "MonitorEffects": {
+                "Name": "Traccia effetti attivi",
+                "Hint": "Traccia le modifiche degli effetti attivi."
             },
-            "monitorItemQuantity": {
-                "name": "Traccia quantità oggetti",
-                "hint": "Traccia le modifiche della quantità di oggetti."
+            "MonitorItemQuantity": {
+                "Name": "Traccia quantità oggetti",
+                "Hint": "Traccia le modifiche della quantità di oggetti."
             },
-            "monitorItemNameDesc": {
-                "name": "Traccia nome e descrizione oggetti",
-                "hint": "Traccia le modifiche del nome e/o descrizione degli oggetti."
+            "MonitorItemNameDesc": {
+                "Name": "Traccia nome e descrizione oggetti",
+                "Hint": "Traccia le modifiche del nome e/o descrizione degli oggetti."
             },
-            "monitorItemEquip": {
-                "name": "Traccia equipaggiamento",
-                "hint": "Traccia quando il personaggio equipaggia o rimuove un oggetto."
+            "MonitorItemEquip": {
+                "Name": "Traccia equipaggiamento",
+                "Hint": "Traccia quando il personaggio equipaggia o rimuove un oggetto."
             },
-            "monitorItemAttune": {
-                "name": "Traccia sintonia",
-                "hint": "Traccia quando il personaggio si sintonizza su un oggetto o perde la sintonia."
+            "MonitorItemAttune": {
+                "Name": "Traccia sintonia",
+                "Hint": "Traccia quando il personaggio si sintonizza su un oggetto o perde la sintonia."
             },
-            "monitorItemIdentify": {
-                "name": "Traccia identificazione oggetti",
-                "hint": "Traccia le modifiche di identificato/non identificato degli oggetti."
+            "MonitorItemIdentify": {
+                "Name": "Traccia identificazione oggetti",
+                "Hint": "Traccia le modifiche di identificato/non identificato degli oggetti."
             },
-            "monitorItemCharges": {
-                "name": "Traccia cariche oggetti",
-                "hint": "Traccia le modifiche delle cariche degli oggetti."
+            "MonitorItemCharges": {
+                "Name": "Traccia cariche oggetti",
+                "Hint": "Traccia le modifiche delle cariche degli oggetti."
             },
-            "monitorSheetMode": {
-                "name": "Traccia modalità foglio",
-                "hint": "Traccia il cambio tra modalità gioco e modifica del foglio."
+            "MonitorSheetMode": {
+                "Name": "Traccia modalità foglio",
+                "Hint": "Traccia il cambio tra modalità gioco e modifica del foglio."
             },
-            "monitorInspiration": {
-                "name": "Traccia ispirazione",
-                "hint": "Traccia le modifiche dell'ispirazione."
+            "MonitorInspiration": {
+                "Name": "Traccia ispirazione",
+                "Hint": "Traccia le modifiche dell'ispirazione."
             },
-            "monitorDeathSave": {
-                "name": "Traccia tiri salvezza morte",
-                "hint": "Traccia le modifiche dei tiri salvezza contro la morte."
+            "MonitorDeathSave": {
+                "Name": "Traccia tiri salvezza morte",
+                "Hint": "Traccia le modifiche dei tiri salvezza contro la morte."
             }
         },
-        "chatMessage": {
-            "sheetMode": "Modalità foglio",
-            "description": "Descrizione",
-            "descriptionChanged": "Descrizione modificata",
-            "hp": {
-                "value": "PF",
-                "max": "PF max",
-                "temp": "PF temp",
-                "tempmax": "PF max temp"
+        "ChatMessage": {
+            "SheetMode": "Modalità foglio",
+            "Description": "Descrizione",
+            "DescriptionChanged": "Descrizione modificata",
+            "HP": {
+                "Value": "PF",
+                "Max": "PF max",
+                "Temp": "PF temp",
+                "Tempmax": "PF max temp"
             },
-            "equipped": "equipaggia",
-            "unequipped": "desequipaggia",
-            "prepared": "prepara",
-            "unprepared": "rimuove preparazione",
-            "attunesTo": "si sintonizza su",
-            "breaksAttune": "perde sintonia su",
-            "enabled": "attivato",
-            "disabled": "disattivato",
-            "added": "aggiunto",
-            "deleted": "rimosso",
-            "identified": "identificato",
-            "unidentified": "non identificato",
-            "old": "Prima",
-            "new": "Dopo"
+            "Equipped": "equipaggia",
+            "Unequipped": "desequipaggia",
+            "Prepared": "prepara",
+            "Unprepared": "rimuove preparazione",
+            "AttunesTo": "si sintonizza su",
+            "BreaksAttune": "perde sintonia su",
+            "Enabled": "attivato",
+            "Disabled": "disattivato",
+            "Added": "aggiunto",
+            "Deleted": "rimosso",
+            "Identified": "identificato",
+            "Unidentified": "non identificato",
+            "Old": "Prima",
+            "New": "Dopo"
         }
     }
 }

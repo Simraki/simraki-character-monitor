@@ -1,58 +1,54 @@
 import { BaseMonitor } from './base.js'
-import { Settings } from '../settings.js'
 import { Logger } from '../logger.js'
-import { getActorLink, getDeltaText, truncateName, VALID_TYPES, will } from '../utils.js'
-import { classes, DEBOUNCE_MS, icons, MODULE_ID } from '../config.js'
+import { _loc, getActorLink, getDeltaText, getSetting, truncateName, will } from '../utils.js'
+import { classes, icons, MODULE_ID, SETTING, VALID_TYPES } from '../config.js'
 
 export class ItemMonitor extends BaseMonitor {
-    ITEM_QUEUE = new Map()
-
     init() {
-        Hooks.on('preUpdateItem', this.onPreUpdate.bind(this))
-        Hooks.on('updateItem', this.onUpdate.bind(this))
-        Hooks.on('createItem', this.onCreate.bind(this))
-        Hooks.on('deleteItem', this.onDelete.bind(this))
+        Hooks.on('preUpdateItem', this._onPreUpdate.bind(this))
+        Hooks.on('updateItem', this._onUpdate.bind(this))
+        Hooks.on('createItem', this._onCreate.bind(this))
+        Hooks.on('deleteItem', this._onDelete.bind(this))
     }
 
-    async onPreUpdate(item, update, options, userId) {
-        if (!(item.parent instanceof Actor)) return
-        const actor = item.parent
-        if (!actor || actor.type !== 'character') return
-        if (game.system.id === 'dnd5e' && 'isAdvancement' in options) return
+    isRelevantEntity(entity, update, options) {
+        return !('isAdvancement' in options)
+    }
 
-        const stash = (options[MODULE_ID] ??= {})
+    extractStash(item, update) {
+        const stash = {}
         const sys = item.system
 
-        if (Settings.getBool(`monitorItemQuantity`) && will(update, 'system.quantity')) {
-            stash.quantity = sys.quantity ?? 0
+        if (getSetting(SETTING.MONITOR_ITEM_QUANTITY) && will(update, 'system.quantity')) {
+            stash.quantity = sys.quantity
         }
 
-        if (Settings.getBool(`monitorItemEquip`) && will(update, 'system.equipped')) {
-            stash.equipped = sys.equipped ?? false
+        if (getSetting(SETTING.MONITOR_ITEM_EQUIP) && will(update, 'system.equipped')) {
+            stash.equipped = sys.equipped
         }
 
-        if (Settings.getBool(`monitorItemAttune`) && will(update, 'system.attuned')) {
-            stash.attuned = sys.attuned ?? false
+        if (getSetting(SETTING.MONITOR_ITEM_ATTUNE) && will(update, 'system.attuned')) {
+            stash.attuned = sys.attuned
         }
 
         if (
-            Settings.getBool(`monitorSpellPrep`) &&
+            getSetting(SETTING.MONITOR_SPELL_PREP) &&
             item.type === 'spell' &&
             (will(update, 'system.prepared') || will(update, 'system.preparation'))
         ) {
             stash.prepared = Boolean(sys.prepared)
         }
 
-        if (Settings.getBool(`monitorItemCharges`) && sys.uses && will(update, 'system.uses')) {
+        if (getSetting(SETTING.MONITOR_ITEM_CHARGES) && sys.uses && will(update, 'system.uses')) {
             stash.uses = foundry.utils.duplicate(sys.uses)
         }
 
-        if (Settings.getBool(`monitorItemIdentify`) && will(update, 'system.identified')) {
-            stash.identified = sys.identified ?? false
+        if (getSetting(SETTING.MONITOR_ITEM_IDENTIFY) && will(update, 'system.identified')) {
+            stash.identified = sys.identified
             stash.identifiedName = item.name
         }
 
-        if (Settings.getBool(`monitorItemNameDesc`)) {
+        if (getSetting(SETTING.MONITOR_ITEM_NAME_DESC)) {
             if (will(update, 'system.description.value')) {
                 stash.description = sys.description?.value ?? ''
             }
@@ -61,43 +57,14 @@ export class ItemMonitor extends BaseMonitor {
             }
         }
 
-        if (Settings.getBool(`monitorCurrency`) && will(update, 'system.currency')) {
+        if (getSetting(SETTING.MONITOR_CURRENCY) && will(update, 'system.currency')) {
             stash.currency = foundry.utils.duplicate(sys.currency)
         }
 
-        options[MODULE_ID] = stash
+        return stash
     }
 
-    async onUpdate(item, update, options, userId) {
-        if (userId !== game.user.id || !(item.parent instanceof Actor) || !options?.[MODULE_ID]) return
-
-        const actor = item.parent
-        if (!actor || actor.type !== 'character') return
-
-        const uuid = item.uuid
-        const stash = options[MODULE_ID]
-        if (Object.keys(stash).length === 0) return
-
-        const pending = this.ITEM_QUEUE.get(uuid) ?? {
-            old: {},
-            timer: null,
-        }
-
-        if (pending.timer) clearTimeout(pending.timer)
-
-        for (const k in stash) {
-            if (pending.old[k] === undefined) pending.old[k] = stash[k]
-        }
-
-        pending.timer = setTimeout(() => {
-            this.process(item, pending.old)
-            this.ITEM_QUEUE.delete(uuid)
-        }, DEBOUNCE_MS)
-
-        this.ITEM_QUEUE.set(uuid, pending)
-    }
-
-    async process(item, old) {
+    async processChanges(item, old) {
         const logPromises = []
 
         const actorLink = getActorLink(item.parent)
@@ -105,63 +72,50 @@ export class ItemMonitor extends BaseMonitor {
         const itemName = truncateName(item.name)
 
         /* Quantity */
-        if (old.quantity !== undefined) {
-            const curr = sys.quantity ?? 0
-            if (curr !== old.quantity) {
-                const deltaText = getDeltaText(curr, old.quantity)
-                const text = `${itemName}: ${deltaText}`
-                logPromises.push(
-                    Logger.logFlat(
-                        actorLink,
-                        text,
-                        curr > old.quantity ? classes.itemPlus : classes.itemMinus,
-                        icons.itemQty,
-                    ),
-                )
-            }
+        if (old.quantity !== undefined && sys.quantity !== old.quantity) {
+            const deltaText = getDeltaText(sys.quantity, old.quantity)
+            const text = `${itemName}: ${deltaText}`
+            logPromises.push(
+                Logger.log(
+                    actorLink,
+                    text,
+                    sys.quantity > old.quantity ? classes.itemPlus : classes.itemMinus,
+                    icons.itemQty,
+                ),
+            )
         }
 
         /* Equip */
         if (old.equipped !== undefined && sys.equipped !== old.equipped) {
-            const preText = game.i18n.localize(
-                sys.equipped
-                    ? 'simraki-character-monitor.chatMessage.equipped'
-                    : 'simraki-character-monitor.chatMessage.unequipped',
+            const preText = _loc(
+                sys.equipped ? `${MODULE_ID}.ChatMessage.Equipped` : `${MODULE_ID}.ChatMessage.Unequipped`,
             )
             const text = `${preText} ${itemName}`
             logPromises.push(
-                Logger.logFlat(
-                    actorLink,
-                    text,
-                    sys.equipped ? classes.itemEquip : classes.itemUnequip,
-                    icons.itemEquip,
-                ),
+                Logger.log(actorLink, text, sys.equipped ? classes.itemEquip : classes.itemUnequip, icons.itemEquip),
             )
         }
 
         /* Attunement */
         if (old.attuned !== undefined && sys.attuned !== old.attuned) {
-            const preText = game.i18n.localize(
-                sys.attuned
-                    ? 'simraki-character-monitor.chatMessage.attunesTo'
-                    : 'simraki-character-monitor.chatMessage.breaksAttune',
+            const preText = _loc(
+                sys.attuned ? `${MODULE_ID}.ChatMessage.AttunesTo` : `${MODULE_ID}.ChatMessage.BreaksAttune`,
             )
             const text = `${preText} ${itemName}`
-            logPromises.push(Logger.logFlat(actorLink, text, classes.itemAttune, icons.itemAttune))
+            logPromises.push(Logger.log(actorLink, text, classes.itemAttune, icons.itemAttune))
         }
 
         /* Spell Prepared */
         if (old.prepared !== undefined && Boolean(sys.prepared) !== old.prepared) {
-            const preText = game.i18n.localize(
-                sys.prepared
-                    ? 'simraki-character-monitor.chatMessage.prepared'
-                    : 'simraki-character-monitor.chatMessage.unprepared',
+            const preText = _loc(
+                sys.prepared ? `${MODULE_ID}.ChatMessage.Prepared` : `${MODULE_ID}.ChatMessage.Unprepared`,
             )
-            const lvlText =
-                sys.level !== undefined ? ` (${game.i18n.localize(`DND5E.SPELLCASTING.SLOTS.spell${sys.level}`)})` : ''
+            const lvlText = sys.level === undefined ? '' : ` (${_loc(`DND5E.SPELLCASTING.SLOTS.spell${sys.level}`)})`
             const text = `${preText} ${itemName}${lvlText}`
-            logPromises.push(Logger.logFlat(actorLink, text, classes.spellPrep, icons.spellPrep))
+            logPromises.push(Logger.log(actorLink, text, classes.spellPrep, icons.spellPrep))
         }
+
+        // TODO || add HD monitoring
 
         /* Uses / Charges */
         if (old.uses) {
@@ -170,26 +124,24 @@ export class ItemMonitor extends BaseMonitor {
             if (curr && (curr.value !== prev.value || curr.max !== prev.max)) {
                 const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
                 const text = `${itemName}: ${deltaText}`
-                logPromises.push(Logger.logFlat(actorLink, text, classes.itemCharges, icons.itemCharges))
+                logPromises.push(Logger.log(actorLink, text, classes.itemCharges, icons.itemCharges))
             }
         }
 
         /* Rename */
         if (old.name && item.name !== old.name) {
             const text = `${old.name} → ${item.name}`
-            logPromises.push(Logger.logFlat(actorLink, text, classes.itemNameDesc, icons.itemNameDesc))
+            logPromises.push(Logger.log(actorLink, text, classes.itemNameDesc, icons.itemNameDesc))
         }
 
         /* Identify */
         if (old.identified !== undefined && Boolean(sys.identified) !== old.identified) {
-            const preText = game.i18n.localize(
-                sys.identified
-                    ? 'simraki-character-monitor.chatMessage.identified'
-                    : 'simraki-character-monitor.chatMessage.unidentified',
+            const preText = _loc(
+                sys.identified ? `${MODULE_ID}.ChatMessage.Identified` : `${MODULE_ID}.ChatMessage.Unidentified`,
             )
             const prevName = truncateName(old.identifiedName)
             const text = `${preText} ${prevName} → ${itemName}`
-            logPromises.push(Logger.logFlat(actorLink, text, classes.itemIdentify, icons.itemIdentify))
+            logPromises.push(Logger.log(actorLink, text, classes.itemIdentify, icons.itemIdentify))
         }
 
         /* Description */
@@ -198,18 +150,18 @@ export class ItemMonitor extends BaseMonitor {
             if (curr !== old.description) {
                 const text = `
                           <hr>
-                          <strong>${game.i18n.localize('simraki-character-monitor.chatMessage.old')}</strong>
+                          <strong>${_loc(`${MODULE_ID}.ChatMessage.Old`)}</strong>
                           ${old.description || '<em>—</em>'}
                           <hr>
-                          <strong>${game.i18n.localize('simraki-character-monitor.chatMessage.new')}</strong>
+                          <strong>${_loc(`${MODULE_ID}.ChatMessage.New`)}</strong>
                           ${curr || '<em>—</em>'}
                         `
 
                 logPromises.push(
-                    Logger.logWithSpoiler(
+                    Logger.spoilerLog(
                         actorLink,
                         itemName,
-                        game.i18n.localize('simraki-character-monitor.chatMessage.descriptionChanged'),
+                        _loc(`${MODULE_ID}.ChatMessage.DescriptionChanged`),
                         text,
                         classes.itemNameDesc,
                         icons.itemNameDesc,
@@ -223,24 +175,17 @@ export class ItemMonitor extends BaseMonitor {
             const prev = old.currency
             const curr = sys.currency ?? {}
 
-            const allKeys = new Set([...Object.keys(prev), ...Object.keys(curr)])
-
             for (const c in { ...prev, ...curr }) {
                 const p = prev[c] ?? 0
                 const n = curr[c] ?? 0
                 if (p === n) continue
 
-                const label = game.i18n.localize(`DND5E.CurrencyAbbr${c.toUpperCase()}`)
+                const label = _loc(`DND5E.CurrencyAbbr${c.toUpperCase()}`)
                 const deltaText = getDeltaText(n, p)
                 const text = `${itemName}: ${label}: ${deltaText}`
 
                 logPromises.push(
-                    Logger.logFlat(
-                        actorLink,
-                        text,
-                        n > p ? classes.currencyPlus : classes.currencyMinus,
-                        icons.currency,
-                    ),
+                    Logger.log(actorLink, text, n > p ? classes.currencyPlus : classes.currencyMinus, icons.currency),
                 )
             }
         }
@@ -248,39 +193,36 @@ export class ItemMonitor extends BaseMonitor {
         await Promise.all(logPromises)
     }
 
-    async onCreate(item, options, userId) {
-        if (userId !== game.user.id || !Settings.getBool(`monitorItemQuantity`)) return
+    _getTypeText(item) {
+        if (!VALID_TYPES.includes(item.type)) return ''
 
-        const actor = item.parent
-        if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
+        const typeText = _loc(`TYPES.Item.${item.type}`)
+        return ` (${typeText})`
+    }
+
+    async onCreateEntity(item, actor) {
+        if (!getSetting(SETTING.MONITOR_ITEM_QUANTITY)) return
 
         const link = getActorLink(actor)
         const qty = item.system.quantity ?? 1
 
-        const typeText = VALID_TYPES.includes(item.type) ? ` (${game.i18n.localize(`TYPES.Item.${item.type}`)})` : ''
-        const actionText = game.i18n.localize('simraki-character-monitor.chatMessage.added')
+        const typeText = this._getTypeText(item)
+        const actionText = _loc(`${MODULE_ID}.ChatMessage.Added`)
 
         const text = `${actionText} ${truncateName(item.name)} x${qty}${typeText}`
 
-        await Logger.logFlat(link, text, classes.itemPlus, icons.itemQty)
+        await Logger.log(link, text, classes.itemPlus, icons.itemQty)
     }
 
-    async onDelete(item, options, userId) {
-        if (userId !== game.user.id || !Settings.getBool(`monitorItemQuantity`)) return
-
-        const actor = item.parent
-        if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
-        const uuid = item.uuid
-        const pending = this.ITEM_QUEUE.get(uuid)
-        if (pending?.timer) clearTimeout(pending.timer)
-        this.ITEM_QUEUE.delete(uuid)
+    async onDeleteEntity(item, actor) {
+        if (!getSetting(SETTING.MONITOR_ITEM_QUANTITY)) return
 
         const link = getActorLink(actor)
 
-        const typeText = VALID_TYPES.includes(item.type) ? ` (${game.i18n.localize(`TYPES.Item.${item.type}`)})` : ''
-        const actionText = game.i18n.localize('simraki-character-monitor.chatMessage.deleted')
+        const typeText = this._getTypeText(item)
+        const actionText = _loc(`${MODULE_ID}.ChatMessage.Deleted`)
 
         const text = `${actionText} ${truncateName(item.name)}${typeText}`
-        await Logger.logFlat(link, text, classes.itemMinus, icons.itemQty)
+        await Logger.log(link, text, classes.itemMinus, icons.itemQty)
     }
 }

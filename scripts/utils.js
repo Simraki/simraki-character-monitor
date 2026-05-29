@@ -1,6 +1,4 @@
-import { MAX_NAME_CHARS } from './config.js'
-
-export const VALID_TYPES = ['feat', 'spell', 'consumable', 'container', 'equipment', 'loot', 'tool', 'weapon']
+import { MAX_NAME_CHARS, MODULE_ID } from './config.js'
 
 export function truncateName(name) {
     if (name.length > MAX_NAME_CHARS) {
@@ -25,6 +23,26 @@ export function getDeltaText(newValue, oldValue) {
     return `${oldValue} → ${newValue}`
 }
 
+export function revalueMap(obj, iteratee) {
+    const newObj = {}
+    for (const k in obj) {
+        newObj[k] = iteratee(obj[k])
+    }
+    return newObj
+}
+
 export function will(update, path) {
     return path && foundry.utils.hasProperty(update, path)
+}
+
+export function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+export function _loc(key) {
+    return game.i18n.localize(key)
+}
+
+export function getSetting(key, Type = Boolean) {
+    return Type(game.settings.get(MODULE_ID, key))
 }

@@ -2,6 +2,39 @@ export const MODULE_ID = 'simraki-character-monitor'
 export const MAX_NAME_CHARS = 25
 export const DEBOUNCE_MS = 300
 
+export const VALID_TYPES = ['feat', 'spell', 'consumable', 'container', 'equipment', 'loot', 'tool', 'weapon']
+
+export const SETTING = {
+    // Actor
+    MONITOR_HP: 'monitorHP',
+    MONITOR_AC: 'monitorAC',
+    MONITOR_XP: 'monitorXP',
+    MONITOR_LEVEL: 'monitorLevel',
+    MONITOR_ABILITY: 'monitorAbility',
+    MONITOR_SPELL_SLOTS: 'monitorSpellSlots',
+    MONITOR_SAVE_PROF: 'monitorSaveProficiency',
+    MONITOR_SKILL_PROF: 'monitorSkillProficiency',
+    MONITOR_TOOL_PROF: 'monitorToolProficiency',
+    MONITOR_INSPIRATION: 'monitorInspiration',
+    MONITOR_DEATH_SAVE: 'monitorDeathSave',
+    MONITOR_SHEET_MODE: 'monitorSheetMode',
+
+    // Item
+    MONITOR_ITEM_QUANTITY: 'monitorItemQuantity',
+    MONITOR_ITEM_EQUIP: 'monitorItemEquip',
+    MONITOR_ITEM_ATTUNE: 'monitorItemAttune',
+    MONITOR_SPELL_PREP: 'monitorSpellPrep',
+    MONITOR_ITEM_CHARGES: 'monitorItemCharges',
+    MONITOR_ITEM_IDENTIFY: 'monitorItemIdentify',
+    MONITOR_ITEM_NAME_DESC: 'monitorItemNameDesc',
+
+    // Item & Actor
+    MONITOR_CURRENCY: 'monitorCurrency',
+
+    // Effect
+    MONITOR_EFFECTS: 'monitorEffects',
+}
+
 export const icons = {
     def: '<i class="fas fa-list"></i>',
 
@@ -53,53 +86,53 @@ export const icons = {
 
 export const classes = {
     // General
-    plus: 'cm-plus',
-    minus: 'cm-minus',
+    plus: 'scm-plus',
+    minus: 'scm-minus',
 
     // HP
-    hpPlus: 'cm-hp-plus',
-    hpMinus: 'cm-hp-minus',
-    maxHp: 'cm-max-hp',
-    tempHp: 'cm-temp-hp',
-    tempMaxHp: 'cm-temp-max-hp',
+    hpPlus: 'scm-hp-plus',
+    hpMinus: 'scm-hp-minus',
+    maxHp: 'scm-max-hp',
+    tempHp: 'scm-temp-hp',
+    tempMaxHp: 'scm-temp-max-hp',
 
     // XP / Level
-    xp: 'cm-xp',
-    level: 'cm-level',
+    xp: 'scm-xp',
+    level: 'scm-level',
 
     // Currency
-    currencyPlus: 'cm-currency-plus',
-    currencyMinus: 'cm-currency-minus',
+    currencyPlus: 'scm-currency-plus',
+    currencyMinus: 'scm-currency-minus',
 
     // Spell slots
-    spellSlotPlus: 'cm-spellslot-plus',
-    spellSlotMinus: 'cm-spellslot-minus',
-    spellPrep: 'cm-spellprep',
+    spellSlotPlus: 'scm-spellslot-plus',
+    spellSlotMinus: 'scm-spellslot-minus',
+    spellPrep: 'scm-spellprep',
 
     // AC & Proficiency & Ability
-    ac: 'cm-ac',
-    ability: 'cm-ability',
-    skill: 'cm-skill-prof',
-    save: 'cm-save-prof',
-    tool: 'cm-tool-prof',
+    ac: 'scm-ac',
+    ability: 'scm-ability',
+    skill: 'scm-skill-prof',
+    save: 'scm-save-prof',
+    tool: 'scm-tool-prof',
 
     // Items
-    itemPlus: 'cm-item-plus',
-    itemMinus: 'cm-item-minus',
-    itemNameDesc: 'cm-item-name-desc',
-    itemEquip: 'cm-item-equip',
-    itemUnequip: 'cm-item-unequip',
-    itemAttune: 'cm-item-attune',
-    itemCharges: 'cm-item-charges',
-    itemDescription: 'cm-item-description',
-    itemIdentify: 'cm-item-identify',
+    itemPlus: 'scm-item-plus',
+    itemMinus: 'scm-item-minus',
+    itemNameDesc: 'scm-item-name-desc',
+    itemEquip: 'scm-item-equip',
+    itemUnequip: 'scm-item-unequip',
+    itemAttune: 'scm-item-attune',
+    itemCharges: 'scm-item-charges',
+    itemDescription: 'scm-item-description',
+    itemIdentify: 'scm-item-identify',
 
     // Effects
-    effect: 'cm-effect',
+    effect: 'scm-effect',
 
     // Sheet Mode
-    sheetMode: 'cm-sheet-mode',
+    sheetMode: 'scm-sheet-mode',
 
     // Inspiration
-    inspiration: 'cm-inspiration',
+    inspiration: 'scm-inspiration',
 }
