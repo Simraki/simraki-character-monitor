@@ -1,0 +1,115 @@
+{
+  "simraki-character-monitor": {
+    "settings": {
+      "monitorHP": {
+        "name": "Śledzenie PW",
+        "hint": "Śledzi zmiany Punktów Wytrzymałości postaci."
+      },
+      "monitorXP": {
+        "name": "Śledzenie punktów doświadczenia",
+        "hint": "Śledzi zmiany punktów doświadczenia na karcie postaci."
+      },
+      "monitorLevel": {
+        "name": "Śledzenie poziomu",
+        "hint": "Śledzi zmiany poziomu na karcie postaci."
+      },
+      "monitorSpellPrep": {
+        "name": "Śledzenie przygotowania czarów",
+        "hint": "Śledzi, kiedy postać przygotowuje lub przestaje przygotowywać czar."
+      },
+      "monitorSpellSlots": {
+        "name": "Śledzenie Komórek Czarów",
+        "hint": "Śledzi zmiany liczby Komórek Czarów na karcie postaci."
+      },
+      "monitorAC": {
+        "name": "Śledzenie Klasy Pancerza (KP)",
+        "hint": "Śledzi zmiany Klasy Pancerza (KP) postaci."
+      },
+      "monitorAbility": {
+        "name": "Śledzenie cech",
+        "hint": "Śledzi zmiany wartości cech postaci."
+      },
+      "monitorSkillProficiency": {
+        "name": "Śledzenie biegłości w umiejętnościach",
+        "hint": "Śledzi zmiany biegłości postaci w umiejętnościach."
+      },
+      "monitorSaveProficiency": {
+        "name": "Śledzenie biegłości w rzutach obronnych",
+        "hint": "Śledzi zmiany biegłości postaci w rzutach obronnych."
+      },
+      "monitorToolProficiency": {
+        "name": "Śledzenie biegłości w narzędziach",
+        "hint": "Śledzi zmiany biegłości postaci w narzędziach."
+      },
+      "monitorCurrency": {
+        "name": "Śledzenie waluty",
+        "hint": "Śledzi zmiany waluty na karcie postaci."
+      },
+      "monitorEffects": {
+        "name": "Śledzenie Aktywnych Efektów",
+        "hint": "Śledzi zmiany Aktywnych Efektów na karcie postaci."
+      },
+      "monitorItemQuantity": {
+        "name": "Śledzenie ilości przedmiotów",
+        "hint": "Śledzi zmiany ilości przedmiotów posiadanych przez postać."
+      },
+      "monitorItemNameDesc": {
+        "name": "Śledzenie nazw i opisów przedmiotów",
+        "hint": "Śledzi zmiany nazw i opisów przedmiotów na karcie postaci."
+      },
+      "monitorItemEquip": {
+        "name": "Śledzenie ekwipunku",
+        "hint": "Śledzi, kiedy postać wyposaża lub przestaje używać przedmiotu."
+      },
+      "monitorItemAttune": {
+        "name": "Śledzenie zestrojenia",
+        "hint": "Śledzi, kiedy postać zestraja się z przedmiotem lub traci zestrojenie."
+      },
+      "monitorItemIdentify": {
+        "name": "Śledzenie identyfikacji przedmiotów",
+        "hint": "Śledzi zmiany statusu zidentyfikowany/niezidentyfikowany przedmiotu."
+      },
+      "monitorItemCharges": {
+        "name": "Śledzenie ładunków przedmiotów",
+        "hint": "Śledzi zmiany liczby ładunków przedmiotów na karcie postaci."
+      },
+      "monitorSheetMode": {
+        "name": "Śledzenie trybu karty",
+        "hint": "Śledzi przełączanie karty postaci między trybem gry a trybem edycji."
+      },
+      "monitorInspiration": {
+        "name": "Śledzenie Inspiracji",
+        "hint": "Śledzi zmiany Inspiracji na karcie postaci."
+      },
+      "monitorDeathSave": {
+        "name": "Śledzenie rzutów przeciw śmierci",
+        "hint": "Śledzi zmiany wyników rzutów przeciw śmierci na karcie postaci."
+      }
+    },
+    "chatMessage": {
+      "sheetMode": "Tryb edycji karty",
+      "description": "Opis",
+      "descriptionChanged": "Opis zmieniony",
+      "hp": {
+        "value": "PW",
+        "max": "Maks. PW",
+        "temp": "TPW",
+        "tempmax": "Maks. TPW"
+      },
+      "equipped": "wyposażono",
+      "unequipped": "zdjęto",
+      "prepared": "przygotowano",
+      "unprepared": "usunięto przygotowanie",
+      "attunesTo": "zestraja się z",
+      "breaksAttune": "zrywa zestrojenie z",
+      "enabled": "włączono",
+      "disabled": "wyłączono",
+      "added": "dodano",
+      "deleted": "usunięto",
+      "identified": "zidentyfikowano",
+      "unidentified": "niezidentyfikowano",
+      "old": "Poprzednie",
+      "new": "Nowe"
+    }
+  }
+}
