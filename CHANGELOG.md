@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1 (2026-06-09)
+- Added Polish localization by [Delgar](https://github.com/delgar89)
+
 ## 1.2.0 (2026-04-04)
 - Optimization
 - Fix container (item) currency monitoring
