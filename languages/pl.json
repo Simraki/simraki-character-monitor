@@ -1,0 +1,115 @@
+{
+    "simraki-character-monitor": {
+        "Settings": {
+            "MonitorHP": {
+                "name": "Śledzenie PW",
+                "hint": "Śledzi zmiany Punktów Wytrzymałości postaci"
+            },
+            "MonitorXP": {
+                "name": "Śledzenie punktów doświadczenia",
+                "hint": "Śledzi zmiany punktów doświadczenia na karcie postaci"
+            },
+            "MonitorLevel": {
+                "name": "Śledzenie poziomu",
+                "hint": "Śledzi zmiany poziomu na karcie postaci"
+            },
+            "MonitorSpellPrep": {
+                "name": "Śledzenie przygotowania czarów",
+                "hint": "Śledzi, kiedy postać przygotowuje lub przestaje przygotowywać czar"
+            },
+            "MonitorSpellSlots": {
+                "name": "Śledzenie Komórek Czarów",
+                "hint": "Śledzi zmiany liczby Komórek Czarów na karcie postaci"
+            },
+            "MonitorAC": {
+                "name": "Śledzenie Klasy Pancerza (KP)",
+                "hint": "Śledzi zmiany Klasy Pancerza (KP) postaci"
+            },
+            "MonitorAbility": {
+                "name": "Śledzenie cech",
+                "hint": "Śledzi zmiany wartości cech postaci"
+            },
+            "MonitorSkillProficiency": {
+                "name": "Śledzenie biegłości w umiejętnościach",
+                "hint": "Śledzi zmiany biegłości postaci w umiejętnościach"
+            },
+            "MonitorSaveProficiency": {
+                "name": "Śledzenie biegłości w rzutach obronnych",
+                "hint": "Śledzi zmiany biegłości postaci w rzutach obronnych"
+            },
+            "MonitorToolProficiency": {
+                "name": "Śledzenie biegłości w narzędziach",
+                "hint": "Śledzi zmiany biegłości postaci w narzędziach"
+            },
+            "MonitorCurrency": {
+                "name": "Śledzenie waluty",
+                "hint": "Śledzi zmiany waluty na karcie postaci"
+            },
+            "MonitorEffects": {
+                "name": "Śledzenie Aktywnych Efektów",
+                "hint": "Śledzi zmiany Aktywnych Efektów na karcie postaci"
+            },
+            "MonitorItemQuantity": {
+                "name": "Śledzenie ilości przedmiotów",
+                "hint": "Śledzi zmiany ilości przedmiotów posiadanych przez postać"
+            },
+            "MonitorItemNameDesc": {
+                "name": "Śledzenie nazw i opisów przedmiotów",
+                "hint": "Śledzi zmiany nazw i opisów przedmiotów na karcie postaci"
+            },
+            "MonitorItemEquip": {
+                "name": "Śledzenie ekwipunku",
+                "hint": "Śledzi, kiedy postać wyposaża lub przestaje używać przedmiotu"
+            },
+            "MonitorItemAttune": {
+                "name": "Śledzenie zestrojenia",
+                "hint": "Śledzi, kiedy postać zestraja się z przedmiotem lub traci zestrojenie"
+            },
+            "MonitorItemIdentify": {
+                "name": "Śledzenie identyfikacji przedmiotów",
+                "hint": "Śledzi zmiany statusu zidentyfikowany/niezidentyfikowany przedmiotu"
+            },
+            "MonitorItemCharges": {
+                "name": "Śledzenie ładunków przedmiotów",
+                "hint": "Śledzi zmiany liczby ładunków przedmiotów na karcie postaci"
+            },
+            "MonitorSheetMode": {
+                "name": "Śledzenie trybu karty",
+                "hint": "Śledzi przełączanie karty postaci między trybem gry a trybem edycji"
+            },
+            "MonitorInspiration": {
+                "name": "Śledzenie Inspiracji",
+                "hint": "Śledzi zmiany Inspiracji na karcie postaci"
+            },
+            "MonitorDeathSave": {
+                "name": "Śledzenie rzutów przeciw śmierci",
+                "hint": "Śledzi zmiany wyników rzutów przeciw śmierci na karcie postaci"
+            }
+        },
+        "ChatMessage": {
+            "SheetMode": "Tryb edycji karty",
+            "Description": "Opis",
+            "DescriptionChanged": "Opis zmieniony",
+            "HP": {
+                "Value": "PW",
+                "Max": "Maks. PW",
+                "Temp": "TPW",
+                "Tempmax": "Maks. TPW"
+            },
+            "Equipped": "wyposażono",
+            "Unequipped": "zdjęto",
+            "Prepared": "przygotowano",
+            "Unprepared": "usunięto przygotowanie",
+            "AttunesTo": "zestraja się z",
+            "BreaksAttune": "zrywa zestrojenie z",
+            "Enabled": "włączono",
+            "Disabled": "wyłączono",
+            "Added": "dodano",
+            "Deleted": "usunięto",
+            "Identified": "zidentyfikowano",
+            "Unidentified": "niezidentyfikowano",
+            "Old": "Poprzednie",
+            "New": "Nowe"
+        }
+    }
+}
