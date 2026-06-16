@@ -40,21 +40,24 @@ export class BaseMonitor {
         if (!actor || actor.type !== 'character') return
         if (!this.isRelevantEntity(entity, update, options)) return
 
-        const stash = (options[MODULE_ID] ??= {})
-        const newStash = this.extractStash(entity, update)
-        Object.assign(stash, newStash)
-        options[MODULE_ID] = stash
+        if (!(MODULE_ID in options)) options[MODULE_ID] = {}
+        if (!(entity.id in options)) options[MODULE_ID][entity.id] = {}
+
+        const stash = this.extractStash(entity, update)
+        options[MODULE_ID][entity.id] = {
+            ...options[MODULE_ID][entity.id],
+            ...stash,
+        }
     }
 
     async _onUpdate(entity, update, options, userId) {
         if (userId !== game.user.id) return
-        if (!options?.[MODULE_ID]) return
+
+        const stash = options?.[MODULE_ID]?.[entity.id]
+        if (!stash || Object.keys(stash).length === 0) return
 
         const actor = this._getEntityActor(entity)
         if (!actor || actor.type !== 'character') return
-
-        const stash = options[MODULE_ID]
-        if (Object.keys(stash).length === 0) return
 
         const uuid = this._getEntityUUID(entity)
         const pending = this._queue.get(uuid) ?? { old: {}, timer: null }

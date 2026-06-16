@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 (2026-06-16)
+- Hit Dice Monitoring
+- Refactor code
+
 ## 1.2.0 (2026-04-04)
 - Optimization
 - Fix container (item) currency monitoring

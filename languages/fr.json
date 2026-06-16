@@ -3,87 +3,92 @@
         "Settings": {
             "MonitorHP": {
                 "Name": "Surveiller les PV",
-                "Hint": "Surveille les changements de points de vie du personnage."
+                "Hint": "Surveille les changements de points de vie du personnage"
             },
+            "MonitorHitDice": {
+                "Name": "Suivre les dés de vie",
+                "Hint": "Suit les modifications apportées aux dés de vie du personnage"
+            },
+
             "MonitorXP": {
                 "Name": "Surveiller l'expérience",
-                "Hint": "Surveille les changements de points d'expérience."
+                "Hint": "Surveille les changements de points d'expérience"
             },
             "MonitorLevel": {
                 "Name": "Surveiller le niveau",
-                "Hint": "Surveille les changements de niveau du personnage."
+                "Hint": "Surveille les changements de niveau du personnage"
             },
             "MonitorSpellPrep": {
                 "Name": "Surveiller la préparation des sorts",
-                "Hint": "Surveille quand un sort est préparé ou retiré."
+                "Hint": "Surveille quand un sort est préparé ou retiré"
             },
             "MonitorSpellSlots": {
                 "Name": "Surveiller les emplacements de sorts",
-                "Hint": "Surveille les changements d'emplacements de sorts."
+                "Hint": "Surveille les changements d'emplacements de sorts"
             },
             "MonitorAC": {
                 "Name": "Surveiller la CA",
-                "Hint": "Surveille les changements de la classe d'armure du personnage."
+                "Hint": "Surveille les changements de la classe d'armure du personnage"
             },
             "MonitorAbility": {
                 "Name": "Surveiller les caractéristiques",
-                "Hint": "Surveille les changements des valeurs de caractéristiques."
+                "Hint": "Surveille les changements des valeurs de caractéristiques"
             },
             "MonitorSkillProficiency": {
                 "Name": "Surveiller les compétences",
-                "Hint": "Surveille les changements de maîtrise des compétences."
+                "Hint": "Surveille les changements de maîtrise des compétences"
             },
             "MonitorSaveProficiency": {
                 "Name": "Surveiller les jets de sauvegarde",
-                "Hint": "Surveille les changements de maîtrise des jets de sauvegarde."
+                "Hint": "Surveille les changements de maîtrise des jets de sauvegarde"
             },
             "MonitorToolProficiency": {
                 "Name": "Surveiller les outils",
-                "Hint": "Surveille les changements de maîtrise des outils."
+                "Hint": "Surveille les changements de maîtrise des outils"
             },
             "MonitorCurrency": {
                 "Name": "Surveiller la monnaie",
-                "Hint": "Surveille les changements de la monnaie du personnage."
+                "Hint": "Surveille les changements de la monnaie du personnage"
             },
             "MonitorEffects": {
                 "Name": "Surveiller les effets actifs",
-                "Hint": "Surveille les changements des effets actifs."
+                "Hint": "Surveille les changements des effets actifs"
             },
             "MonitorItemQuantity": {
                 "Name": "Surveiller la quantité d'objets",
-                "Hint": "Surveille les changements de quantité d'objets."
+                "Hint": "Surveille les changements de quantité d'objets"
             },
             "MonitorItemNameDesc": {
                 "Name": "Surveiller nom et description des objets",
-                "Hint": "Surveille les changements du nom et/ou de la description des objets."
+                "Hint": "Surveille les changements du nom et/ou de la description des objets"
             },
             "MonitorItemEquip": {
                 "Name": "Surveiller l'équipement",
-                "Hint": "Surveille quand un objet est équipé ou retiré."
+                "Hint": "Surveille quand un objet est équipé ou retiré"
             },
             "MonitorItemAttune": {
                 "Name": "Surveiller l'affinité",
-                "Hint": "Surveille quand le personnage s'accorde à un objet ou perd l'affinité."
+                "Hint": "Surveille quand le personnage s'accorde à un objet ou perd l'affinité"
             },
             "MonitorItemIdentify": {
                 "Name": "Surveiller l'identification des objets",
-                "Hint": "Surveille les changements identifié/non identifié des objets."
+                "Hint": "Surveille les changements identifié/non identifié des objets"
             },
             "MonitorItemCharges": {
                 "Name": "Surveiller les charges des objets",
-                "Hint": "Surveille les changements des charges des objets."
+                "Hint": "Surveille les changements des charges des objets"
             },
             "MonitorSheetMode": {
                 "Name": "Surveiller le mode de fiche",
-                "Hint": "Surveille le changement entre mode jeu et édition."
+                "Hint": "Surveille le changement entre mode jeu et édition"
             },
             "MonitorInspiration": {
                 "Name": "Surveiller l'inspiration",
-                "Hint": "Surveille les changements d'inspiration."
+                "Hint": "Surveille les changements d'inspiration"
             },
             "MonitorDeathSave": {
                 "Name": "Surveiller les jets de sauvegarde de mort",
-                "Hint": "Surveille les changements des jets de sauvegarde de mort."
+                "Hint": "Surveille les changements des jets de sauvegarde de mort"
             }
         },
         "ChatMessage": {

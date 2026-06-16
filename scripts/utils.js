@@ -9,7 +9,7 @@ export function truncateName(name) {
 }
 
 export function getActorLink(actor) {
-    const token = actor.token || actor.getActiveTokens()[0]
+    const token = actor.token || actor.getActiveTokens?.()[0]
     const name = token?.name || actor.name
     return `@UUID[${actor.uuid}]{${truncateName(name)}}`
 }

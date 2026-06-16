@@ -3,87 +3,91 @@
         "Settings": {
             "MonitorHP": {
                 "Name": "HP überwachen",
-                "Hint": "Verfolgt Änderungen der Lebenspunkte des Charakters."
+                "Hint": "Verfolgt Änderungen der Lebenspunkte des Charakters"
+            },
+            "MonitorHitDice": {
+                "Name": "Trefferwürfel überwachen",
+                "Hint": "Überwacht Änderungen an den Trefferwürfeln des Charakters"
             },
             "MonitorXP": {
                 "Name": "Erfahrungspunkte überwachen",
-                "Hint": "Verfolgt Änderungen der Erfahrungspunkte im Charakterbogen."
+                "Hint": "Verfolgt Änderungen der Erfahrungspunkte im Charakterbogen"
             },
             "MonitorLevel": {
                 "Name": "Level überwachen",
-                "Hint": "Verfolgt Änderungen des Levels im Charakterbogen."
+                "Hint": "Verfolgt Änderungen des Levels im Charakterbogen"
             },
             "MonitorSpellPrep": {
                 "Name": "Zaubervorbereitung überwachen",
-                "Hint": "Verfolgt, wann der Charakter einen Zauber vorbereitet oder entfernt."
+                "Hint": "Verfolgt, wann der Charakter einen Zauber vorbereitet oder entfernt"
             },
             "MonitorSpellSlots": {
                 "Name": "Zauberplätze überwachen",
-                "Hint": "Verfolgt Änderungen der Zauberplätze im Charakterbogen."
+                "Hint": "Verfolgt Änderungen der Zauberplätze im Charakterbogen"
             },
             "MonitorAC": {
                 "Name": "Rüstungsklasse (AC) überwachen",
-                "Hint": "Verfolgt Änderungen der Rüstungsklasse im Charakterbogen."
+                "Hint": "Verfolgt Änderungen der Rüstungsklasse im Charakterbogen"
             },
             "MonitorAbility": {
                 "Name": "Fähigkeiten überwachen",
-                "Hint": "Verfolgt Änderungen der Charakterwerte."
+                "Hint": "Verfolgt Änderungen der Charakterwerte"
             },
             "MonitorSkillProficiency": {
                 "Name": "Fertigkeiten überwachen",
-                "Hint": "Verfolgt Änderungen der Fertigkeitsbeherrschung."
+                "Hint": "Verfolgt Änderungen der Fertigkeitsbeherrschung"
             },
             "MonitorSaveProficiency": {
                 "Name": "Rettungswürfe überwachen",
-                "Hint": "Verfolgt Änderungen der Rettungswurfbeherrschung."
+                "Hint": "Verfolgt Änderungen der Rettungswurfbeherrschung"
             },
             "MonitorToolProficiency": {
                 "Name": "Werkzeuge überwachen",
-                "Hint": "Verfolgt Änderungen der Werkzeugbeherrschung."
+                "Hint": "Verfolgt Änderungen der Werkzeugbeherrschung"
             },
             "MonitorCurrency": {
                 "Name": "Währung überwachen",
-                "Hint": "Verfolgt Änderungen der Währung im Charakterbogen."
+                "Hint": "Verfolgt Änderungen der Währung im Charakterbogen"
             },
             "MonitorEffects": {
                 "Name": "Aktive Effekte überwachen",
-                "Hint": "Verfolgt Änderungen der aktiven Effekte im Charakterbogen."
+                "Hint": "Verfolgt Änderungen der aktiven Effekte im Charakterbogen"
             },
             "MonitorItemQuantity": {
                 "Name": "Gegenstandsmenge überwachen",
-                "Hint": "Verfolgt Änderungen der Gegenstandsanzahl beim Charakter."
+                "Hint": "Verfolgt Änderungen der Gegenstandsanzahl beim Charakter"
             },
             "MonitorItemNameDesc": {
                 "Name": "Gegenstandsname und Beschreibung überwachen",
-                "Hint": "Verfolgt Änderungen von Name und/oder Beschreibung von Gegenständen."
+                "Hint": "Verfolgt Änderungen von Name und/oder Beschreibung von Gegenständen"
             },
             "MonitorItemEquip": {
                 "Name": "Ausrüstung überwachen",
-                "Hint": "Verfolgt, wann der Charakter Gegenstände anlegt oder ablegt."
+                "Hint": "Verfolgt, wann der Charakter Gegenstände anlegt oder ablegt"
             },
             "MonitorItemAttune": {
                 "Name": "Einstellung überwachen",
-                "Hint": "Verfolgt, wann der Charakter einen Gegenstand stimmt oder die Abstimmung verliert."
+                "Hint": "Verfolgt, wann der Charakter einen Gegenstand stimmt oder die Abstimmung verliert"
             },
             "MonitorItemIdentify": {
                 "Name": "Gegenstände identifizieren überwachen",
-                "Hint": "Verfolgt Änderungen von erkannt/nicht erkannt bei Gegenständen."
+                "Hint": "Verfolgt Änderungen von erkannt/nicht erkannt bei Gegenständen"
             },
             "MonitorItemCharges": {
                 "Name": "Gegenstandsladungen überwachen",
-                "Hint": "Verfolgt Änderungen der Ladungen von Gegenständen."
+                "Hint": "Verfolgt Änderungen der Ladungen von Gegenständen"
             },
             "MonitorSheetMode": {
                 "Name": "Charakterbogenmodus überwachen",
-                "Hint": "Verfolgt den Wechsel zwischen Spiel- und Bearbeitungsmodus."
+                "Hint": "Verfolgt den Wechsel zwischen Spiel- und Bearbeitungsmodus"
             },
             "MonitorInspiration": {
                 "Name": "Inspiration überwachen",
-                "Hint": "Verfolgt Änderungen der Inspiration im Charakterbogen."
+                "Hint": "Verfolgt Änderungen der Inspiration im Charakterbogen"
             },
             "MonitorDeathSave": {
                 "Name": "Todesrettungswürfe überwachen",
-                "Hint": "Verfolgt Änderungen der Todesrettungswürfe im Charakterbogen."
+                "Hint": "Verfolgt Änderungen der Todesrettungswürfe im Charakterbogen"
             }
         },
         "ChatMessage": {

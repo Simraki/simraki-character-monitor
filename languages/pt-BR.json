@@ -3,87 +3,92 @@
         "Settings": {
             "MonitorHP": {
                 "Name": "Monitorar HP",
-                "Hint": "Acompanha alterações nos pontos de vida do personagem."
+                "Hint": "Acompanha alterações nos pontos de vida do personagem"
             },
+            "MonitorHitDice": {
+                "Name": "Monitorar dados de vida",
+                "Hint": "Monitora as alterações nos dados de vida do personagem"
+            },
+
             "MonitorXP": {
                 "Name": "Monitorar Pontos de Experiência",
-                "Hint": "Acompanha alterações nos pontos de experiência."
+                "Hint": "Acompanha alterações nos pontos de experiência"
             },
             "MonitorLevel": {
                 "Name": "Monitorar Nível",
-                "Hint": "Acompanha alterações de nível do personagem."
+                "Hint": "Acompanha alterações de nível do personagem"
             },
             "MonitorSpellPrep": {
                 "Name": "Monitorar Preparação de Magias",
-                "Hint": "Acompanha quando um personagem prepara ou remove uma magia."
+                "Hint": "Acompanha quando um personagem prepara ou remove uma magia"
             },
             "MonitorSpellSlots": {
                 "Name": "Monitorar Espaços de Magia",
-                "Hint": "Acompanha alterações nos espaços de magia."
+                "Hint": "Acompanha alterações nos espaços de magia"
             },
             "MonitorAC": {
                 "Name": "Monitorar Classe de Armadura (CA)",
-                "Hint": "Acompanha alterações na CA do personagem."
+                "Hint": "Acompanha alterações na CA do personagem"
             },
             "MonitorAbility": {
                 "Name": "Monitorar Atributos",
-                "Hint": "Acompanha alterações nos valores de atributos."
+                "Hint": "Acompanha alterações nos valores de atributos"
             },
             "MonitorSkillProficiency": {
                 "Name": "Monitorar Proficiências em Perícias",
-                "Hint": "Acompanha alterações nas proficiências em perícias."
+                "Hint": "Acompanha alterações nas proficiências em perícias"
             },
             "MonitorSaveProficiency": {
                 "Name": "Monitorar Salvaguardas",
-                "Hint": "Acompanha alterações nas proficiências em testes de resistência."
+                "Hint": "Acompanha alterações nas proficiências em testes de resistência"
             },
             "MonitorToolProficiency": {
                 "Name": "Monitorar Proficiências em Ferramentas",
-                "Hint": "Acompanha alterações nas proficiências em ferramentas."
+                "Hint": "Acompanha alterações nas proficiências em ferramentas"
             },
             "MonitorCurrency": {
                 "Name": "Monitorar Moeda",
-                "Hint": "Acompanha alterações na moeda do personagem."
+                "Hint": "Acompanha alterações na moeda do personagem"
             },
             "MonitorEffects": {
                 "Name": "Monitorar Efeitos Ativos",
-                "Hint": "Acompanha alterações nos efeitos ativos do personagem."
+                "Hint": "Acompanha alterações nos efeitos ativos do personagem"
             },
             "MonitorItemQuantity": {
                 "Name": "Monitorar Quantidade de Itens",
-                "Hint": "Acompanha alterações na quantidade de itens do personagem."
+                "Hint": "Acompanha alterações na quantidade de itens do personagem"
             },
             "MonitorItemNameDesc": {
                 "Name": "Monitorar Nome e Descrição de Itens",
-                "Hint": "Acompanha alterações no nome e/ou descrição de itens."
+                "Hint": "Acompanha alterações no nome e/ou descrição de itens"
             },
             "MonitorItemEquip": {
                 "Name": "Monitorar Equipamento",
-                "Hint": "Acompanha quando o personagem equipa ou desequipa itens."
+                "Hint": "Acompanha quando o personagem equipa ou desequipa itens"
             },
             "MonitorItemAttune": {
                 "Name": "Monitorar Sintonia",
-                "Hint": "Acompanha quando o personagem sintoniza ou perde sintonia com um item."
+                "Hint": "Acompanha quando o personagem sintoniza ou perde sintonia com um item"
             },
             "MonitorItemIdentify": {
                 "Name": "Monitorar Identificação de Itens",
-                "Hint": "Acompanha alterações no status de itens identificados/não identificados."
+                "Hint": "Acompanha alterações no status de itens identificados/não identificados"
             },
             "MonitorItemCharges": {
                 "Name": "Monitorar Cargas de Itens",
-                "Hint": "Acompanha alterações nas cargas de itens."
+                "Hint": "Acompanha alterações nas cargas de itens"
             },
             "MonitorSheetMode": {
                 "Name": "Monitorar Modo de Ficha",
-                "Hint": "Acompanha a alternância entre modos de edição e jogo."
+                "Hint": "Acompanha a alternância entre modos de edição e jogo"
             },
             "MonitorInspiration": {
                 "Name": "Monitorar Inspiração",
-                "Hint": "Acompanha alterações na inspiração do personagem."
+                "Hint": "Acompanha alterações na inspiração do personagem"
             },
             "MonitorDeathSave": {
                 "Name": "Monitorar Testes de Morte",
-                "Hint": "Acompanha alterações nos resultados de testes de morte."
+                "Hint": "Acompanha alterações nos resultados de testes de morte"
             }
         },
         "ChatMessage": {

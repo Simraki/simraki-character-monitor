@@ -95,7 +95,7 @@ export class ActorMonitor extends BaseMonitor {
     async processChanges(actor, old) {
         const logPromises = []
 
-        const link = getActorLink(actor)
+        const link = getActorLink(this._getEntityActor(actor))
         const sys = actor.system
 
         /* HP */

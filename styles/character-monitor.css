@@ -9,6 +9,7 @@ li.chat-message.scm-msg {
     --scm-hp-plus: #1b5e20;
     --scm-hp-minus: #8b1e1e;
     --scm-max-hp: #5b0426;
+    --scm-hit-dice: #a12b5a;
 
     /* Temp HP and Temp Max HP */
     --scm-temp-hp: #0d47a1;
@@ -47,7 +48,8 @@ li.chat-message.scm-msg {
     --scm-item-identify: #425af5;
 
     /* Effects */
-    --scm-effect: #7c4108;
+    --scm-effect: #367c08;
+    --scm-effect-lose: #6e7d64;
 
     /* Sheet Mode */
     --scm-sheet-mode: #000000;
@@ -193,6 +195,10 @@ li.chat-message.scm-msg.scm-max-hp {
     background-color: var(--scm-max-hp);
 }
 
+li.chat-message.scm-msg.scm-hit-dice {
+    background-color: var(--scm-hit-dice);
+}
+
 /* Temp HP */
 li.chat-message.scm-msg.scm-temp-hp {
     background-color: var(--scm-temp-hp);
@@ -291,6 +297,9 @@ li.chat-message.scm-msg.scm-item-identify {
 /* Effects */
 li.chat-message.scm-msg.scm-effect {
     background-color: var(--scm-effect);
+}
+li.chat-message.scm-msg.scm-effect-lose {
+    background-color: var(--scm-effect-lose);
 }
 
 /* Sheet Mode */

@@ -27,6 +27,7 @@ export const SETTING = {
     MONITOR_ITEM_CHARGES: 'monitorItemCharges',
     MONITOR_ITEM_IDENTIFY: 'monitorItemIdentify',
     MONITOR_ITEM_NAME_DESC: 'monitorItemNameDesc',
+    MONITOR_HIT_DICE: 'monitorHitDice',
 
     // Item & Actor
     MONITOR_CURRENCY: 'monitorCurrency',
@@ -43,6 +44,7 @@ export const icons = {
     tempHp: '<i class="fas fa-shield-heart"></i>',
     maxHp: '<i class="fas fa-heart-circle-plus"></i>',
     tempMaxHp: '<i class="fas fa-shield-plus"></i>',
+    hitDice: '<i class="fa-solid fa-moon"></i>',
 
     // Progress
     xp: '<i class="fas fa-star"></i>',
@@ -95,6 +97,7 @@ export const classes = {
     maxHp: 'scm-max-hp',
     tempHp: 'scm-temp-hp',
     tempMaxHp: 'scm-temp-max-hp',
+    hitDice: 'scm-hit-dice',
 
     // XP / Level
     xp: 'scm-xp',
@@ -129,6 +132,7 @@ export const classes = {
 
     // Effects
     effect: 'scm-effect',
+    effectLose: 'scm-effect-lose',
 
     // Sheet Mode
     sheetMode: 'scm-sheet-mode',

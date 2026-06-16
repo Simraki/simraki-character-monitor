@@ -22,18 +22,19 @@ export class EffectMonitor extends BaseMonitor {
     }
 
     async processChanges(effect, old) {
-        const actorLink = getActorLink(effect.parent)
+        const actorLink = getActorLink(this._getEntityActor(effect))
         const effectName = effect.name
 
         if (old.disabled !== undefined && effect.disabled !== old.disabled) {
             const enabled = !effect.disabled
-            const text = `${effectName} ${_loc(enabled ? `${MODULE_ID}.ChatMessage.Enabled` : `${MODULE_ID}.ChatMessage.Disabled`)}`
+            const actionText = _loc(enabled ? `${MODULE_ID}.ChatMessage.Enabled` : `${MODULE_ID}.ChatMessage.Disabled`)
+            const text = `${actionText} ${effectName}`
             await Logger.spoilerLog(
                 actorLink,
                 text,
                 _loc(`${MODULE_ID}.ChatMessage.Description`),
                 effect.description,
-                classes.effect,
+                enabled ? classes.effect : classes.effectLose,
                 icons.effect,
             )
         }
@@ -62,7 +63,7 @@ export class EffectMonitor extends BaseMonitor {
             text,
             _loc(`${MODULE_ID}.ChatMessage.Description`),
             effect.description,
-            classes.effect,
+            classes.effectLose,
             icons.effect,
         )
     }

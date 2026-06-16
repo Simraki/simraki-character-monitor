@@ -1,6 +1,6 @@
 import { BaseMonitor } from './base.js'
 import { Logger } from '../logger.js'
-import { _loc, getActorLink, getDeltaText, getSetting, truncateName, will } from '../utils.js'
+import { _loc, capitalize, getActorLink, getDeltaText, getSetting, truncateName, will } from '../utils.js'
 import { classes, icons, MODULE_ID, SETTING, VALID_TYPES } from '../config.js'
 
 export class ItemMonitor extends BaseMonitor {
@@ -31,11 +31,7 @@ export class ItemMonitor extends BaseMonitor {
             stash.attuned = sys.attuned
         }
 
-        if (
-            getSetting(SETTING.MONITOR_SPELL_PREP) &&
-            item.type === 'spell' &&
-            (will(update, 'system.prepared') || will(update, 'system.preparation'))
-        ) {
+        if (getSetting(SETTING.MONITOR_SPELL_PREP) && item.type === 'spell' && will(update, 'system.prepared')) {
             stash.prepared = Boolean(sys.prepared)
         }
 
@@ -61,13 +57,17 @@ export class ItemMonitor extends BaseMonitor {
             stash.currency = foundry.utils.duplicate(sys.currency)
         }
 
+        if (getSetting(SETTING.MONITOR_HIT_DICE) && item.type === 'class' && will(update, 'system.hd.spent')) {
+            stash.hitDiceSpent = sys.hd.spent
+        }
+
         return stash
     }
 
     async processChanges(item, old) {
         const logPromises = []
 
-        const actorLink = getActorLink(item.parent)
+        const actorLink = getActorLink(this._getEntityActor(item))
         const sys = item.system
         const itemName = truncateName(item.name)
 
@@ -115,15 +115,14 @@ export class ItemMonitor extends BaseMonitor {
             logPromises.push(Logger.log(actorLink, text, classes.spellPrep, icons.spellPrep))
         }
 
-        // TODO || add HD monitoring
-
         /* Uses / Charges */
         if (old.uses) {
             const prev = old.uses
             const curr = sys.uses
             if (curr && (curr.value !== prev.value || curr.max !== prev.max)) {
+                const usesText = capitalize(_loc('DND5E.CONSUMPTION.Type.Use.other'))
                 const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
-                const text = `${itemName}: ${deltaText}`
+                const text = `${itemName}: ${usesText}: ${deltaText}`
                 logPromises.push(Logger.log(actorLink, text, classes.itemCharges, icons.itemCharges))
             }
         }
@@ -190,39 +189,47 @@ export class ItemMonitor extends BaseMonitor {
             }
         }
 
+        /* Hit Dice */
+        if (old.hitDiceSpent !== undefined) {
+            const prev = old.hitDiceSpent
+            const curr = sys.hd?.spent
+
+            if (curr !== undefined && curr !== prev) {
+                const prevV = sys.hd.max - prev
+                const currV = sys.hd.max - curr
+                const deltaText = getDeltaText(currV, prevV)
+
+                const hdText = _loc('DND5E.HITDICE.Abbreviation')
+
+                const text = `${itemName} (${hdText} ${sys.hd.denomination}): ${deltaText}`
+                logPromises.push(Logger.log(actorLink, text, classes.hitDice, icons.hitDice))
+            }
+        }
+
         await Promise.all(logPromises)
     }
 
-    _getTypeText(item) {
-        if (!VALID_TYPES.includes(item.type)) return ''
-
-        const typeText = _loc(`TYPES.Item.${item.type}`)
-        return ` (${typeText})`
-    }
-
-    async onCreateEntity(item, actor) {
+    async _trackItemQuantity(item, actor, isCreation) {
         if (!getSetting(SETTING.MONITOR_ITEM_QUANTITY)) return
 
         const link = getActorLink(actor)
         const qty = item.system.quantity ?? 1
 
-        const typeText = this._getTypeText(item)
-        const actionText = _loc(`${MODULE_ID}.ChatMessage.Added`)
+        const typeText = VALID_TYPES.includes(item.type) ? ` (${_loc(`TYPES.Item.${item.type}`)})` : ''
+        const actionText = isCreation
+            ? _loc(`${MODULE_ID}.ChatMessage.Added`)
+            : _loc(`${MODULE_ID}.ChatMessage.Deleted`)
 
         const text = `${actionText} ${truncateName(item.name)} x${qty}${typeText}`
 
-        await Logger.log(link, text, classes.itemPlus, icons.itemQty)
+        await Logger.log(link, text, isCreation ? classes.itemPlus : classes.itemMinus, icons.itemQty)
+    }
+
+    async onCreateEntity(item, actor) {
+        return this._trackItemQuantity(item, actor, true)
     }
 
     async onDeleteEntity(item, actor) {
-        if (!getSetting(SETTING.MONITOR_ITEM_QUANTITY)) return
-
-        const link = getActorLink(actor)
-
-        const typeText = this._getTypeText(item)
-        const actionText = _loc(`${MODULE_ID}.ChatMessage.Deleted`)
-
-        const text = `${actionText} ${truncateName(item.name)}${typeText}`
-        await Logger.log(link, text, classes.itemMinus, icons.itemQty)
+        return this._trackItemQuantity(item, actor, false)
     }
 }
