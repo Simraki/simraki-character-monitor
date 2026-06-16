@@ -4,12 +4,16 @@ import json from '@eslint/json'
 import css from '@eslint/css'
 import { defineConfig } from 'eslint/config'
 
+const foundryKeys = ['game', 'foundry', 'Hooks', 'CONFIG', 'libWrapper', 'fromUuid', 'Actor']
+
 export default defineConfig([
     {
         files: ['**/*.{js,mjs,cjs}'],
         plugins: { js },
         extends: ['js/recommended'],
-        languageOptions: { globals: globals.browser },
+        languageOptions: {
+            globals: { ...globals.browser, ...foundryKeys.reduce((acc, key) => ({ ...acc, [key]: 'writable' }), {}) },
+        },
     },
     { files: ['**/*.json'], plugins: { json }, language: 'json/json', extends: ['json/recommended'] },
     { files: ['**/*.css'], plugins: { css }, language: 'css/css', extends: ['css/recommended'] },

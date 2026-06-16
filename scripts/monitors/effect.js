@@ -1,106 +1,69 @@
 import { BaseMonitor } from './base.js'
-import { Settings } from '../settings.js'
 import { Logger } from '../logger.js'
-import { getActorLink } from '../utils.js'
-import { classes, DEBOUNCE_MS, icons, MODULE_ID } from '../config.js'
+import { _loc, getActorLink, getSetting } from '../utils.js'
+import { classes, icons, MODULE_ID, SETTING } from '../config.js'
 
 export class EffectMonitor extends BaseMonitor {
-    EFFECT_QUEUE = new Map()
-
     init() {
-        Hooks.on('preUpdateActiveEffect', this.onPreUpdate.bind(this))
-        Hooks.on('updateActiveEffect', this.onUpdate.bind(this))
-        Hooks.on('createActiveEffect', this.onCreate.bind(this))
-        Hooks.on('deleteActiveEffect', this.onDelete.bind(this))
+        Hooks.on('preUpdateActiveEffect', this._onPreUpdate.bind(this))
+        Hooks.on('updateActiveEffect', this._onUpdate.bind(this))
+        Hooks.on('createActiveEffect', this._onCreate.bind(this))
+        Hooks.on('deleteActiveEffect', this._onDelete.bind(this))
     }
 
-    async onPreUpdate(effect, update, options, userId) {
-        const actor = effect.parent
-        if (!actor || actor.type !== 'character') return
+    extractStash(effect, update) {
+        const stash = {}
+        if (!getSetting(SETTING.MONITOR_EFFECTS)) return stash
 
-        const stash = (options[MODULE_ID] ??= {})
-        if (Settings.getBool('monitorEffects') && 'disabled' in update) {
+        if ('disabled' in update) {
             stash.disabled = effect.disabled ?? false
         }
-
-        options[MODULE_ID] = stash
+        return stash
     }
 
-    async onUpdate(effect, update, options, userId) {
-        if (userId !== game.user.id || !effect.parent || !options?.[MODULE_ID]) return
-
-        const actor = effect.parent
-        if (!actor || actor.type !== 'character') return
-
-        const uuid = effect.uuid
-        const stash = options[MODULE_ID]
-        if (Object.keys(stash).length === 0) return
-
-        const pending = this.EFFECT_QUEUE.get(uuid) ?? { old: {}, timer: null }
-
-        if (pending.timer) clearTimeout(pending.timer)
-        if (stash.disabled !== undefined && pending.old.disabled === undefined) pending.old.disabled = stash.disabled
-
-        pending.timer = setTimeout(() => {
-            this.process(effect, pending.old)
-            this.EFFECT_QUEUE.delete(uuid)
-        }, DEBOUNCE_MS)
-
-        this.EFFECT_QUEUE.set(uuid, pending)
-    }
-
-    async process(effect, old) {
-        const actorLink = getActorLink(effect.parent)
+    async processChanges(effect, old) {
+        const actorLink = getActorLink(this._getEntityActor(effect))
         const effectName = effect.name
 
         if (old.disabled !== undefined && effect.disabled !== old.disabled) {
             const enabled = !effect.disabled
-            const text = `${effectName} ${game.i18n.localize(enabled ? 'simraki-character-monitor.chatMessage.enabled' : 'simraki-character-monitor.chatMessage.disabled')}`
-            await Logger.logWithSpoiler(
+            const actionText = _loc(enabled ? `${MODULE_ID}.ChatMessage.Enabled` : `${MODULE_ID}.ChatMessage.Disabled`)
+            const text = `${actionText} ${effectName}`
+            await Logger.spoilerLog(
                 actorLink,
                 text,
-                game.i18n.localize('simraki-character-monitor.chatMessage.description'),
+                _loc(`${MODULE_ID}.ChatMessage.Description`),
                 effect.description,
-                classes.effect,
+                enabled ? classes.effect : classes.effectLose,
                 icons.effect,
             )
         }
     }
 
-    async onCreate(effect, options, userId) {
-        if (userId !== game.user.id || !Settings.getBool('monitorEffects')) return
+    async onCreateEntity(effect, actor) {
+        if (!getSetting(SETTING.MONITOR_EFFECTS)) return
 
-        const actor = effect.parent
-        if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
-
-        const text = `${effect.name} ${game.i18n.localize('simraki-character-monitor.chatMessage.added')}`
-        await Logger.logWithSpoiler(
+        const text = `${_loc(`${MODULE_ID}.ChatMessage.Added`)} ${effect.name}`
+        await Logger.spoilerLog(
             getActorLink(actor),
             text,
-            game.i18n.localize('simraki-character-monitor.chatMessage.description'),
+            _loc(`${MODULE_ID}.ChatMessage.Description`),
             effect.description,
             classes.effect,
             icons.effect,
         )
     }
 
-    async onDelete(effect, options, userId) {
-        if (userId !== game.user.id || !Settings.getBool('monitorEffects')) return
+    async onDeleteEntity(effect, actor) {
+        if (!getSetting(SETTING.MONITOR_EFFECTS)) return
 
-        const actor = effect.parent
-        if (!actor || !(actor instanceof Actor) || actor.type !== 'character') return
-        const uuid = effect.uuid
-        const pending = this.EFFECT_QUEUE.get(uuid)
-        if (pending?.timer) clearTimeout(pending.timer)
-        this.EFFECT_QUEUE.delete(uuid)
-
-        const text = `${effect.name} ${game.i18n.localize('simraki-character-monitor.chatMessage.deleted')}`
-        await Logger.logWithSpoiler(
+        const text = `${_loc(`${MODULE_ID}.ChatMessage.Deleted`)} ${effect.name}`
+        await Logger.spoilerLog(
             getActorLink(actor),
             text,
-            game.i18n.localize('simraki-character-monitor.chatMessage.description'),
+            _loc(`${MODULE_ID}.ChatMessage.Description`),
             effect.description,
-            classes.effect,
+            classes.effectLose,
             icons.effect,
         )
     }

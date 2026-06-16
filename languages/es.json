@@ -1,115 +1,120 @@
 {
     "simraki-character-monitor": {
-        "settings": {
-            "monitorHP": {
-                "name": "Rastrear HP",
-                "hint": "Rastrea los cambios de puntos de vida del personaje."
+        "Settings": {
+            "MonitorHP": {
+                "Name": "Rastrear HP",
+                "Hint": "Rastrea los cambios de puntos de vida del personaje"
             },
-            "monitorXP": {
-                "name": "Rastrear puntos de experiencia",
-                "hint": "Rastrea los cambios de puntos de experiencia en la hoja de personaje."
+            "MonitorHitDice": {
+                "Name": "Monitorear dados de golpe",
+                "Hint": "Monitorea los cambios en los dados de golpe del personaje"
             },
-            "monitorLevel": {
-                "name": "Rastrear nivel",
-                "hint": "Rastrea los cambios de nivel en la hoja de personaje."
+
+            "MonitorXP": {
+                "Name": "Rastrear puntos de experiencia",
+                "Hint": "Rastrea los cambios de puntos de experiencia en la hoja de personaje"
             },
-            "monitorSpellPrep": {
-                "name": "Rastrear preparación de hechizos",
-                "hint": "Rastrea cuando un personaje prepara o retira un hechizo."
+            "MonitorLevel": {
+                "Name": "Rastrear nivel",
+                "Hint": "Rastrea los cambios de nivel en la hoja de personaje"
             },
-            "monitorSpellSlots": {
-                "name": "Rastrear ranuras de hechizo",
-                "hint": "Rastrea los cambios en las ranuras de hechizo."
+            "MonitorSpellPrep": {
+                "Name": "Rastrear preparación de hechizos",
+                "Hint": "Rastrea cuando un personaje prepara o retira un hechizo"
             },
-            "monitorAC": {
-                "name": "Rastrear clase de armadura (AC)",
-                "hint": "Rastrea cambios en la clase de armadura del personaje."
+            "MonitorSpellSlots": {
+                "Name": "Rastrear ranuras de hechizo",
+                "Hint": "Rastrea los cambios en las ranuras de hechizo"
             },
-            "monitorAbility": {
-                "name": "Rastrear características",
-                "hint": "Rastrea cambios en los valores de las características del personaje."
+            "MonitorAC": {
+                "Name": "Rastrear clase de armadura (AC)",
+                "Hint": "Rastrea cambios en la clase de armadura del personaje"
             },
-            "monitorSkillProficiency": {
-                "name": "Rastrear competencias",
-                "hint": "Rastrea cambios en la competencia en habilidades del personaje."
+            "MonitorAbility": {
+                "Name": "Rastrear características",
+                "Hint": "Rastrea cambios en los valores de las características del personaje"
             },
-            "monitorSaveProficiency": {
-                "name": "Rastrear tiradas de salvación",
-                "hint": "Rastrea cambios en la competencia en tiradas de salvación."
+            "MonitorSkillProficiency": {
+                "Name": "Rastrear competencias",
+                "Hint": "Rastrea cambios en la competencia en habilidades del personaje"
             },
-            "monitorToolProficiency": {
-                "name": "Rastrear herramientas",
-                "hint": "Rastrea cambios en la competencia en herramientas."
+            "MonitorSaveProficiency": {
+                "Name": "Rastrear tiradas de salvación",
+                "Hint": "Rastrea cambios en la competencia en tiradas de salvación"
             },
-            "monitorCurrency": {
-                "name": "Rastrear moneda",
-                "hint": "Rastrea cambios en la moneda del personaje."
+            "MonitorToolProficiency": {
+                "Name": "Rastrear herramientas",
+                "Hint": "Rastrea cambios en la competencia en herramientas"
             },
-            "monitorEffects": {
-                "name": "Rastrear efectos activos",
-                "hint": "Rastrea cambios en efectos activos."
+            "MonitorCurrency": {
+                "Name": "Rastrear moneda",
+                "Hint": "Rastrea cambios en la moneda del personaje"
             },
-            "monitorItemQuantity": {
-                "name": "Rastrear cantidad de objetos",
-                "hint": "Rastrea cambios en la cantidad de objetos del personaje."
+            "MonitorEffects": {
+                "Name": "Rastrear efectos activos",
+                "Hint": "Rastrea cambios en efectos activos"
             },
-            "monitorItemNameDesc": {
-                "name": "Rastrear nombre y descripción de objetos",
-                "hint": "Rastrea cambios en el nombre y/o descripción de objetos."
+            "MonitorItemQuantity": {
+                "Name": "Rastrear cantidad de objetos",
+                "Hint": "Rastrea cambios en la cantidad de objetos del personaje"
             },
-            "monitorItemEquip": {
-                "name": "Rastrear equipamiento",
-                "hint": "Rastrea cuando el personaje equipa o desequipa un objeto."
+            "MonitorItemNameDesc": {
+                "Name": "Rastrear nombre y descripción de objetos",
+                "Hint": "Rastrea cambios en el nombre y/o descripción de objetos"
             },
-            "monitorItemAttune": {
-                "name": "Rastrear sintonización",
-                "hint": "Rastrea cuando el personaje se sintoniza o pierde la sintonización de un objeto."
+            "MonitorItemEquip": {
+                "Name": "Rastrear equipamiento",
+                "Hint": "Rastrea cuando el personaje equipa o desequipa un objeto"
             },
-            "monitorItemIdentify": {
-                "name": "Rastrear identificación de objetos",
-                "hint": "Rastrea cambios en identificado/no identificado de objetos."
+            "MonitorItemAttune": {
+                "Name": "Rastrear sintonización",
+                "Hint": "Rastrea cuando el personaje se sintoniza o pierde la sintonización de un objeto"
             },
-            "monitorItemCharges": {
-                "name": "Rastrear cargas de objetos",
-                "hint": "Rastrea cambios en las cargas de los objetos."
+            "MonitorItemIdentify": {
+                "Name": "Rastrear identificación de objetos",
+                "Hint": "Rastrea cambios en identificado/no identificado de objetos"
             },
-            "monitorSheetMode": {
-                "name": "Rastrear modo de hoja",
-                "hint": "Rastrea cambios entre modo juego y edición."
+            "MonitorItemCharges": {
+                "Name": "Rastrear cargas de objetos",
+                "Hint": "Rastrea cambios en las cargas de los objetos"
             },
-            "monitorInspiration": {
-                "name": "Rastrear inspiración",
-                "hint": "Rastrea cambios en la inspiración del personaje."
+            "MonitorSheetMode": {
+                "Name": "Rastrear modo de hoja",
+                "Hint": "Rastrea cambios entre modo juego y edición"
             },
-            "monitorDeathSave": {
-                "name": "Rastrear tiradas de salvación de muerte",
-                "hint": "Rastrea cambios en las tiradas de salvación de muerte."
+            "MonitorInspiration": {
+                "Name": "Rastrear inspiración",
+                "Hint": "Rastrea cambios en la inspiración del personaje"
+            },
+            "MonitorDeathSave": {
+                "Name": "Rastrear tiradas de salvación de muerte",
+                "Hint": "Rastrea cambios en las tiradas de salvación de muerte"
             }
         },
-        "chatMessage": {
-            "sheetMode": "Modo de hoja",
-            "description": "Descripción",
-            "descriptionChanged": "Descripción cambiada",
-            "hp": {
-                "value": "HP",
-                "max": "Max HP",
-                "temp": "Temp HP",
-                "tempmax": "Temp Max HP"
+        "ChatMessage": {
+            "SheetMode": "Modo de hoja",
+            "Description": "Descripción",
+            "DescriptionChanged": "Descripción cambiada",
+            "HP": {
+                "Value": "HP",
+                "Max": "Max HP",
+                "Temp": "Temp HP",
+                "Tempmax": "Temp Max HP"
             },
-            "equipped": "equipa",
-            "unequipped": "desequipa",
-            "prepared": "prepara",
-            "unprepared": "no prepara",
-            "attunesTo": "sintoniza",
-            "breaksAttune": "pierde sintonización en",
-            "enabled": "activado",
-            "disabled": "desactivado",
-            "added": "añadido",
-            "deleted": "eliminado",
-            "identified": "identificado",
-            "unidentified": "no identificado",
-            "old": "Antes",
-            "new": "Después"
+            "Equipped": "equipa",
+            "Unequipped": "desequipa",
+            "Prepared": "prepara",
+            "Unprepared": "no prepara",
+            "AttunesTo": "sintoniza",
+            "BreaksAttune": "pierde sintonización en",
+            "Enabled": "activado",
+            "Disabled": "desactivado",
+            "Added": "añadido",
+            "Deleted": "eliminado",
+            "Identified": "identificado",
+            "Unidentified": "no identificado",
+            "Old": "Antes",
+            "New": "Después"
         }
     }
 }

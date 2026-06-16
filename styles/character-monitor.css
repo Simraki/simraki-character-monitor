@@ -1,59 +1,61 @@
 /* -------------------------------
    Variables
    ------------------------------- */
-li.chat-message.cm-msg {
-    --cm-plus: #1b5e20;
-    --cm-minus: #8b1e1e;
+li.chat-message.scm-msg {
+    --scm-plus: #1b5e20;
+    --scm-minus: #8b1e1e;
 
     /* HP Changes */
-    --cm-hp-plus: #1b5e20;
-    --cm-hp-minus: #8b1e1e;
-    --cm-max-hp: #5b0426;
+    --scm-hp-plus: #1b5e20;
+    --scm-hp-minus: #8b1e1e;
+    --scm-max-hp: #5b0426;
+    --scm-hit-dice: #a12b5a;
 
     /* Temp HP and Temp Max HP */
-    --cm-temp-hp: #0d47a1;
-    --cm-temp-max-hp: #006064;
+    --scm-temp-hp: #0d47a1;
+    --scm-temp-max-hp: #006064;
 
     /* XP */
-    --cm-xp: #e3bb34;
-    --cm-level: #a0a82e;
+    --scm-xp: #e3bb34;
+    --scm-level: #a0a82e;
 
     /* Currency */
-    --cm-currency-plus: #c87f1f;
-    --cm-currency-minus: #a02a3a;
+    --scm-currency-plus: #c87f1f;
+    --scm-currency-minus: #a02a3a;
 
     /* Spell Slots */
-    --cm-spellslot-plus: #7b1fa2;
-    --cm-spellslot-minus: #4a148c;
+    --scm-spellslot-plus: #7b1fa2;
+    --scm-spellslot-minus: #4a148c;
 
     /* Spell Preparation */
-    --cm-spellprep: #283593;
+    --scm-spellprep: #283593;
 
     /* AC / checks */
-    --cm-ac: #37908a;
-    --cm-ability: #09524c;
-    --cm-skill-prof: #207a75;
-    --cm-save-prof: #207a75;
-    --cm-tool-prof: #207a75;
+    --scm-ac: #37908a;
+    --scm-ability: #09524c;
+    --scm-skill-prof: #207a75;
+    --scm-save-prof: #207a75;
+    --scm-tool-prof: #207a75;
 
     /* Items */
-    --cm-item-plus: #0a6b4a;
-    --cm-item-minus: #a02a3a;
-    --cm-item-name-desc: #37474f;
-    --cm-item-equip: #0e520e;
-    --cm-item-unequip: #720e14;
-    --cm-item-attune: #720e70;
-    --cm-item-charges: #425af5;
-    --cm-item-identify: #425af5;
+    --scm-item-plus: #0a6b4a;
+    --scm-item-minus: #a02a3a;
+    --scm-item-name-desc: #37474f;
+    --scm-item-equip: #0e520e;
+    --scm-item-unequip: #720e14;
+    --scm-item-attune: #720e70;
+    --scm-item-charges: #425af5;
+    --scm-item-identify: #425af5;
 
     /* Effects */
-    --cm-effect: #7c4108;
+    --scm-effect: #367c08;
+    --scm-effect-lose: #6e7d64;
 
     /* Sheet Mode */
-    --cm-sheet-mode: #000000;
+    --scm-sheet-mode: #000000;
 
     /* Inspiration */
-    --cm-inspiration: #ff8f00;
+    --scm-inspiration: #ff8f00;
 
     padding: 0;
     border: none;
@@ -67,16 +69,16 @@ li.chat-message.cm-msg {
 /* -------------------------------
    Content Layout
    ------------------------------- */
-li.chat-message.cm-msg .message-header {
+li.chat-message.scm-msg .message-header {
     display: none;
 }
 
-li.chat-message.cm-msg .message-content {
+li.chat-message.scm-msg .message-content {
     padding: 3px 6px;
     margin: 0;
 }
 
-li.chat-message.cm-msg .message-content .cm-line {
+li.chat-message.scm-msg .message-content .scm-line {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -89,7 +91,7 @@ li.chat-message.cm-msg .message-content .cm-line {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
-li.chat-message.cm-msg .cm-line > i {
+li.chat-message.scm-msg .scm-line > i {
     flex: 0 0 auto;
     opacity: 0.9;
     font-size: 12px;
@@ -99,7 +101,7 @@ li.chat-message.cm-msg .cm-line > i {
 /* -------------------------------
    Foundry UUID Link Overrides
    ------------------------------- */
-li.chat-message.cm-msg .cm-line .content-link {
+li.chat-message.scm-msg .scm-line .content-link {
     background: rgba(0, 0, 0, 0.2);
     border: none;
     color: inherit;
@@ -110,19 +112,19 @@ li.chat-message.cm-msg .cm-line .content-link {
     vertical-align: baseline;
 }
 
-li.chat-message.cm-msg .cm-line .content-link:hover {
+li.chat-message.scm-msg .scm-line .content-link:hover {
     background: rgba(0, 0, 0, 0.4);
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
-li.chat-message.cm-msg .cm-line .content-link i {
+li.chat-message.scm-msg .scm-line .content-link i {
     display: none;
 }
 
 /* -------------------------------
    Spoiler / Details
    ------------------------------- */
-li.chat-message.cm-msg details.cm-spoiler {
+li.chat-message.scm-msg details.scm-spoiler {
     background-color: rgba(0, 0, 0, 0.35);
     border-radius: 4px;
     padding: 4px 6px;
@@ -130,7 +132,7 @@ li.chat-message.cm-msg details.cm-spoiler {
     color: #ffffff;
 }
 
-li.chat-message.cm-msg details.cm-spoiler summary {
+li.chat-message.scm-msg details.scm-spoiler summary {
     list-style: none;
     font-weight: 700;
     font-size: 12px;
@@ -143,15 +145,15 @@ li.chat-message.cm-msg details.cm-spoiler summary {
     gap: 6px;
 }
 
-li.chat-message.cm-msg details.cm-spoiler summary::-webkit-details-marker {
+li.chat-message.scm-msg details.scm-spoiler summary::-webkit-details-marker {
     display: none;
 }
 
-li.chat-message.cm-msg details.cm-spoiler[open] summary {
+li.chat-message.scm-msg details.scm-spoiler[open] summary {
     font-weight: bold;
 }
 
-li.chat-message.cm-msg details.cm-spoiler .spoiler-content {
+li.chat-message.scm-msg details.scm-spoiler .spoiler-content {
     padding: 4px 6px 0 6px;
     margin-top: 2px;
     font-size: 12px;
@@ -162,7 +164,7 @@ li.chat-message.cm-msg details.cm-spoiler .spoiler-content {
     word-break: break-word;
 }
 
-li.chat-message.cm-msg details.cm-spoiler .spoiler-content hr {
+li.chat-message.scm-msg details.scm-spoiler .spoiler-content hr {
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     margin: 2px 0;
@@ -172,133 +174,140 @@ li.chat-message.cm-msg details.cm-spoiler .spoiler-content hr {
    Color Themes
    ------------------------------- */
 /* General */
-li.chat-message.cm-msg.cm-plus {
-    background-color: var(--cm-plus);
+li.chat-message.scm-msg.scm-plus {
+    background-color: var(--scm-plus);
 }
 
-li.chat-message.cm-msg.cm-minus {
-    background-color: var(--cm-minus);
+li.chat-message.scm-msg.scm-minus {
+    background-color: var(--scm-minus);
 }
 
 /* HP */
-li.chat-message.cm-msg.cm-hp-plus {
-    background-color: var(--cm-hp-plus);
+li.chat-message.scm-msg.scm-hp-plus {
+    background-color: var(--scm-hp-plus);
 }
 
-li.chat-message.cm-msg.cm-hp-minus {
-    background-color: var(--cm-hp-minus);
+li.chat-message.scm-msg.scm-hp-minus {
+    background-color: var(--scm-hp-minus);
 }
 
-li.chat-message.cm-msg.cm-max-hp {
-    background-color: var(--cm-max-hp);
+li.chat-message.scm-msg.scm-max-hp {
+    background-color: var(--scm-max-hp);
+}
+
+li.chat-message.scm-msg.scm-hit-dice {
+    background-color: var(--scm-hit-dice);
 }
 
 /* Temp HP */
-li.chat-message.cm-msg.cm-temp-hp {
-    background-color: var(--cm-temp-hp);
+li.chat-message.scm-msg.scm-temp-hp {
+    background-color: var(--scm-temp-hp);
 }
 
-li.chat-message.cm-msg.cm-temp-max-hp {
-    background-color: var(--cm-temp-max-hp);
+li.chat-message.scm-msg.scm-temp-max-hp {
+    background-color: var(--scm-temp-max-hp);
 }
 
 /* XP */
-li.chat-message.cm-msg.cm-xp {
-    background-color: var(--cm-xp);
+li.chat-message.scm-msg.scm-xp {
+    background-color: var(--scm-xp);
 }
 
-li.chat-message.cm-msg.cm-level {
-    background-color: var(--cm-level);
+li.chat-message.scm-msg.scm-level {
+    background-color: var(--scm-level);
 }
 
 /* Spell Slots */
-li.chat-message.cm-msg.cm-spellslot-plus {
-    background-color: var(--cm-spellslot-plus);
+li.chat-message.scm-msg.scm-spellslot-plus {
+    background-color: var(--scm-spellslot-plus);
 }
 
-li.chat-message.cm-msg.cm-spellslot-minus {
-    background-color: var(--cm-spellslot-minus);
+li.chat-message.scm-msg.scm-spellslot-minus {
+    background-color: var(--scm-spellslot-minus);
 }
 
 /* Spell Preparation */
-li.chat-message.cm-msg.cm-spellprep {
-    background-color: var(--cm-spellprep);
+li.chat-message.scm-msg.scm-spellprep {
+    background-color: var(--scm-spellprep);
 }
 
 /* Currency */
-li.chat-message.cm-msg.cm-currency-plus {
-    background-color: var(--cm-currency-plus);
+li.chat-message.scm-msg.scm-currency-plus {
+    background-color: var(--scm-currency-plus);
 }
 
-li.chat-message.cm-msg.cm-currency-minus {
-    background-color: var(--cm-currency-minus);
+li.chat-message.scm-msg.scm-currency-minus {
+    background-color: var(--scm-currency-minus);
 }
 
 /* AC & Proficiency & Ability */
-li.chat-message.cm-msg.cm-ac {
-    background-color: var(--cm-ac);
+li.chat-message.scm-msg.scm-ac {
+    background-color: var(--scm-ac);
 }
 
-li.chat-message.cm-msg.cm-ability {
-    background-color: var(--cm-ability);
+li.chat-message.scm-msg.scm-ability {
+    background-color: var(--scm-ability);
 }
 
-li.chat-message.cm-msg.cm-skill-prof {
-    background-color: var(--cm-skill-prof);
+li.chat-message.scm-msg.scm-skill-prof {
+    background-color: var(--scm-skill-prof);
 }
 
-li.chat-message.cm-msg.cm-save-prof {
-    background-color: var(--cm-save-prof);
+li.chat-message.scm-msg.scm-save-prof {
+    background-color: var(--scm-save-prof);
 }
 
-li.chat-message.cm-msg.cm-tool-prof {
-    background-color: var(--cm-tool-prof);
+li.chat-message.scm-msg.scm-tool-prof {
+    background-color: var(--scm-tool-prof);
 }
 
 /* Items */
-li.chat-message.cm-msg.cm-item-plus {
-    background-color: var(--cm-item-plus);
+li.chat-message.scm-msg.scm-item-plus {
+    background-color: var(--scm-item-plus);
 }
 
-li.chat-message.cm-msg.cm-item-minus {
-    background-color: var(--cm-item-minus);
+li.chat-message.scm-msg.scm-item-minus {
+    background-color: var(--scm-item-minus);
 }
 
-li.chat-message.cm-msg.cm-item-name-desc {
-    background-color: var(--cm-item-name-desc);
+li.chat-message.scm-msg.scm-item-name-desc {
+    background-color: var(--scm-item-name-desc);
 }
 
-li.chat-message.cm-msg.cm-item-equip {
-    background-color: var(--cm-item-equip);
+li.chat-message.scm-msg.scm-item-equip {
+    background-color: var(--scm-item-equip);
 }
 
-li.chat-message.cm-msg.cm-item-unequip {
-    background-color: var(--cm-item-unequip);
+li.chat-message.scm-msg.scm-item-unequip {
+    background-color: var(--scm-item-unequip);
 }
 
-li.chat-message.cm-msg.cm-item-attune {
-    background-color: var(--cm-item-attune);
+li.chat-message.scm-msg.scm-item-attune {
+    background-color: var(--scm-item-attune);
 }
 
-li.chat-message.cm-msg.cm-item-charges {
-    background-color: var(--cm-item-charges);
+li.chat-message.scm-msg.scm-item-charges {
+    background-color: var(--scm-item-charges);
 }
 
-li.chat-message.cm-msg.cm-item-identify {
-    background-color: var(--cm-item-identify);
+li.chat-message.scm-msg.scm-item-identify {
+    background-color: var(--scm-item-identify);
 }
 
 /* Effects */
-li.chat-message.cm-msg.cm-effect {
-    background-color: var(--cm-effect);
+li.chat-message.scm-msg.scm-effect {
+    background-color: var(--scm-effect);
+}
+li.chat-message.scm-msg.scm-effect-lose {
+    background-color: var(--scm-effect-lose);
 }
 
 /* Sheet Mode */
-li.chat-message.cm-msg.cm-sheet-mode {
-    background-color: var(--cm-sheet-mode);
+li.chat-message.scm-msg.scm-sheet-mode {
+    background-color: var(--scm-sheet-mode);
 }
 
 /* Inspiration */
-li.chat-message.cm-msg.cm-inspiration {
-    background-color: var(--cm-inspiration);
+li.chat-message.scm-msg.scm-inspiration {
+    background-color: var(--scm-inspiration);
 }

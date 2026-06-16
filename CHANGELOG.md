@@ -1,7 +1,11 @@
 # Changelog
 
-## 1.2.1 (2026-06-09)
+## 1.3.1 (2026-06-16)
 - Added Polish localization by [Delgar](https://github.com/delgar89)
+
+## 1.3.0 (2026-06-16)
+- Hit Dice Monitoring
+- Refactor code
 
 ## 1.2.0 (2026-04-04)
 - Optimization
