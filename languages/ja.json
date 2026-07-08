@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "無効",
+                "Owned": "プレイヤー管理下のみ",
+                "All": "すべて"
+            },
+            "VisibilityMode": {
+                "Disabled": "無効",
+                "GM": "GMのみ",
+                "Owner": "GMと所有者",
+                "All": "全員"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "NPC監視",
+                "Hint": "ノンプレイヤーキャラクター（NPC）の変更を追跡します。"
+            },
             "MonitorHP": {
                 "Name": "HPを監視",
                 "Hint": "キャラクターのヒットポイントの変化を監視します。"

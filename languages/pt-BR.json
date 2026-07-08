@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "Desativado",
+                "Owned": "Controlados por jogadores",
+                "All": "Todos"
+            },
+            "VisibilityMode": {
+                "Disabled": "Desativado",
+                "GM": "Apenas Mestre (GM)",
+                "Owner": "Mestre & Proprietário",
+                "All": "Todos"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "Monitoramento de NPCs",
+                "Hint": "Rastrear alterações feitas em Personagens Não-Jogadores (NPCs)."
+            },
             "MonitorHP": {
                 "Name": "Monitorar HP",
                 "Hint": "Acompanha alterações nos pontos de vida do personagem"

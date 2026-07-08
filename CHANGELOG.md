@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 (2026-07-08)
+
+- Rework settings
+- Added support for tracking NPC sheets.
+- NPC Filter mode (Disabled, Player-controlled, All)
+- Visibility Mode (Disabled, GM Only, GM & Token Owner, Everyone)
+- Refactored `BaseMonitor` and `Logger`
+
 ## 1.3.1 (2026-06-16)
 - Added Polish localization by [Delgar](https://github.com/delgar89)
 

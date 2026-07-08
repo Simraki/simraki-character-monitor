@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "비활성화",
+                "Owned": "플레이어 제어 대상",
+                "All": "전체"
+            },
+            "VisibilityMode": {
+                "Disabled": "비활성화",
+                "GM": "GM 전용",
+                "Owner": "GM 및 소유자",
+                "All": "모두에게"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "NPC 모니터링",
+                "Hint": "Non-Player Character(NPC)의 변경 사항을 추적합니다."
+            },
             "MonitorHP": {
                 "Name": "HP 추적",
                 "Hint": "캐릭터의 생명점 변화를 추적합니다"

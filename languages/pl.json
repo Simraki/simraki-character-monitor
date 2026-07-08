@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "Wyłączone",
+                "Owned": "Kontrolowane przez graczy",
+                "All": "Wszystkie"
+            },
+            "VisibilityMode": {
+                "Disabled": "Wyłączone",
+                "GM": "Tylko Mistrz Gry (MG)",
+                "Owner": "Mistrz Gry & Właściciel",
+                "All": "Wszyscy"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "Monitorowanie NPC",
+                "Hint": "Śledź zmiany wprowadzane w postaciach niezależnych (NPC)."
+            },
             "MonitorHP": {
                 "name": "Śledzenie PW",
                 "hint": "Śledzi zmiany Punktów Wytrzymałości postaci"

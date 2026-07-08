@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "Disabled",
+                "Owned": "Player-controlled",
+                "All": "All"
+            },
+            "VisibilityMode": {
+                "Disabled": "Disabled",
+                "GM": "GM Only",
+                "Owner": "GM & Token Owner",
+                "All": "Everyone"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "NPC Monitoring",
+                "Hint": "Track changes made to Non-Player Characters (NPCs)."
+            },
             "MonitorHP": {
                 "Name": "Monitor HP",
                 "Hint": "Tracks changes to a character's HP"

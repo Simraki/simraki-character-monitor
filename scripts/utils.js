@@ -1,4 +1,4 @@
-import { MAX_NAME_CHARS, MODULE_ID } from './config.js'
+import { MAX_NAME_CHARS, MODULE_ID, VISIBILITY_MODE } from './config.js'
 
 export function truncateName(name) {
     if (name.length > MAX_NAME_CHARS) {
@@ -43,6 +43,10 @@ export function _loc(key) {
     return game.i18n.localize(key)
 }
 
-export function getSetting(key, Type = Boolean) {
-    return Type(game.settings.get(MODULE_ID, key))
+export function getSetting(key) {
+    return game.settings.get(MODULE_ID, key)
+}
+
+export function isMonitorEnabled(key) {
+    return getSetting(key) !== VISIBILITY_MODE.DISABLED
 }

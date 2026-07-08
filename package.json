@@ -1,7 +1,7 @@
 {
     "name": "simraki-character-monitor",
-    "version": "1.3.1",
-    "description": "GM–only monitoring module for D&D5e.",
+    "version": "1.4.0",
+    "description": "Player and NPC sheet monitoring module for D&D5e.",
     "main": "scripts/main.js",
     "type": "module",
     "author": "Simraki",

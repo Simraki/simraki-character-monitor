@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "Выключено",
+                "Owned": "Подконтрольные игрокам",
+                "All": "Все"
+            },
+            "VisibilityMode": {
+                "Disabled": "Выключено",
+                "GM": "Только Мастеру",
+                "Owner": "Мастеру и владельцу",
+                "All": "Всем"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "Отслеживание NPC",
+                "Hint": "Отслеживать изменения NPC"
+            },
             "MonitorHP": {
                 "Name": "Отслеживать HP",
                 "Hint": "Отслеживает изменения HP персонажа"

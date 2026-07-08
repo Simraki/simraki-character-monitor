@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "已禁用",
+                "Owned": "玩家控制的",
+                "All": "所有"
+            },
+            "VisibilityMode": {
+                "Disabled": "已禁用",
+                "GM": "仅GM",
+                "Owner": "GM与所有者",
+                "All": "所有人"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "NPC 监视",
+                "Hint": "追踪非玩家角色（NPC）的变更信息。"
+            },
             "MonitorHP": {
                 "Name": "监控生命值",
                 "Hint": "追踪角色生命值的变化。"

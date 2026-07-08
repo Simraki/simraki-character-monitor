@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "Disattivato",
+                "Owned": "Controllati dai giocatori",
+                "All": "Tutti"
+            },
+            "VisibilityMode": {
+                "Disabled": "Disattivato",
+                "GM": "Solo al Game Master (GM)",
+                "Owner": "Al Game Master & Proprietario",
+                "All": "A tutti"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "Monitoraggio PNG",
+                "Hint": "Traccia le modifiche apportate ai Personaggi Non Giocanti (PNG)."
+            },
             "MonitorHP": {
                 "Name": "Traccia HP",
                 "Hint": "Traccia le modifiche dei punti ferita del personaggio"

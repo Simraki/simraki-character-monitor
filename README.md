@@ -9,12 +9,33 @@
 ![GitHub all releases downloads](https://img.shields.io/github/downloads/Simraki/simraki-character-monitor/total?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-**Simraki's Character Monitor** is a GM–only monitoring module for **D&D5e** (5.0+).
+**Simraki's Character Monitor** is an advanced sheet monitoring module for **D&D5e**.
 
-The module logs important changes made to player character sheets directly into the chat, allowing the GM to passively
-observe character progression, inventory management, and mechanical changes without interrupting gameplay.
+The module automatically logs critical changes made to character and NPC sheets directly into the chat, allowing the GM
+to passively observe progression, inventory management, and tactical updates. It features powerful privacy controls and
+filtering options to seamlessly integrate into any table's playstyle.
 
-Players never see these messages.
+---
+
+## Key Features
+
+### Advanced Log Visibility
+
+Every single monitored parameter can be independently configured with one of four visibility levels:
+
+- **Disabled**: No logs will be generated for this parameter.
+- **GM Only**: Messages are completely hidden from players and whispered directly to the Game Master (default).
+- **GM & Token Owner**: Logs are visible to the GM and the specific player(-s) who owns that character.
+- **Everyone**: Logs are posted to all players.
+
+### NPC Sheet Monitoring
+
+You can extend monitoring beyond standard Player Characters. The module includes an NPC Filter Mode to help
+track:
+
+- **Disabled**: Keeps tracking strictly limited to Player Character sheets.
+- **Player-Controlled**: Automatically tracks any NPC that belongs to at least one player (default).
+- **All**: Tracks every single NPC on the canvas (warning: may cause chat spam during heavy combat updates).
 
 ---
 
@@ -26,6 +47,7 @@ When changes are made through a character sheet, the following parameters can be
 - Maximum HP
 - Temporary HP
 - Temporary Maximum HP
+- Hit Dice
 - Armor Class (only if flat AC)
 - XP
 - Level

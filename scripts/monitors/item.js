@@ -1,6 +1,6 @@
 import { BaseMonitor } from './base.js'
 import { Logger } from '../logger.js'
-import { _loc, capitalize, getActorLink, getDeltaText, getSetting, truncateName, will } from '../utils.js'
+import { _loc, capitalize, getDeltaText, isMonitorEnabled, truncateName, will } from '../utils.js'
 import { classes, icons, MODULE_ID, SETTING, VALID_TYPES } from '../config.js'
 
 export class ItemMonitor extends BaseMonitor {
@@ -19,32 +19,32 @@ export class ItemMonitor extends BaseMonitor {
         const stash = {}
         const sys = item.system
 
-        if (getSetting(SETTING.MONITOR_ITEM_QUANTITY) && will(update, 'system.quantity')) {
+        if (isMonitorEnabled(SETTING.MONITOR_ITEM_QUANTITY) && will(update, 'system.quantity')) {
             stash.quantity = sys.quantity
         }
 
-        if (getSetting(SETTING.MONITOR_ITEM_EQUIP) && will(update, 'system.equipped')) {
+        if (isMonitorEnabled(SETTING.MONITOR_ITEM_EQUIP) && will(update, 'system.equipped')) {
             stash.equipped = sys.equipped
         }
 
-        if (getSetting(SETTING.MONITOR_ITEM_ATTUNE) && will(update, 'system.attuned')) {
+        if (isMonitorEnabled(SETTING.MONITOR_ITEM_ATTUNE) && will(update, 'system.attuned')) {
             stash.attuned = sys.attuned
         }
 
-        if (getSetting(SETTING.MONITOR_SPELL_PREP) && item.type === 'spell' && will(update, 'system.prepared')) {
+        if (isMonitorEnabled(SETTING.MONITOR_SPELL_PREP) && item.type === 'spell' && will(update, 'system.prepared')) {
             stash.prepared = Boolean(sys.prepared)
         }
 
-        if (getSetting(SETTING.MONITOR_ITEM_CHARGES) && sys.uses && will(update, 'system.uses')) {
+        if (isMonitorEnabled(SETTING.MONITOR_ITEM_CHARGES) && sys.uses && will(update, 'system.uses')) {
             stash.uses = foundry.utils.duplicate(sys.uses)
         }
 
-        if (getSetting(SETTING.MONITOR_ITEM_IDENTIFY) && will(update, 'system.identified')) {
+        if (isMonitorEnabled(SETTING.MONITOR_ITEM_IDENTIFY) && will(update, 'system.identified')) {
             stash.identified = sys.identified
             stash.identifiedName = item.name
         }
 
-        if (getSetting(SETTING.MONITOR_ITEM_NAME_DESC)) {
+        if (isMonitorEnabled(SETTING.MONITOR_ITEM_NAME_DESC)) {
             if (will(update, 'system.description.value')) {
                 stash.description = sys.description?.value ?? ''
             }
@@ -53,35 +53,41 @@ export class ItemMonitor extends BaseMonitor {
             }
         }
 
-        if (getSetting(SETTING.MONITOR_CURRENCY) && will(update, 'system.currency')) {
+        if (isMonitorEnabled(SETTING.MONITOR_CURRENCY) && will(update, 'system.currency')) {
             stash.currency = foundry.utils.duplicate(sys.currency)
         }
 
-        if (getSetting(SETTING.MONITOR_HIT_DICE) && item.type === 'class' && will(update, 'system.hd.spent')) {
+        if (isMonitorEnabled(SETTING.MONITOR_HIT_DICE) && item.type === 'class' && will(update, 'system.hd.spent')) {
             stash.hitDiceSpent = sys.hd.spent
         }
 
         return stash
     }
 
-    async processChanges(item, old) {
+    async processChanges(item, old, userId) {
         const logPromises = []
 
-        const actorLink = getActorLink(this._getEntityActor(item))
+        const actor = this._getEntityActor(item)
         const sys = item.system
         const itemName = truncateName(item.name)
+
+        const log = (text, cls, icon, settingKey) => {
+            logPromises.push(Logger.log(actor, text, cls, icon, settingKey))
+        }
+
+        const spoilerLog = (summaryText, detailsText, cls, icon, settingKey) => {
+            logPromises.push(Logger.spoilerLog(actor, itemName, summaryText, detailsText, cls, icon, settingKey))
+        }
 
         /* Quantity */
         if (old.quantity !== undefined && sys.quantity !== old.quantity) {
             const deltaText = getDeltaText(sys.quantity, old.quantity)
             const text = `${itemName}: ${deltaText}`
-            logPromises.push(
-                Logger.log(
-                    actorLink,
-                    text,
-                    sys.quantity > old.quantity ? classes.itemPlus : classes.itemMinus,
-                    icons.itemQty,
-                ),
+            log(
+                text,
+                sys.quantity > old.quantity ? classes.itemPlus : classes.itemMinus,
+                icons.itemQty,
+                SETTING.MONITOR_ITEM_QUANTITY,
             )
         }
 
@@ -91,8 +97,11 @@ export class ItemMonitor extends BaseMonitor {
                 sys.equipped ? `${MODULE_ID}.ChatMessage.Equipped` : `${MODULE_ID}.ChatMessage.Unequipped`,
             )
             const text = `${preText} ${itemName}`
-            logPromises.push(
-                Logger.log(actorLink, text, sys.equipped ? classes.itemEquip : classes.itemUnequip, icons.itemEquip),
+            log(
+                text,
+                sys.equipped ? classes.itemEquip : classes.itemUnequip,
+                icons.itemEquip,
+                SETTING.MONITOR_ITEM_EQUIP,
             )
         }
 
@@ -102,7 +111,7 @@ export class ItemMonitor extends BaseMonitor {
                 sys.attuned ? `${MODULE_ID}.ChatMessage.AttunesTo` : `${MODULE_ID}.ChatMessage.BreaksAttune`,
             )
             const text = `${preText} ${itemName}`
-            logPromises.push(Logger.log(actorLink, text, classes.itemAttune, icons.itemAttune))
+            log(text, classes.itemAttune, icons.itemAttune, SETTING.MONITOR_ITEM_ATTUNE)
         }
 
         /* Spell Prepared */
@@ -112,7 +121,7 @@ export class ItemMonitor extends BaseMonitor {
             )
             const lvlText = sys.level === undefined ? '' : ` (${_loc(`DND5E.SPELLCASTING.SLOTS.spell${sys.level}`)})`
             const text = `${preText} ${itemName}${lvlText}`
-            logPromises.push(Logger.log(actorLink, text, classes.spellPrep, icons.spellPrep))
+            log(text, classes.spellPrep, icons.spellPrep, SETTING.MONITOR_SPELL_PREP)
         }
 
         /* Uses / Charges */
@@ -123,14 +132,14 @@ export class ItemMonitor extends BaseMonitor {
                 const usesText = capitalize(_loc('DND5E.CONSUMPTION.Type.Use.other'))
                 const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
                 const text = `${itemName}: ${usesText}: ${deltaText}`
-                logPromises.push(Logger.log(actorLink, text, classes.itemCharges, icons.itemCharges))
+                log(text, classes.itemCharges, icons.itemCharges, SETTING.MONITOR_ITEM_CHARGES)
             }
         }
 
         /* Rename */
         if (old.name && item.name !== old.name) {
             const text = `${old.name} → ${item.name}`
-            logPromises.push(Logger.log(actorLink, text, classes.itemNameDesc, icons.itemNameDesc))
+            Logger.log(text, classes.itemNameDesc, icons.itemNameDesc, SETTING.MONITOR_ITEM_NAME_DESC)
         }
 
         /* Identify */
@@ -140,7 +149,7 @@ export class ItemMonitor extends BaseMonitor {
             )
             const prevName = truncateName(old.identifiedName)
             const text = `${preText} ${prevName} → ${itemName}`
-            logPromises.push(Logger.log(actorLink, text, classes.itemIdentify, icons.itemIdentify))
+            log(text, classes.itemIdentify, icons.itemIdentify, SETTING.MONITOR_ITEM_IDENTIFY)
         }
 
         /* Description */
@@ -156,15 +165,13 @@ export class ItemMonitor extends BaseMonitor {
                           ${curr || '<em>—</em>'}
                         `
 
-                logPromises.push(
-                    Logger.spoilerLog(
-                        actorLink,
-                        itemName,
-                        _loc(`${MODULE_ID}.ChatMessage.DescriptionChanged`),
-                        text,
-                        classes.itemNameDesc,
-                        icons.itemNameDesc,
-                    ),
+                spoilerLog(
+                    itemName,
+                    _loc(`${MODULE_ID}.ChatMessage.DescriptionChanged`),
+                    text,
+                    classes.itemNameDesc,
+                    icons.itemNameDesc,
+                    SETTING.MONITOR_ITEM_NAME_DESC,
                 )
             }
         }
@@ -183,8 +190,11 @@ export class ItemMonitor extends BaseMonitor {
                 const deltaText = getDeltaText(n, p)
                 const text = `${itemName}: ${label}: ${deltaText}`
 
-                logPromises.push(
-                    Logger.log(actorLink, text, n > p ? classes.currencyPlus : classes.currencyMinus, icons.currency),
+                log(
+                    text,
+                    n > p ? classes.currencyPlus : classes.currencyMinus,
+                    icons.currency,
+                    SETTING.MONITOR_CURRENCY,
                 )
             }
         }
@@ -202,17 +212,16 @@ export class ItemMonitor extends BaseMonitor {
                 const hdText = _loc('DND5E.HITDICE.Abbreviation')
 
                 const text = `${itemName} (${hdText} ${sys.hd.denomination}): ${deltaText}`
-                logPromises.push(Logger.log(actorLink, text, classes.hitDice, icons.hitDice))
+                log(text, classes.hitDice, icons.hitDice, SETTING.MONITOR_HIT_DICE)
             }
         }
 
         await Promise.all(logPromises)
     }
 
-    async _trackItemQuantity(item, actor, isCreation) {
-        if (!getSetting(SETTING.MONITOR_ITEM_QUANTITY)) return
+    async _trackItemQuantity(item, actor, userId, isCreation) {
+        if (!isMonitorEnabled(SETTING.MONITOR_ITEM_QUANTITY)) return
 
-        const link = getActorLink(actor)
         const qty = item.system.quantity ?? 1
 
         const typeText = VALID_TYPES.includes(item.type) ? ` (${_loc(`TYPES.Item.${item.type}`)})` : ''
@@ -222,14 +231,20 @@ export class ItemMonitor extends BaseMonitor {
 
         const text = `${actionText} ${truncateName(item.name)} x${qty}${typeText}`
 
-        await Logger.log(link, text, isCreation ? classes.itemPlus : classes.itemMinus, icons.itemQty)
+        await Logger.log(
+            actor,
+            text,
+            isCreation ? classes.itemPlus : classes.itemMinus,
+            icons.itemQty,
+            SETTING.MONITOR_ITEM_QUANTITY,
+        )
     }
 
-    async onCreateEntity(item, actor) {
-        return this._trackItemQuantity(item, actor, true)
+    async onCreateEntity(item, actor, userId) {
+        return this._trackItemQuantity(item, actor, userId, true)
     }
 
-    async onDeleteEntity(item, actor) {
-        return this._trackItemQuantity(item, actor, false)
+    async onDeleteEntity(item, actor, userId) {
+        return this._trackItemQuantity(item, actor, userId, false)
     }
 }

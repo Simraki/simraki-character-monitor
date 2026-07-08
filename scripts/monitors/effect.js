@@ -1,6 +1,6 @@
 import { BaseMonitor } from './base.js'
 import { Logger } from '../logger.js'
-import { _loc, getActorLink, getSetting } from '../utils.js'
+import { _loc, isMonitorEnabled } from '../utils.js'
 import { classes, icons, MODULE_ID, SETTING } from '../config.js'
 
 export class EffectMonitor extends BaseMonitor {
@@ -13,7 +13,7 @@ export class EffectMonitor extends BaseMonitor {
 
     extractStash(effect, update) {
         const stash = {}
-        if (!getSetting(SETTING.MONITOR_EFFECTS)) return stash
+        if (!isMonitorEnabled(SETTING.MONITOR_EFFECTS)) return stash
 
         if ('disabled' in update) {
             stash.disabled = effect.disabled ?? false
@@ -21,8 +21,8 @@ export class EffectMonitor extends BaseMonitor {
         return stash
     }
 
-    async processChanges(effect, old) {
-        const actorLink = getActorLink(this._getEntityActor(effect))
+    async processChanges(effect, old, userId) {
+        const actor = this._getEntityActor(effect)
         const effectName = effect.name
 
         if (old.disabled !== undefined && effect.disabled !== old.disabled) {
@@ -30,41 +30,44 @@ export class EffectMonitor extends BaseMonitor {
             const actionText = _loc(enabled ? `${MODULE_ID}.ChatMessage.Enabled` : `${MODULE_ID}.ChatMessage.Disabled`)
             const text = `${actionText} ${effectName}`
             await Logger.spoilerLog(
-                actorLink,
+                actor,
                 text,
                 _loc(`${MODULE_ID}.ChatMessage.Description`),
                 effect.description,
                 enabled ? classes.effect : classes.effectLose,
                 icons.effect,
+                SETTING.MONITOR_EFFECTS,
             )
         }
     }
 
-    async onCreateEntity(effect, actor) {
-        if (!getSetting(SETTING.MONITOR_EFFECTS)) return
+    async onCreateEntity(effect, actor, userId) {
+        if (!isMonitorEnabled(SETTING.MONITOR_EFFECTS)) return
 
         const text = `${_loc(`${MODULE_ID}.ChatMessage.Added`)} ${effect.name}`
         await Logger.spoilerLog(
-            getActorLink(actor),
+            actor,
             text,
             _loc(`${MODULE_ID}.ChatMessage.Description`),
             effect.description,
             classes.effect,
             icons.effect,
+            SETTING.MONITOR_EFFECTS,
         )
     }
 
-    async onDeleteEntity(effect, actor) {
-        if (!getSetting(SETTING.MONITOR_EFFECTS)) return
+    async onDeleteEntity(effect, actor, userId) {
+        if (!isMonitorEnabled(SETTING.MONITOR_EFFECTS)) return
 
         const text = `${_loc(`${MODULE_ID}.ChatMessage.Deleted`)} ${effect.name}`
         await Logger.spoilerLog(
-            getActorLink(actor),
+            actor,
             text,
             _loc(`${MODULE_ID}.ChatMessage.Description`),
             effect.description,
             classes.effectLose,
             icons.effect,
+            SETTING.MONITOR_EFFECTS,
         )
     }
 }

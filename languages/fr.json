@@ -1,6 +1,23 @@
 {
     "simraki-character-monitor": {
+        "SettingChoices": {
+            "NpcMonitorMode": {
+                "Disabled": "Désactivé",
+                "Owned": "Contrôlés par les joueurs",
+                "All": "Tous"
+            },
+            "VisibilityMode": {
+                "Disabled": "Désactivé",
+                "GM": "Maître de Jeu (MJ) uniquement",
+                "Owner": "Maître de Jeu & Propriétaire",
+                "All": "Tout le monde"
+            }
+        },
         "Settings": {
+            "NpcMonitorMode": {
+                "Name": "Surveillance des PNJ",
+                "Hint": "Suivre les modifications apportées aux Personnages Non-Joueurs (PNJ)."
+            },
             "MonitorHP": {
                 "Name": "Surveiller les PV",
                 "Hint": "Surveille les changements de points de vie du personnage"

@@ -34,11 +34,25 @@ export const SETTING = {
 
     // Effect
     MONITOR_EFFECTS: 'monitorEffects',
+
+    // Mode
+    NPC_MONITOR_MODE: 'npcMonitorMode',
+}
+
+export const NPC_MONITOR_MODE = {
+    DISABLED: 'DISABLED',
+    OWNED: 'OWNED',
+    ALL: 'ALL',
+}
+
+export const VISIBILITY_MODE = {
+    DISABLED: 'DISABLED',
+    GM: 'GM',
+    OWNER: 'OWNER',
+    ALL: 'ALL',
 }
 
 export const icons = {
-    def: '<i class="fas fa-list"></i>',
-
     // Health
     hp: '<i class="fas fa-heart"></i>',
     tempHp: '<i class="fas fa-shield-heart"></i>',
