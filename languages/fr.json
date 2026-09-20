@@ -18,6 +18,10 @@
                 "Name": "Surveillance des PNJ",
                 "Hint": "Suivre les modifications apportées aux Personnages Non-Joueurs (PNJ)."
             },
+            "PartyMonitor": {
+                "Name": "Suivi de la fiche de groupe",
+                "Hint": "Suivre les modifications de la fiche de groupe : composition, devises et inventaire partagé"
+            },
             "MonitorHP": {
                 "Name": "Surveiller les PV",
                 "Hint": "Surveille les changements de points de vie du personnage"
@@ -26,7 +30,6 @@
                 "Name": "Suivre les dés de vie",
                 "Hint": "Suit les modifications apportées aux dés de vie du personnage"
             },
-
             "MonitorXP": {
                 "Name": "Surveiller l'expérience",
                 "Hint": "Surveille les changements de points d'expérience"
@@ -67,6 +70,10 @@
                 "Name": "Surveiller la monnaie",
                 "Hint": "Surveille les changements de la monnaie du personnage"
             },
+            "MonitorPartyMembers": {
+                "Name": "Suivre les membres du groupe",
+                "Hint": "Suit l'ajout et la suppression de membres du groupe"
+            },
             "MonitorEffects": {
                 "Name": "Surveiller les effets actifs",
                 "Hint": "Surveille les changements des effets actifs"
@@ -106,6 +113,14 @@
             "MonitorDeathSave": {
                 "Name": "Surveiller les jets de sauvegarde de mort",
                 "Hint": "Surveille les changements des jets de sauvegarde de mort"
+            },
+            "ShowChangedBy": {
+                "Name": "Afficher l'auteur de la modification",
+                "Hint": "Ajoute à chaque message le nom du joueur (ou MJ) ayant effectué la modification"
+            },
+            "MonitorItemContainer": {
+                "Name": "Suivre le mouvement dans les conteneurs",
+                "Hint": "Suit le déplacement d'un objet vers un conteneur, hors d'un conteneur ou entre conteneurs"
             }
         },
         "ChatMessage": {
@@ -131,7 +146,11 @@
             "Identified": "identifié",
             "Unidentified": "non identifié",
             "Old": "Ancien",
-            "New": "Nouveau"
+            "New": "Nouveau",
+            "MemberAdded": "ajoute un membre",
+            "MemberRemoved": "retire un membre",
+            "ChangedBy": "Modifié par : {name}",
+            "Inventory": "Inventaire"
         }
     }
 }

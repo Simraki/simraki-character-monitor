@@ -1,10 +1,14 @@
-import { DEBOUNCE_MS, MODULE_ID, NPC_MONITOR_MODE, SETTING } from '../config.js'
-import { getSetting } from '../utils.js'
+import { DEBOUNCE_MS, MODULE_ID } from '../config.js'
+import { isMonitoredActor } from '../utils.js'
+
+const PRE_STASH_TTL_MS = 5000
 
 export class BaseMonitor {
     constructor() {
         this._queue = new Map()
         this.debounceMs = DEBOUNCE_MS
+
+        this._preStash = new Map()
 
         this.init()
     }
@@ -24,20 +28,24 @@ export class BaseMonitor {
     }
 
     _isValidActorType(actor) {
-        if (!actor) return false
+        return isMonitoredActor(actor)
+    }
 
-        if (actor.type === 'character') return true
+    async _safe(label, fn) {
+        try {
+            await fn()
+        } catch (err) {
+            console.error(`${MODULE_ID} | ${this.constructor.name}: ${label} failed`, err)
+        }
+    }
 
-        if (actor.type === 'npc') {
-            const filterMode = getSetting(SETTING.NPC_MONITOR_MODE)
-            if (filterMode === NPC_MONITOR_MODE.DISABLED) return false
-            if (filterMode === NPC_MONITOR_MODE.ALL) return true
-            if (filterMode === NPC_MONITOR_MODE.OWNED) {
-                return actor.hasPlayerOwner
+    async _settleAll(promises) {
+        const results = await Promise.allSettled(promises)
+        for (const result of results) {
+            if (result.status === 'rejected') {
+                console.error(`${MODULE_ID} | ${this.constructor.name}: failed to write a log message`, result.reason)
             }
         }
-
-        return false
     }
 
     init() {}
@@ -46,75 +54,104 @@ export class BaseMonitor {
         return true
     }
 
-    extractStash(entity, update) {
+    extractStash(entity, update, options) {
         return {}
     }
     processChanges(entity, oldValues, userId) {
         return Promise.resolve()
     }
 
-    async _onPreUpdate(entity, update, options, userId) {
-        const actor = this._getEntityActor(entity)
-        if (!this._isValidActorType(actor)) return
-        if (!this.isRelevantEntity(entity, update, options)) return
-
-        if (!(MODULE_ID in options)) options[MODULE_ID] = {}
-        if (!(entity.id in options)) options[MODULE_ID][entity.id] = {}
-
-        const stash = this.extractStash(entity, update)
-        options[MODULE_ID][entity.id] = {
-            ...options[MODULE_ID][entity.id],
-            ...stash,
-        }
+    _hasRelevantKeys(update) {
+        return 'system' in update || 'name' in update
     }
 
-    async _onUpdate(entity, update, options, userId) {
-        if (userId !== game.user.id) return
+    _stashOldValues(uuid, stash) {
+        const existing = this._preStash.get(uuid)
+        if (existing?.timer) clearTimeout(existing.timer)
 
-        const stash = options?.[MODULE_ID]?.[entity.id]
-        if (!stash || Object.keys(stash).length === 0) return
+        const data = { ...existing?.data, ...stash }
+        const timer = setTimeout(() => this._preStash.delete(uuid), PRE_STASH_TTL_MS)
+        this._preStash.set(uuid, { data, timer })
+    }
 
-        const actor = this._getEntityActor(entity)
-        if (!this._isValidActorType(actor)) return
+    _takeOldValues(uuid) {
+        const entry = this._preStash.get(uuid)
+        if (!entry) return null
+        clearTimeout(entry.timer)
+        this._preStash.delete(uuid)
+        return entry.data
+    }
 
-        const uuid = this._getEntityUUID(entity)
-        const pending = this._queue.get(uuid) ?? { old: {}, timer: null, userId }
+    _onPreUpdate(entity, update, options, userId) {
+        return this._safe('preUpdate', async () => {
+            if (userId !== game.user.id) return
+            if (!this._hasRelevantKeys(update)) return
 
-        if (pending.timer) clearTimeout(pending.timer)
+            const actor = this._getEntityActor(entity)
+            if (!this._isValidActorType(actor)) return
+            if (!this.isRelevantEntity(entity, update, options)) return
 
-        for (const k in stash) {
-            if (pending.old[k] === undefined) pending.old[k] = stash[k]
-        }
+            const stash = this.extractStash(entity, update, options)
+            if (!stash || Object.keys(stash).length === 0) return
 
-        pending.timer = setTimeout(() => {
-            this.processChanges(entity, pending.old, pending.userId)
+            this._stashOldValues(this._getEntityUUID(entity), stash)
+        })
+    }
+
+    _onUpdate(entity, update, options, userId) {
+        return this._safe('update', async () => {
+            if (userId !== game.user.id) return
+
+            const uuid = this._getEntityUUID(entity)
+            const stash = this._takeOldValues(uuid)
+            if (!stash) return
+
+            const actor = this._getEntityActor(entity)
+            if (!this._isValidActorType(actor)) return
+
+            const pending = this._queue.get(uuid) ?? { old: {}, timer: null, userId }
+
+            if (pending.timer) clearTimeout(pending.timer)
+
+            for (const k in stash) {
+                if (pending.old[k] === undefined) pending.old[k] = stash[k]
+            }
+
+            pending.timer = setTimeout(() => {
+                this._queue.delete(uuid)
+                this._safe(`processChanges (${uuid})`, () => this.processChanges(entity, pending.old, pending.userId))
+            }, this.debounceMs)
+
+            this._queue.set(uuid, pending)
+        })
+    }
+
+    _onCreate(entity, options, userId) {
+        return this._safe('create', async () => {
+            if (userId !== game.user.id) return
+
+            const actor = this._getEntityActor(entity)
+            if (!this._isValidActorType(actor)) return
+
+            await this.onCreateEntity(entity, actor, userId)
+        })
+    }
+
+    _onDelete(entity, options, userId) {
+        return this._safe('delete', async () => {
+            if (userId !== game.user.id) return
+
+            const uuid = this._getEntityUUID(entity)
+            const pending = this._queue.get(uuid)
+            if (pending?.timer) clearTimeout(pending.timer)
             this._queue.delete(uuid)
-        }, this.debounceMs)
+            this._takeOldValues(uuid)
 
-        this._queue.set(uuid, pending)
-    }
+            const actor = this._getEntityActor(entity)
+            if (!this._isValidActorType(actor)) return
 
-    async _onCreate(entity, options, userId) {
-        if (userId !== game.user.id) return
-
-        const actor = this._getEntityActor(entity)
-        if (!this._isValidActorType(actor)) return
-
-        await this.onCreateEntity(entity, actor, userId)
-    }
-
-    async _onDelete(entity, options, userId) {
-        if (userId !== game.user.id) return
-
-        const uuid = this._getEntityUUID(entity)
-        const pending = this._queue.get(uuid)
-        if (pending?.timer) clearTimeout(pending.timer)
-        this._queue.delete(uuid)
-
-        const actor = this._getEntityActor(entity)
-        if (!this._isValidActorType(actor)) return
-
-        await this.onDeleteEntity(entity, actor, userId)
+            await this.onDeleteEntity(entity, actor, userId)
+        })
     }
 
     async onCreateEntity(entity, actor, userId) {}

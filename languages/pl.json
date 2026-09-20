@@ -18,89 +18,109 @@
                 "Name": "Monitorowanie NPC",
                 "Hint": "Śledź zmiany wprowadzane w postaciach niezależnych (NPC)."
             },
+            "PartyMonitor": {
+                "Name": "Monitorowanie arkusza drużyny",
+                "Hint": "Monitoruj zmiany w arkuszu drużyny: członkowie, waluta i wspólny ekwipunek"
+            },
             "MonitorHP": {
-                "name": "Śledzenie PW",
-                "hint": "Śledzi zmiany Punktów Wytrzymałości postaci"
+                "Name": "Śledzenie PW",
+                "Hint": "Śledzi zmiany Punktów Wytrzymałości postaci"
+            },
+            "MonitorHitDice": {
+                "Name": "Monitoruj kości wytrzymałości",
+                "Hint": "Śledzi zmiany kości wytrzymałości postaci"
             },
             "MonitorXP": {
-                "name": "Śledzenie punktów doświadczenia",
-                "hint": "Śledzi zmiany punktów doświadczenia na karcie postaci"
+                "Name": "Śledzenie punktów doświadczenia",
+                "Hint": "Śledzi zmiany punktów doświadczenia na karcie postaci"
             },
             "MonitorLevel": {
-                "name": "Śledzenie poziomu",
-                "hint": "Śledzi zmiany poziomu na karcie postaci"
+                "Name": "Śledzenie poziomu",
+                "Hint": "Śledzi zmiany poziomu na karcie postaci"
             },
             "MonitorSpellPrep": {
-                "name": "Śledzenie przygotowania czarów",
-                "hint": "Śledzi, kiedy postać przygotowuje lub przestaje przygotowywać czar"
+                "Name": "Śledzenie przygotowania czarów",
+                "Hint": "Śledzi, kiedy postać przygotowuje lub przestaje przygotowywać czar"
             },
             "MonitorSpellSlots": {
-                "name": "Śledzenie Komórek Czarów",
-                "hint": "Śledzi zmiany liczby Komórek Czarów na karcie postaci"
+                "Name": "Śledzenie Komórek Czarów",
+                "Hint": "Śledzi zmiany liczby Komórek Czarów na karcie postaci"
             },
             "MonitorAC": {
-                "name": "Śledzenie Klasy Pancerza (KP)",
-                "hint": "Śledzi zmiany Klasy Pancerza (KP) postaci"
+                "Name": "Śledzenie Klasy Pancerza (KP)",
+                "Hint": "Śledzi zmiany Klasy Pancerza (KP) postaci"
             },
             "MonitorAbility": {
-                "name": "Śledzenie cech",
-                "hint": "Śledzi zmiany wartości cech postaci"
+                "Name": "Śledzenie cech",
+                "Hint": "Śledzi zmiany wartości cech postaci"
             },
             "MonitorSkillProficiency": {
-                "name": "Śledzenie biegłości w umiejętnościach",
-                "hint": "Śledzi zmiany biegłości postaci w umiejętnościach"
+                "Name": "Śledzenie biegłości w umiejętnościach",
+                "Hint": "Śledzi zmiany biegłości postaci w umiejętnościach"
             },
             "MonitorSaveProficiency": {
-                "name": "Śledzenie biegłości w rzutach obronnych",
-                "hint": "Śledzi zmiany biegłości postaci w rzutach obronnych"
+                "Name": "Śledzenie biegłości w rzutach obronnych",
+                "Hint": "Śledzi zmiany biegłości postaci w rzutach obronnych"
             },
             "MonitorToolProficiency": {
-                "name": "Śledzenie biegłości w narzędziach",
-                "hint": "Śledzi zmiany biegłości postaci w narzędziach"
+                "Name": "Śledzenie biegłości w narzędziach",
+                "Hint": "Śledzi zmiany biegłości postaci w narzędziach"
             },
             "MonitorCurrency": {
-                "name": "Śledzenie waluty",
-                "hint": "Śledzi zmiany waluty na karcie postaci"
+                "Name": "Śledzenie waluty",
+                "Hint": "Śledzi zmiany waluty na karcie postaci"
+            },
+            "MonitorPartyMembers": {
+                "Name": "Monitoruj członków drużyny",
+                "Hint": "Monitoruje dodawanie i usuwanie członków drużyny"
             },
             "MonitorEffects": {
-                "name": "Śledzenie Aktywnych Efektów",
-                "hint": "Śledzi zmiany Aktywnych Efektów na karcie postaci"
+                "Name": "Śledzenie Aktywnych Efektów",
+                "Hint": "Śledzi zmiany Aktywnych Efektów na karcie postaci"
             },
             "MonitorItemQuantity": {
-                "name": "Śledzenie ilości przedmiotów",
-                "hint": "Śledzi zmiany ilości przedmiotów posiadanych przez postać"
+                "Name": "Śledzenie ilości przedmiotów",
+                "Hint": "Śledzi zmiany ilości przedmiotów posiadanych przez postać"
             },
             "MonitorItemNameDesc": {
-                "name": "Śledzenie nazw i opisów przedmiotów",
-                "hint": "Śledzi zmiany nazw i opisów przedmiotów na karcie postaci"
+                "Name": "Śledzenie nazw i opisów przedmiotów",
+                "Hint": "Śledzi zmiany nazw i opisów przedmiotów na karcie postaci"
             },
             "MonitorItemEquip": {
-                "name": "Śledzenie ekwipunku",
-                "hint": "Śledzi, kiedy postać wyposaża lub przestaje używać przedmiotu"
+                "Name": "Śledzenie ekwipunku",
+                "Hint": "Śledzi, kiedy postać wyposaża lub przestaje używać przedmiotu"
             },
             "MonitorItemAttune": {
-                "name": "Śledzenie zestrojenia",
-                "hint": "Śledzi, kiedy postać zestraja się z przedmiotem lub traci zestrojenie"
+                "Name": "Śledzenie zestrojenia",
+                "Hint": "Śledzi, kiedy postać zestraja się z przedmiotem lub traci zestrojenie"
             },
             "MonitorItemIdentify": {
-                "name": "Śledzenie identyfikacji przedmiotów",
-                "hint": "Śledzi zmiany statusu zidentyfikowany/niezidentyfikowany przedmiotu"
+                "Name": "Śledzenie identyfikacji przedmiotów",
+                "Hint": "Śledzi zmiany statusu zidentyfikowany/niezidentyfikowany przedmiotu"
             },
             "MonitorItemCharges": {
-                "name": "Śledzenie ładunków przedmiotów",
-                "hint": "Śledzi zmiany liczby ładunków przedmiotów na karcie postaci"
+                "Name": "Śledzenie ładunków przedmiotów",
+                "Hint": "Śledzi zmiany liczby ładunków przedmiotów na karcie postaci"
             },
             "MonitorSheetMode": {
-                "name": "Śledzenie trybu karty",
-                "hint": "Śledzi przełączanie karty postaci między trybem gry a trybem edycji"
+                "Name": "Śledzenie trybu karty",
+                "Hint": "Śledzi przełączanie karty postaci między trybem gry a trybem edycji"
             },
             "MonitorInspiration": {
-                "name": "Śledzenie Inspiracji",
-                "hint": "Śledzi zmiany Inspiracji na karcie postaci"
+                "Name": "Śledzenie Inspiracji",
+                "Hint": "Śledzi zmiany Inspiracji na karcie postaci"
             },
             "MonitorDeathSave": {
-                "name": "Śledzenie rzutów przeciw śmierci",
-                "hint": "Śledzi zmiany wyników rzutów przeciw śmierci na karcie postaci"
+                "Name": "Śledzenie rzutów przeciw śmierci",
+                "Hint": "Śledzi zmiany wyników rzutów przeciw śmierci na karcie postaci"
+            },
+            "ShowChangedBy": {
+                "Name": "Pokaż, kto zmienił",
+                "Hint": "Dodaje do każdej wiadomości nazwę gracza (lub MP), który dokonał zmiany"
+            },
+            "MonitorItemContainer": {
+                "Name": "Monitoruj ruch przedmiotów w pojemnikach",
+                "Hint": "Monitoruje przenoszenie przedmiotu do pojemnika, z pojemnika lub między pojemnikami"
             }
         },
         "ChatMessage": {
@@ -126,7 +146,11 @@
             "Identified": "zidentyfikowano",
             "Unidentified": "niezidentyfikowano",
             "Old": "Poprzednie",
-            "New": "Nowe"
+            "New": "Nowe",
+            "MemberAdded": "dodaje członka",
+            "MemberRemoved": "usuwa członka",
+            "ChangedBy": "Zmieniono przez: {name}",
+            "Inventory": "Ekwipunek"
         }
     }
 }

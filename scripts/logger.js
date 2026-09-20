@@ -1,56 +1,30 @@
-import { MODULE_ID, VISIBILITY_MODE } from './config.js'
+import { SCM_CHANGED_BY_HTML_TAG, VISIBILITY_MODE } from './config.js'
 import { SocketHandler } from './socket.js'
-import { getActorLink, getSetting } from './utils.js'
+import { escapeHtml, getActorLink, getSetting } from './utils.js'
 
 export class Logger {
-    static async _log(template, cls, settingKey, actor) {
-        const mode = getSetting(settingKey)
-        if (mode === VISIBILITY_MODE.DISABLED) return
-
-        const gmIds = game.users.filter((u) => u.isGM).map((u) => u.id)
-
-        const whisper = new Set(gmIds)
-
-        if (mode === VISIBILITY_MODE.OWNER && actor && actor.ownership) {
-            const defaultOwnership = actor.ownership.default
-
-            if (defaultOwnership === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) {
-                game.users.filter((u) => !u.isGM).forEach((u) => whisper.add(u.id))
-            } else {
-                Object.entries(actor.ownership).forEach(([userId, level]) => {
-                    if (userId === 'default' || level !== CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) return
-                    const user = game.users.get(userId)
-                    if (user && !user.isGM) {
-                        whisper.add(userId)
-                    }
-                })
-            }
-        }
-
-        if (mode === VISIBILITY_MODE.ALL) {
-            whisper.clear()
-        }
-
-        const flags = { [MODULE_ID]: { cls } }
-        await SocketHandler.executeAsGM('createMonitorMessage', flags, template, Array.from(whisper))
-    }
-
     static async log(actor, text, cls, icon, settingKey) {
-        const actorLink = getActorLink(actor)
-        const template = `<div class="scm-line">${icon} ${actorLink} ${text}</div>`
-        await Logger._log(template, cls, settingKey, actor)
+        if (!actor) return
+        await Logger.#log(actor, settingKey, cls, icon, escapeHtml(text))
     }
 
     static async spoilerLog(actor, text, summaryText, detailsText, cls, icon, settingKey) {
-        const actorLink = getActorLink(actor)
+        if (!actor) return
 
-        let template = `<div>`
-        template += `<div class="scm-line">${icon} ${actorLink} ${text}</div>`
+        let body = escapeHtml(text)
         if (detailsText) {
-            template += `<details class="scm-spoiler"><summary>${summaryText}</summary><div class="spoiler-content">${detailsText}</div></details>`
+            body += `<details class="scm-spoiler"><summary>${escapeHtml(summaryText)}</summary><div class="spoiler-content">${detailsText}</div></details>`
         }
-        template += `</div>`
+        await Logger.#log(actor, settingKey, cls, icon, body)
+    }
 
-        await Logger._log(template, cls, settingKey, actor)
+    static async #log(actor, settingKey, cls, icon, bodyHtml) {
+        if (getSetting(settingKey) === VISIBILITY_MODE.DISABLED) return
+
+        const content =
+            `<div class="scm-header">${getActorLink(actor)}${SCM_CHANGED_BY_HTML_TAG}</div>` +
+            `<div class="scm-body"><span class="scm-icon">${icon}</span><span class="scm-content">${bodyHtml}</span></div>`
+
+        await SocketHandler.sendMessage({ actorUuid: actor.uuid, settingKey, content, cls: cls ?? undefined })
     }
 }

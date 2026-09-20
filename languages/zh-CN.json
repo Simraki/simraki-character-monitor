@@ -18,6 +18,10 @@
                 "Name": "NPC 监视",
                 "Hint": "追踪非玩家角色（NPC）的变更信息。"
             },
+            "PartyMonitor": {
+                "Name": "队伍图纸监视",
+                "Hint": "监视队伍图纸的更改：成员、货币和共享背包"
+            },
             "MonitorHP": {
                 "Name": "监控生命值",
                 "Hint": "追踪角色生命值的变化。"
@@ -26,7 +30,6 @@
                 "Name": "追踪生命骰",
                 "Hint": "追踪角色生命骰的变化"
             },
-
             "MonitorXP": {
                 "Name": "监控经验值",
                 "Hint": "追踪角色经验值的变化。"
@@ -67,6 +70,10 @@
                 "Name": "监控货币",
                 "Hint": "追踪角色货币的变化。"
             },
+            "MonitorPartyMembers": {
+                "Name": "监视队伍成员",
+                "Hint": "监视队伍成员的加入和移除"
+            },
             "MonitorEffects": {
                 "Name": "监控活跃效果",
                 "Hint": "追踪角色活跃效果的变化。"
@@ -106,6 +113,14 @@
             "MonitorDeathSave": {
                 "Name": "监控死亡豁免",
                 "Hint": "追踪角色死亡豁免结果的变化。"
+            },
+            "ShowChangedBy": {
+                "Name": "显示修改人员",
+                "Hint": "在每条消息中添加进行修改的玩家（或 GM）的名称"
+            },
+            "MonitorItemContainer": {
+                "Name": "监视容器物品移动",
+                "Hint": "监视物品移入容器、移出容器或在容器之间的移动"
             }
         },
         "ChatMessage": {
@@ -131,7 +146,11 @@
             "Identified": "已识别",
             "Unidentified": "未识别",
             "Old": "之前",
-            "New": "现在"
+            "New": "现在",
+            "MemberAdded": "添加了成员",
+            "MemberRemoved": "移除了成员",
+            "ChangedBy": "修改者: {name}",
+            "Inventory": "背包"
         }
     }
 }

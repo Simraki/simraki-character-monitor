@@ -1,6 +1,6 @@
 import { BaseMonitor } from './base.js'
 import { Logger } from '../logger.js'
-import { _loc, capitalize, getDeltaText, isMonitorEnabled, truncateName, will } from '../utils.js'
+import { _loc, capitalize, getDeltaText, isMonitorEnabled, truncateName, uuidLink, will } from '../utils.js'
 import { classes, icons, MODULE_ID, SETTING, VALID_TYPES } from '../config.js'
 
 export class ItemMonitor extends BaseMonitor {
@@ -12,12 +12,19 @@ export class ItemMonitor extends BaseMonitor {
     }
 
     isRelevantEntity(entity, update, options) {
-        return !('isAdvancement' in options)
+        if (!('isAdvancement' in options)) return true
+        return entity.type === 'class' && will(update, 'system.levels')
     }
 
-    extractStash(item, update) {
+    extractStash(item, update, options = {}) {
         const stash = {}
         const sys = item.system
+
+        if (item.type === 'class' && isMonitorEnabled(SETTING.MONITOR_LEVEL) && will(update, 'system.levels')) {
+            stash.classLevels = sys.levels
+        }
+
+        if ('isAdvancement' in options) return stash
 
         if (isMonitorEnabled(SETTING.MONITOR_ITEM_QUANTITY) && will(update, 'system.quantity')) {
             stash.quantity = sys.quantity
@@ -25,6 +32,10 @@ export class ItemMonitor extends BaseMonitor {
 
         if (isMonitorEnabled(SETTING.MONITOR_ITEM_EQUIP) && will(update, 'system.equipped')) {
             stash.equipped = sys.equipped
+        }
+
+        if (isMonitorEnabled(SETTING.MONITOR_ITEM_CONTAINER) && will(update, 'system.container')) {
+            stash.container = sys.container ?? null
         }
 
         if (isMonitorEnabled(SETTING.MONITOR_ITEM_ATTUNE) && will(update, 'system.attuned')) {
@@ -79,6 +90,14 @@ export class ItemMonitor extends BaseMonitor {
             logPromises.push(Logger.spoilerLog(actor, itemName, summaryText, detailsText, cls, icon, settingKey))
         }
 
+        /* Level */
+        if (old.classLevels !== undefined && sys.levels !== old.classLevels) {
+            const curr = sys.levels
+            const prev = old.classLevels
+            const text = `${_loc('DND5E.Level')} (${itemName}): ${getDeltaText(curr, prev)}`
+            log(text, classes.level, icons.level, SETTING.MONITOR_LEVEL)
+        }
+
         /* Quantity */
         if (old.quantity !== undefined && sys.quantity !== old.quantity) {
             const deltaText = getDeltaText(sys.quantity, old.quantity)
@@ -105,6 +124,21 @@ export class ItemMonitor extends BaseMonitor {
             )
         }
 
+        /* Container (move item) */
+        if (old.container !== undefined) {
+            const curr = sys.container ?? null
+            if (curr !== old.container) {
+                const containerLabel = (id) => {
+                    const container = id ? actor?.items.get(id) : null
+                    return container
+                        ? uuidLink(container.uuid, container.name)
+                        : _loc(`${MODULE_ID}.ChatMessage.Inventory`)
+                }
+                const text = `${itemName}: ${getDeltaText(containerLabel(curr), containerLabel(old.container))}`
+                log(text, classes.itemContainer, icons.itemContainer, SETTING.MONITOR_ITEM_CONTAINER)
+            }
+        }
+
         /* Attunement */
         if (old.attuned !== undefined && sys.attuned !== old.attuned) {
             const preText = _loc(
@@ -119,7 +153,7 @@ export class ItemMonitor extends BaseMonitor {
             const preText = _loc(
                 sys.prepared ? `${MODULE_ID}.ChatMessage.Prepared` : `${MODULE_ID}.ChatMessage.Unprepared`,
             )
-            const lvlText = sys.level === undefined ? '' : ` (${_loc(`DND5E.SPELLCASTING.SLOTS.spell${sys.level}`)})`
+            const lvlText = sys.level === undefined ? '' : CONFIG.DND5E.spellLevels[sys.level]
             const text = `${preText} ${itemName}${lvlText}`
             log(text, classes.spellPrep, icons.spellPrep, SETTING.MONITOR_SPELL_PREP)
         }
@@ -139,7 +173,7 @@ export class ItemMonitor extends BaseMonitor {
         /* Rename */
         if (old.name && item.name !== old.name) {
             const text = `${old.name} → ${item.name}`
-            Logger.log(text, classes.itemNameDesc, icons.itemNameDesc, SETTING.MONITOR_ITEM_NAME_DESC)
+            log(text, classes.itemNameDesc, icons.itemNameDesc, SETTING.MONITOR_ITEM_NAME_DESC)
         }
 
         /* Identify */
@@ -166,7 +200,6 @@ export class ItemMonitor extends BaseMonitor {
                         `
 
                 spoilerLog(
-                    itemName,
                     _loc(`${MODULE_ID}.ChatMessage.DescriptionChanged`),
                     text,
                     classes.itemNameDesc,
@@ -216,7 +249,7 @@ export class ItemMonitor extends BaseMonitor {
             }
         }
 
-        await Promise.all(logPromises)
+        await this._settleAll(logPromises)
     }
 
     async _trackItemQuantity(item, actor, userId, isCreation) {
@@ -240,11 +273,31 @@ export class ItemMonitor extends BaseMonitor {
         )
     }
 
+    async _trackClassLevel(item, actor, isCreation) {
+        if (item.type !== 'class' || !isMonitorEnabled(SETTING.MONITOR_LEVEL)) return
+
+        const currLvl = item.system?.levels ?? 0
+        if (currLvl === undefined || currLvl === null) return
+
+        const prev = isCreation ? 0 : currLvl
+        const curr = isCreation ? currLvl : 0
+
+        const text = `${_loc('DND5E.Level')} (${truncateName(item.name)}): ${getDeltaText(curr, prev)}`
+
+        await Logger.log(actor, text, classes.level, icons.level, SETTING.MONITOR_LEVEL)
+    }
+
     async onCreateEntity(item, actor, userId) {
-        return this._trackItemQuantity(item, actor, userId, true)
+        await Promise.allSettled([
+            this._trackItemQuantity(item, actor, userId, true),
+            this._trackClassLevel(item, actor, true),
+        ])
     }
 
     async onDeleteEntity(item, actor, userId) {
-        return this._trackItemQuantity(item, actor, userId, false)
+        await Promise.allSettled([
+            this._trackItemQuantity(item, actor, userId, false),
+            this._trackClassLevel(item, actor, false),
+        ])
     }
 }

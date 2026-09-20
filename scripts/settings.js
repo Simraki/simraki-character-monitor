@@ -16,7 +16,26 @@ export function registerSettings() {
         },
     })
 
+    game.settings.register(MODULE_ID, SETTING.PARTY_MONITOR, {
+        name: `${MODULE_ID}.Settings.PartyMonitor.Name`,
+        hint: `${MODULE_ID}.Settings.PartyMonitor.Hint`,
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTING.SHOW_CHANGED_BY, {
+        name: `${MODULE_ID}.Settings.ShowChangedBy.Name`,
+        hint: `${MODULE_ID}.Settings.ShowChangedBy.Hint`,
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+    })
+
     const booleanSettings = [
+        { key: SETTING.MONITOR_PARTY_MEMBERS, default: VISIBILITY_MODE.DISABLED },
         { key: SETTING.MONITOR_HP },
         { key: SETTING.MONITOR_HIT_DICE },
         { key: SETTING.MONITOR_XP },
@@ -35,6 +54,7 @@ export function registerSettings() {
         { key: SETTING.MONITOR_ITEM_ATTUNE },
         { key: SETTING.MONITOR_ITEM_IDENTIFY },
         { key: SETTING.MONITOR_ITEM_CHARGES },
+        { key: SETTING.MONITOR_ITEM_CONTAINER },
         { key: SETTING.MONITOR_SHEET_MODE },
         { key: SETTING.MONITOR_INSPIRATION, default: VISIBILITY_MODE.DISABLED },
         { key: SETTING.MONITOR_DEATH_SAVE, default: VISIBILITY_MODE.DISABLED },

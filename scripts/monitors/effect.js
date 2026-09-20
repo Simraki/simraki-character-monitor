@@ -11,6 +11,10 @@ export class EffectMonitor extends BaseMonitor {
         Hooks.on('deleteActiveEffect', this._onDelete.bind(this))
     }
 
+    _hasRelevantKeys(update) {
+        return 'disabled' in update
+    }
+
     extractStash(effect, update) {
         const stash = {}
         if (!isMonitorEnabled(SETTING.MONITOR_EFFECTS)) return stash

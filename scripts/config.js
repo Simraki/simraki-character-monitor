@@ -2,6 +2,8 @@ export const MODULE_ID = 'simraki-character-monitor'
 export const MAX_NAME_CHARS = 25
 export const DEBOUNCE_MS = 300
 
+export const SCM_CHANGED_BY_HTML_TAG = '<!--SCM_CHANGED_BY-->'
+
 export const VALID_TYPES = ['feat', 'spell', 'consumable', 'container', 'equipment', 'loot', 'tool', 'weapon']
 
 export const SETTING = {
@@ -28,6 +30,10 @@ export const SETTING = {
     MONITOR_ITEM_IDENTIFY: 'monitorItemIdentify',
     MONITOR_ITEM_NAME_DESC: 'monitorItemNameDesc',
     MONITOR_HIT_DICE: 'monitorHitDice',
+    MONITOR_ITEM_CONTAINER: 'monitorItemContainer',
+
+    // Party (group) sheet
+    MONITOR_PARTY_MEMBERS: 'monitorPartyMembers',
 
     // Item & Actor
     MONITOR_CURRENCY: 'monitorCurrency',
@@ -35,9 +41,23 @@ export const SETTING = {
     // Effect
     MONITOR_EFFECTS: 'monitorEffects',
 
-    // Mode
+    // Mode / display
     NPC_MONITOR_MODE: 'npcMonitorMode',
+    PARTY_MONITOR: 'partyMonitor',
+    SHOW_CHANGED_BY: 'showChangedBy',
 }
+
+/**
+ * Settings that configure the module itself rather than the visibility of a specific kind of message.
+ * They are not valid targets for a log message (see LOGGABLE_SETTINGS).
+ */
+export const MODE_SETTINGS = new Set([SETTING.NPC_MONITOR_MODE, SETTING.PARTY_MONITOR, SETTING.SHOW_CHANGED_BY])
+
+/**
+ * Settings that control whether something is monitored, as opposed to the per-parameter
+ * visibility settings. Only the latter are valid targets for a log message.
+ */
+export const LOGGABLE_SETTINGS = Object.values(SETTING).filter((key) => !MODE_SETTINGS.has(key))
 
 export const NPC_MONITOR_MODE = {
     DISABLED: 'DISABLED',
@@ -81,6 +101,9 @@ export const icons = {
     // Effects
     effect: '<i class="fas fa-hourglass-half"></i>',
 
+    // Party
+    partyMember: '<i class="fas fa-users"></i>',
+
     // Items
     itemQty: '<i class="fas fa-backpack"></i>',
     itemNameDesc: '<i class="fas fa-pen-to-square"></i>',
@@ -88,6 +111,7 @@ export const icons = {
     itemAttune: '<i class="fas fa-wand-magic"></i>',
     itemIdentify: '<i class="fas fa-eye"></i>',
     itemCharges: '<i class="fas fa-battery-half"></i>',
+    itemContainer: '<i class="fas fa-box-open"></i>',
 
     // Sheet mode
     sheetMode: '<i class="fas fa-toggle-on"></i>',
@@ -143,6 +167,7 @@ export const classes = {
     itemCharges: 'scm-item-charges',
     itemDescription: 'scm-item-description',
     itemIdentify: 'scm-item-identify',
+    itemContainer: 'scm-item-container',
 
     // Effects
     effect: 'scm-effect',

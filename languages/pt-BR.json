@@ -18,6 +18,10 @@
                 "Name": "Monitoramento de NPCs",
                 "Hint": "Rastrear alterações feitas em Personagens Não-Jogadores (NPCs)."
             },
+            "PartyMonitor": {
+                "Name": "Monitor da Ficha do Grupo",
+                "Hint": "Monitorar alterações nas fichas do grupo: membros, moedas e inventário compartilhado"
+            },
             "MonitorHP": {
                 "Name": "Monitorar HP",
                 "Hint": "Acompanha alterações nos pontos de vida do personagem"
@@ -26,7 +30,6 @@
                 "Name": "Monitorar dados de vida",
                 "Hint": "Monitora as alterações nos dados de vida do personagem"
             },
-
             "MonitorXP": {
                 "Name": "Monitorar Pontos de Experiência",
                 "Hint": "Acompanha alterações nos pontos de experiência"
@@ -67,6 +70,10 @@
                 "Name": "Monitorar Moeda",
                 "Hint": "Acompanha alterações na moeda do personagem"
             },
+            "MonitorPartyMembers": {
+                "Name": "Monitorar Membros do Grupo",
+                "Hint": "Monitora a adição e remoção de membros do grupo"
+            },
             "MonitorEffects": {
                 "Name": "Monitorar Efeitos Ativos",
                 "Hint": "Acompanha alterações nos efeitos ativos do personagem"
@@ -106,6 +113,14 @@
             "MonitorDeathSave": {
                 "Name": "Monitorar Testes de Morte",
                 "Hint": "Acompanha alterações nos resultados de testes de morte"
+            },
+            "ShowChangedBy": {
+                "Name": "Mostrar Quem Alterou",
+                "Hint": "Adiciona o nome do jogador (ou Mestre) que fez a alteração em cada mensagem"
+            },
+            "MonitorItemContainer": {
+                "Name": "Monitorar Movimentação em Recipientes",
+                "Hint": "Monitora a movimentação de um item para dentro, para fora ou entre recipientes (containers)"
             }
         },
         "ChatMessage": {
@@ -131,7 +146,11 @@
             "Identified": "identificado",
             "Unidentified": "não identificado",
             "Old": "Anterior",
-            "New": "Atual"
+            "New": "Atual",
+            "MemberAdded": "adiciona um membro",
+            "MemberRemoved": "remove um membro",
+            "ChangedBy": "Alterado por: {name}",
+            "Inventory": "Inventário"
         }
     }
 }

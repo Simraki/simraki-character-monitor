@@ -18,6 +18,10 @@
                 "Name": "NPC-Überwachung",
                 "Hint": "Änderungen an Nicht-Spieler-Charakteren (NPCs) überwachen."
             },
+            "PartyMonitor": {
+                "Name": "Gruppenblatt-Überwachung",
+                "Hint": "Änderungen im Gruppenblatt überwachen: Mitglieder, Währung und gemeinsames Inventar"
+            },
             "MonitorHP": {
                 "Name": "HP überwachen",
                 "Hint": "Verfolgt Änderungen der Lebenspunkte des Charakters"
@@ -66,6 +70,10 @@
                 "Name": "Währung überwachen",
                 "Hint": "Verfolgt Änderungen der Währung im Charakterbogen"
             },
+            "MonitorPartyMembers": {
+                "Name": "Gruppenmitglieder überwachen",
+                "Hint": "Überwacht das Hinzufügen und Entfernen von Gruppenmitgliedern"
+            },
             "MonitorEffects": {
                 "Name": "Aktive Effekte überwachen",
                 "Hint": "Verfolgt Änderungen der aktiven Effekte im Charakterbogen"
@@ -105,6 +113,14 @@
             "MonitorDeathSave": {
                 "Name": "Todesrettungswürfe überwachen",
                 "Hint": "Verfolgt Änderungen der Todesrettungswürfe im Charakterbogen"
+            },
+            "ShowChangedBy": {
+                "Name": "Geändert von anzeigen",
+                "Hint": "Fügt jeder Nachricht den Namen des Spielers (oder Spielleiters) hinzu, der die Änderung vorgenommen hat"
+            },
+            "MonitorItemContainer": {
+                "Name": "Gegenstandsbewegung in Behälter überwachen",
+                "Hint": "Überwacht das Verschieben von Gegenständen in einen Behälter, aus einem Behälter oder zwischen Behältern"
             }
         },
         "ChatMessage": {
@@ -130,7 +146,11 @@
             "Identified": "identifiziert",
             "Unidentified": "nicht identifiziert",
             "Old": "Vorher",
-            "New": "Nachher"
+            "New": "Nachher",
+            "MemberAdded": "fügt Mitglied hinzu",
+            "MemberRemoved": "entfernt Mitglied",
+            "ChangedBy": "Geändert von: {name}",
+            "Inventory": "Inventar"
         }
     }
 }

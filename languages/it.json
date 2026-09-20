@@ -18,6 +18,10 @@
                 "Name": "Monitoraggio PNG",
                 "Hint": "Traccia le modifiche apportate ai Personaggi Non Giocanti (PNG)."
             },
+            "PartyMonitor": {
+                "Name": "Monitoraggio scheda del gruppo",
+                "Hint": "Monitora le modifiche nella scheda del gruppo: membri, valuta e inventario condiviso"
+            },
             "MonitorHP": {
                 "Name": "Traccia HP",
                 "Hint": "Traccia le modifiche dei punti ferita del personaggio"
@@ -26,7 +30,6 @@
                 "Name": "Monitora dadi vita",
                 "Hint": "Monitora le modifiche ai dadi vita del personaggio"
             },
-
             "MonitorXP": {
                 "Name": "Traccia punti esperienza",
                 "Hint": "Traccia le modifiche dei punti esperienza nel foglio del personaggio"
@@ -67,6 +70,10 @@
                 "Name": "Traccia valuta",
                 "Hint": "Traccia le modifiche della valuta del personaggio"
             },
+            "MonitorPartyMembers": {
+                "Name": "Monitora membri del gruppo",
+                "Hint": "Monitora l'aggiunta e la rimozione dei membri del gruppo"
+            },
             "MonitorEffects": {
                 "Name": "Traccia effetti attivi",
                 "Hint": "Traccia le modifiche degli effetti attivi"
@@ -106,6 +113,14 @@
             "MonitorDeathSave": {
                 "Name": "Traccia tiri salvezza morte",
                 "Hint": "Traccia le modifiche dei tiri salvezza contro la morte"
+            },
+            "ShowChangedBy": {
+                "Name": "Mostra autore modifica",
+                "Hint": "Aggiunge a ogni messaggio il nome del giocatore (o GM) che ha effettuato la modifica"
+            },
+            "MonitorItemContainer": {
+                "Name": "Monitora movimento nei contenitori",
+                "Hint": "Monitora lo spostamento di un oggetto in un contenitore, fuori da un contenitore o tra contenitori"
             }
         },
         "ChatMessage": {
@@ -131,7 +146,11 @@
             "Identified": "identificato",
             "Unidentified": "non identificato",
             "Old": "Prima",
-            "New": "Dopo"
+            "New": "Dopo",
+            "MemberAdded": "aggiunge un membro",
+            "MemberRemoved": "rimuove un membro",
+            "ChangedBy": "Modificato da: {name}",
+            "Inventory": "Inventario"
         }
     }
 }

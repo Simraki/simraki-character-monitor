@@ -4,7 +4,18 @@ import json from '@eslint/json'
 import css from '@eslint/css'
 import { defineConfig } from 'eslint/config'
 
-const foundryKeys = ['game', 'foundry', 'Hooks', 'CONFIG', 'libWrapper', 'fromUuid', 'Actor']
+const foundryKeys = [
+    'game',
+    'foundry',
+    'Hooks',
+    'CONFIG',
+    'CONST',
+    'libWrapper',
+    'socketlib',
+    'fromUuid',
+    'Actor',
+    'ChatMessage',
+]
 
 export default defineConfig([
     {

@@ -12,9 +12,13 @@ Hooks.once('init', async () => {
 })
 
 Hooks.once('ready', () => {
-    new ActorMonitor()
-    new ItemMonitor()
-    new EffectMonitor()
+    for (const Monitor of [ActorMonitor, ItemMonitor, EffectMonitor]) {
+        try {
+            new Monitor()
+        } catch (err) {
+            console.error(`${MODULE_ID} | Failed to start ${Monitor.name}`, err)
+        }
+    }
 })
 
 SocketHandler.init()

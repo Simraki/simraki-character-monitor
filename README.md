@@ -37,6 +37,15 @@ track:
 - **Player-Controlled**: Automatically tracks any NPC that belongs to at least one player (default).
 - **All**: Tracks every single NPC on the canvas (warning: may cause chat spam during heavy combat updates).
 
+### Party Sheet Monitoring
+
+The **Party Sheet Monitoring** setting (disabled by default) extends monitoring to Party (Group) sheets. When it is
+enabled, the following parameters are tracked on party sheets, each with its own visibility setting:
+
+- Party members (added / removed)
+- Currency
+- Items in the shared inventory (quantity, name / description, etc.)
+
 ---
 
 ## What Is Monitored
@@ -48,27 +57,29 @@ When changes are made through a character sheet, the following parameters can be
 - Temporary HP
 - Temporary Maximum HP
 - Hit Dice
-- Armor Class (only if flat AC)
+- Armor Class
 - XP
-- Level
+- Level (changes of class levels, including level-ups, adding or removing a class)
 - Ability Scores
 - Skill Proficiencies
 - Saving Throw Proficiencies
 - Tool Proficiencies
 - Currency
-- Spell Slots
+- Spell Slots (including Pact Magic slots)
 - Spell Preparation
 - Item Quantity
 - Item Equipment
 - Item Attunement
 - Item Identification
 - Item Charges / Uses
+- Item Container Movement (moved into, out of, or between containers such as backpacks or pouches)
 - Item Name Changes
 - Item Description Changes (shown with old/new comparison under a spoiler)
 - Active Effects (add, remove, enable, disable)
 - Inspiration
 - Death Save Successes and Failures
 - Character Sheet Mode (Play / Edit)
+- Party Members (Party sheet only)
 
 *Spells and features are also included in the "Item"*
 
@@ -108,6 +119,15 @@ This module is based on ideas and prior work from:
     - https://github.com/Shr1mps/dnd5e-character-monitor
 - nschoenwald
     - https://github.com/nschoenwald/tiny-hp-monitor
+
+---
+
+## Other my modules
+
+- **[Simraki's Radial Effects](https://foundryvtt.com/packages/simraki-radial-effects)** - active effects icons in
+  circular ring or pattern around character tokens
+- **[Simraki's Cursed Items](https://foundryvtt.com/packages/simraki-cursed-items)** - adds support for cursed items
+  in D&D5e
 
 ---
 

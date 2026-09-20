@@ -1,6 +1,6 @@
 import { BaseMonitor } from './base.js'
 import { Logger } from '../logger.js'
-import { _loc, capitalize, getDeltaText, isMonitorEnabled, revalueMap, will } from '../utils.js'
+import { _loc, capitalize, getDeltaText, isMonitorEnabled, revalueMap, uuidLink, will } from '../utils.js'
 import { classes, icons, MODULE_ID, SETTING } from '../config.js'
 
 export class ActorMonitor extends BaseMonitor {
@@ -10,37 +10,35 @@ export class ActorMonitor extends BaseMonitor {
 
         if (game.modules.get('lib-wrapper')?.active) {
             const monitor = this
-            libWrapper.register(
-                MODULE_ID,
-                'game.dnd5e.applications.actor.CharacterActorSheet.prototype._onChangeSheetMode',
-                function (wrapped, ...args) {
-                    return monitor.monitorSheetMode(this, wrapped, ...args)
-                },
-                'WRAPPER',
-            )
-            libWrapper.register(
-                MODULE_ID,
-                'game.dnd5e.applications.actor.NPCActorSheet.prototype._onChangeSheetMode',
-                function (wrapped, ...args) {
-                    return monitor.monitorSheetMode(this, wrapped, ...args)
-                },
-                'WRAPPER',
-            )
+            for (const name of ['CharacterActorSheet', 'NPCActorSheet']) {
+                libWrapper.register(
+                    MODULE_ID,
+                    `game.dnd5e.applications.actor.${name}.prototype.changeMode`,
+                    function (wrapped, ...args) {
+                        return monitor.monitorSheetMode(this, wrapped, ...args)
+                    },
+                    'WRAPPER',
+                )
+            }
         }
     }
 
     async monitorSheetMode(sheet, wrapped, ...args) {
-        await wrapped(...args)
-        if (!isMonitorEnabled(SETTING.MONITOR_SHEET_MODE)) return
+        const prevMode = sheet._mode
+        const result = await wrapped(...args)
+        if (!isMonitorEnabled(SETTING.MONITOR_SHEET_MODE)) return result
+        if (!this._isValidActorType(sheet.actor)) return result
+        if (sheet._mode === prevMode) return result
 
-        if (!this._isValidActorType(sheet.actor)) return
-
-        const sheetMode = _loc(sheet._mode === 1 ? 'DND5E.SheetModePlay' : 'DND5E.SheetModeEdit')
+        const sheetMode = _loc(
+            sheet._mode === sheet.constructor.MODES.EDIT ? 'DND5E.SheetModeEdit' : 'DND5E.SheetModePlay',
+        )
 
         const label = _loc(`${MODULE_ID}.ChatMessage.SheetMode`)
         const text = `${label}: ${sheetMode}`
 
         await Logger.log(sheet.actor, text, classes.sheetMode, icons.sheetMode, SETTING.MONITOR_SHEET_MODE)
+        return result
     }
 
     isRelevantEntity(entity, update, options) {
@@ -55,8 +53,10 @@ export class ActorMonitor extends BaseMonitor {
             stash.hp = foundry.utils.duplicate(sys.attributes.hp)
         }
 
-        if (isMonitorEnabled(SETTING.MONITOR_AC) && will(update, 'system.attributes.ac.flat')) {
-            stash.ac = sys.attributes.ac.flat
+        if (isMonitorEnabled(SETTING.MONITOR_AC) && will(update, 'system.attributes.ac')) {
+            stash.ac = {
+                value: sys.attributes.ac.value,
+            }
         }
 
         if (isMonitorEnabled(SETTING.MONITOR_XP) && will(update, 'system.details.xp.value')) {
@@ -91,6 +91,14 @@ export class ActorMonitor extends BaseMonitor {
             stash.tools = revalueMap(sys.tools, (v) => v.value ?? 0)
         }
 
+        if (
+            actor.type === 'group' &&
+            isMonitorEnabled(SETTING.MONITOR_PARTY_MEMBERS) &&
+            will(update, 'system.members')
+        ) {
+            stash.members = this._getMembers(sys.members)
+        }
+
         if (isMonitorEnabled(SETTING.MONITOR_INSPIRATION) && will(update, 'system.attributes.inspiration')) {
             stash.inspiration = sys.attributes.inspiration
         }
@@ -101,7 +109,20 @@ export class ActorMonitor extends BaseMonitor {
                 failure: sys.attributes.death.failure,
             }
         }
+
         return stash
+    }
+
+    _getMembers(members) {
+        const result = []
+        for (const member of members ?? []) {
+            const ref = member?.actor ?? member
+            const id = typeof ref === 'string' ? ref : ref?.id
+            if (!id) continue
+            const name = (typeof ref === 'string' ? game.actors.get(id)?.name : ref?.name) ?? id
+            result.push({ id, name })
+        }
+        return result
     }
 
     async processChanges(actor, old, userId) {
@@ -141,12 +162,10 @@ export class ActorMonitor extends BaseMonitor {
 
         /* AC */
         if (old.ac !== undefined) {
-            const curr = sys.attributes.ac.flat
-            if (curr !== old.ac) {
+            if ((sys.attributes.ac.value ?? null) !== (old.ac.value ?? null)) {
                 const label = _loc('DND5E.ArmorClass')
-                const deltaText = getDeltaText(curr, old.ac)
-                const text = `${label}: ${deltaText}`
-                log(text, classes.ac, icons.ac, SETTING.MONITOR_AC)
+                const deltaText = getDeltaText(sys.attributes.ac.value, old.ac.value)
+                log(`${label}: ${deltaText}`, classes.ac, icons.ac, SETTING.MONITOR_AC)
             }
         }
 
@@ -205,17 +224,27 @@ export class ActorMonitor extends BaseMonitor {
             }
         }
 
-        /* Spell Slots */
+        /* Spell Slots (including pact slots) */
         if (old.spells !== undefined) {
             for (const lvl in old.spells) {
                 const prev = old.spells[lvl]
                 const curr = sys.spells[lvl]
-                const deltaValue = curr.value - prev.value
-                const deltaMax = curr.max - prev.max
+                if (!prev || !curr) continue
+
+                const deltaValue = (curr.value ?? 0) - (prev.value ?? 0)
+                const deltaMax = (curr.max ?? 0) - (prev.max ?? 0)
                 if (!deltaValue && !deltaMax) continue
 
-                const n = Number(lvl.slice(-1))
-                const label = CONFIG.DND5E.spellLevels[n]
+                const labelLvl = CONFIG.DND5E.spellLevels[curr.level]
+
+                let label
+                if (lvl === 'pact') {
+                    label = _loc('DND5E.SPELLCASTING.METHODS.Pact.Full.label')
+                    if (labelLvl) label += ` (${labelLvl})`
+                } else {
+                    label = labelLvl ?? lvl
+                }
+
                 const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
                 const text = `${label}: ${deltaText}`
                 log(
@@ -273,7 +302,7 @@ export class ActorMonitor extends BaseMonitor {
                 const toolId = CONFIG.DND5E.tools[tool]?.id
                 if (!toolId || curr === prev) continue
 
-                const label = (await fromUuid(toolId))?.name
+                const label = (await fromUuid(toolId))?.name ?? tool
                 const deltaText = getDeltaText(
                     CONFIG.DND5E.proficiencyLevels[curr],
                     CONFIG.DND5E.proficiencyLevels[prev],
@@ -282,6 +311,28 @@ export class ActorMonitor extends BaseMonitor {
                 const text = `${label}: ${deltaText}`
                 log(text, classes.tool, icons.toolProf, SETTING.MONITOR_TOOL_PROF)
             }
+        }
+
+        /* Party members */
+        if (old.members !== undefined) {
+            const prevIds = new Set(old.members.map((m) => m.id))
+            const current = this._getMembers(sys.members)
+            const currIds = new Set(current.map((m) => m.id))
+
+            const logMember = (member, added) => {
+                const memberActor = game.actors.get(member.id)
+                const link = memberActor ? uuidLink(memberActor.uuid, member.name) : member.name
+                const action = _loc(`${MODULE_ID}.ChatMessage.${added ? 'MemberAdded' : 'MemberRemoved'}`)
+                log(
+                    `${action}: ${link}`,
+                    added ? classes.plus : classes.minus,
+                    icons.partyMember,
+                    SETTING.MONITOR_PARTY_MEMBERS,
+                )
+            }
+
+            current.filter((m) => !prevIds.has(m.id)).forEach((m) => logMember(m, true))
+            old.members.filter((m) => !currIds.has(m.id)).forEach((m) => logMember(m, false))
         }
 
         /* Inspiration */
@@ -295,7 +346,7 @@ export class ActorMonitor extends BaseMonitor {
         }
 
         /* Death Saves */
-        if (old.death) {
+        if (old.death !== undefined) {
             const curr = sys.attributes.death
             const generalLabel = _loc('DND5E.DeathSave')
 
@@ -324,6 +375,6 @@ export class ActorMonitor extends BaseMonitor {
             }
         }
 
-        await Promise.all(logPromises)
+        await this._settleAll(logPromises)
     }
 }
