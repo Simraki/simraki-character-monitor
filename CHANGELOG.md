@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0 (2026-09-23)
+## 2.0.0 (2026-10-15)
 
 - Support D&D5e 6.x (requires dnd5e 6+ and Foundry 14+, 5.x is no longer supported)
 - Added Party (Group) sheet monitoring (new setting)
@@ -11,7 +11,6 @@
 - Fix level monitoring: character level changes are tracked through class levels
 - Fix Polish localization: settings were not translated (wrong `name` / `hint` key case) and `Monitor Hit Dice` missing
 - Item / effect names are HTML-escaped now
-- AC monitoring now also tracks calculation mode
 
 ## 1.4.0 (2026-07-08)
 
