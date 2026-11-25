@@ -4,8 +4,10 @@ import { ActorMonitor } from './monitors/actor.js'
 import { MODULE_ID } from './config.js'
 import { ItemMonitor } from './monitors/item.js'
 import { EffectMonitor } from './monitors/effect.js'
+import { hydrateMessage } from './hydrate.js'
+import { addContextOptions } from './context-menu.js'
 
-Hooks.once('init', async () => {
+Hooks.once('init', () => {
     registerSettings()
     // eslint-disable-next-line no-console
     console.log(`[${MODULE_ID}] initialized.`)
@@ -23,11 +25,10 @@ Hooks.once('ready', () => {
 
 SocketHandler.init()
 
-Hooks.on('renderChatMessageHTML', (msg, html, appData) => {
-    if (!msg.flags[MODULE_ID] || !html) return
-    html.classList.add('scm-msg')
-    const cls = msg.getFlag(MODULE_ID, 'cls')
-    if (cls) {
-        html.classList.add(cls)
-    }
+Hooks.on('renderChatMessageHTML', (msg, html) => {
+    hydrateMessage(msg, html)
+})
+
+Hooks.on('getChatMessageContextOptions', (app, menuItems) => {
+    addContextOptions(app, menuItems)
 })

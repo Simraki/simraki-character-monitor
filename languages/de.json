@@ -3,154 +3,163 @@
         "SettingChoices": {
             "NpcMonitorMode": {
                 "Disabled": "Deaktiviert",
-                "Owned": "Spielerkontrolliert",
+                "Owned": "Spielergesteuert",
                 "All": "Alle"
             },
             "VisibilityMode": {
                 "Disabled": "Deaktiviert",
-                "GM": "Nur Spielleiter (GM)",
-                "Owner": "Spielleiter & Besitzer",
+                "GM": "Nur SL",
+                "Owner": "SL & Besitzer",
                 "All": "Alle"
             }
         },
         "Settings": {
             "NpcMonitorMode": {
-                "Name": "NPC-Überwachung",
-                "Hint": "Änderungen an Nicht-Spieler-Charakteren (NPCs) überwachen."
+                "Name": "NSC-Überwachung",
+                "Hint": "Welche NSC-Bögen überwacht werden."
             },
             "PartyMonitor": {
-                "Name": "Gruppenblatt-Überwachung",
-                "Hint": "Änderungen im Gruppenblatt überwachen: Mitglieder, Währung und gemeinsames Inventar"
+                "Name": "Gruppenbogen überwachen",
+                "Hint": "Gruppenbögen überwachen: Mitglieder, Währung und gemeinsames Inventar."
             },
             "MonitorHP": {
-                "Name": "HP überwachen",
-                "Hint": "Verfolgt Änderungen der Lebenspunkte des Charakters"
+                "Name": "TP überwachen",
+                "Hint": "Aktuelle, maximale, temporäre und temporäre maximale TP."
             },
             "MonitorHitDice": {
                 "Name": "Trefferwürfel überwachen",
-                "Hint": "Überwacht Änderungen an den Trefferwürfeln des Charakters"
+                "Hint": "Verbrauchte und wiederhergestellte Trefferwürfel."
             },
             "MonitorXP": {
                 "Name": "Erfahrungspunkte überwachen",
-                "Hint": "Verfolgt Änderungen der Erfahrungspunkte im Charakterbogen"
+                "Hint": "Änderungen der Erfahrungspunkte."
             },
             "MonitorLevel": {
-                "Name": "Level überwachen",
-                "Hint": "Verfolgt Änderungen des Levels im Charakterbogen"
+                "Name": "Stufe überwachen",
+                "Hint": "Klassenstufen, auch Hinzufügen und Entfernen einer Klasse."
             },
             "MonitorSpellPrep": {
                 "Name": "Zaubervorbereitung überwachen",
-                "Hint": "Verfolgt, wann der Charakter einen Zauber vorbereitet oder entfernt"
+                "Hint": "Ein Zauber wird vorbereitet, nicht vorbereitet oder immer vorbereitet."
             },
             "MonitorSpellSlots": {
                 "Name": "Zauberplätze überwachen",
-                "Hint": "Verfolgt Änderungen der Zauberplätze im Charakterbogen"
+                "Hint": "Verbrauchte und wiederhergestellte Plätze und ihr Maximum, Paktmagie eingeschlossen."
             },
             "MonitorAC": {
-                "Name": "Rüstungsklasse (AC) überwachen",
-                "Hint": "Verfolgt Änderungen der Rüstungsklasse im Charakterbogen"
+                "Name": "Rüstungsklasse überwachen",
+                "Hint": "Änderungen der Rüstungsklasse."
             },
             "MonitorAbility": {
-                "Name": "Fähigkeiten überwachen",
-                "Hint": "Verfolgt Änderungen der Charakterwerte"
+                "Name": "Attributswerte überwachen",
+                "Hint": "Änderungen der Attributswerte."
             },
             "MonitorSkillProficiency": {
-                "Name": "Fertigkeiten überwachen",
-                "Hint": "Verfolgt Änderungen der Fertigkeitsbeherrschung"
+                "Name": "Fertigkeitsübung überwachen",
+                "Hint": "Änderungen der Übung in Fertigkeiten."
             },
             "MonitorSaveProficiency": {
-                "Name": "Rettungswürfe überwachen",
-                "Hint": "Verfolgt Änderungen der Rettungswurfbeherrschung"
+                "Name": "Rettungswurfübung überwachen",
+                "Hint": "Änderungen der Übung in Rettungswürfen."
             },
             "MonitorToolProficiency": {
-                "Name": "Werkzeuge überwachen",
-                "Hint": "Verfolgt Änderungen der Werkzeugbeherrschung"
+                "Name": "Werkzeugübung überwachen",
+                "Hint": "Änderungen der Übung mit Werkzeugen."
             },
             "MonitorCurrency": {
                 "Name": "Währung überwachen",
-                "Hint": "Verfolgt Änderungen der Währung im Charakterbogen"
+                "Hint": "Währung auf dem Bogen und in Behältern."
             },
             "MonitorPartyMembers": {
                 "Name": "Gruppenmitglieder überwachen",
-                "Hint": "Überwacht das Hinzufügen und Entfernen von Gruppenmitgliedern"
+                "Hint": "Ein Mitglied wird einer Gruppe hinzugefügt oder entfernt."
             },
             "MonitorEffects": {
                 "Name": "Aktive Effekte überwachen",
-                "Hint": "Verfolgt Änderungen der aktiven Effekte im Charakterbogen"
+                "Hint": "Ein Effekt wird hinzugefügt, entfernt, aktiviert oder deaktiviert."
             },
             "MonitorItemQuantity": {
-                "Name": "Gegenstandsmenge überwachen",
-                "Hint": "Verfolgt Änderungen der Gegenstandsanzahl beim Charakter"
+                "Name": "Gegenstände überwachen",
+                "Hint": "Ein Gegenstand wird hinzugefügt oder entfernt, oder seine Menge ändert sich."
             },
             "MonitorItemNameDesc": {
-                "Name": "Gegenstandsname und Beschreibung überwachen",
-                "Hint": "Verfolgt Änderungen von Name und/oder Beschreibung von Gegenständen"
+                "Name": "Namen und Beschreibungen überwachen",
+                "Hint": "Umbenannte Gegenstände und Änderungen der Beschreibung als Vergleich. Lange Beschreibungen zu vergleichen belastet schwache Rechner."
             },
             "MonitorItemEquip": {
                 "Name": "Ausrüstung überwachen",
-                "Hint": "Verfolgt, wann der Charakter Gegenstände anlegt oder ablegt"
+                "Hint": "Ein Gegenstand wird angelegt oder abgelegt."
             },
             "MonitorItemAttune": {
-                "Name": "Einstellung überwachen",
-                "Hint": "Verfolgt, wann der Charakter einen Gegenstand stimmt oder die Abstimmung verliert"
+                "Name": "Einstimmung überwachen",
+                "Hint": "Die Einstimmung auf einen Gegenstand wird gewonnen oder verloren."
             },
             "MonitorItemIdentify": {
-                "Name": "Gegenstände identifizieren überwachen",
-                "Hint": "Verfolgt Änderungen von erkannt/nicht erkannt bei Gegenständen"
+                "Name": "Identifizierung überwachen",
+                "Hint": "Ein Gegenstand wird identifiziert oder unidentifiziert."
             },
             "MonitorItemCharges": {
-                "Name": "Gegenstandsladungen überwachen",
-                "Hint": "Verfolgt Änderungen der Ladungen von Gegenständen"
+                "Name": "Ladungen überwachen",
+                "Hint": "Verbrauchte und wiederhergestellte Nutzungen von Gegenständen und Merkmalen und ihr Maximum."
+            },
+            "MonitorItemContainer": {
+                "Name": "Behälter überwachen",
+                "Hint": "Ein Gegenstand wird in einen Behälter, aus ihm oder zwischen Behältern bewegt."
             },
             "MonitorSheetMode": {
-                "Name": "Charakterbogenmodus überwachen",
-                "Hint": "Verfolgt den Wechsel zwischen Spiel- und Bearbeitungsmodus"
+                "Name": "Bogenmodus überwachen",
+                "Hint": "Der Bogen wechselt zwischen Spiel- und Bearbeitungsmodus. Benötigt libWrapper."
             },
             "MonitorInspiration": {
                 "Name": "Inspiration überwachen",
-                "Hint": "Verfolgt Änderungen der Inspiration im Charakterbogen"
+                "Hint": "Inspiration wird erhalten oder ausgegeben."
             },
             "MonitorDeathSave": {
                 "Name": "Todesrettungswürfe überwachen",
-                "Hint": "Verfolgt Änderungen der Todesrettungswürfe im Charakterbogen"
+                "Hint": "Erfolge und Fehlschläge bei Todesrettungswürfen."
             },
-            "ShowChangedBy": {
-                "Name": "Geändert von anzeigen",
-                "Hint": "Fügt jeder Nachricht den Namen des Spielers (oder Spielleiters) hinzu, der die Änderung vorgenommen hat"
+            "BatchMs": {
+                "Name": "Sammelzeit (ms)",
+                "Hint": "Änderungen eines Charakters werden so lange gesammelt, gezählt ab der ersten, und dann zusammen gesendet. Jede Änderung bleibt eine eigene Nachricht."
             },
-            "MonitorItemContainer": {
-                "Name": "Gegenstandsbewegung in Behälter überwachen",
-                "Hint": "Überwacht das Verschieben von Gegenständen in einen Behälter, aus einem Behälter oder zwischen Behältern"
+            "ShowAuthorMark": {
+                "Name": "Änderungen anderer markieren",
+                "Hint": "Eine kleine Krone (SL) oder Feder (Spieler) in der Ecke einer Nachricht, wenn jemand anderes die Änderung gemacht hat. Wer und wann steht im Tooltip des Symbols. Betrifft nur dich."
+            },
+            "HideOwnChanges": {
+                "Name": "Eigene Änderungen ausblenden",
+                "Hint": "Blendet Nachrichten über Änderungen aus, die du selbst gemacht hast. Betrifft nur dich."
             }
         },
         "ChatMessage": {
-            "SheetMode": "Charakterbogenmodus",
-            "Description": "Beschreibung",
+            "SheetMode": "Bogenmodus",
             "DescriptionChanged": "Beschreibung geändert",
+            "ShowFull": "Ganzen Text zeigen",
             "HP": {
-                "Value": "HP",
-                "Max": "Max HP",
-                "Temp": "Temp HP",
-                "Tempmax": "Temp Max HP"
+                "Value": "TP",
+                "Max": "Max. TP",
+                "Temp": "Temp. TP",
+                "Tempmax": "Temp. max. TP"
             },
-            "Equipped": "legt an",
-            "Unequipped": "legt ab",
-            "Prepared": "bereitet vor",
-            "Unprepared": "bereitet nicht vor",
-            "AttunesTo": "stimmt auf",
-            "BreaksAttune": "verliert Abstimmung auf",
+            "Equipped": "angelegt",
+            "Unequipped": "abgelegt",
+            "Attuned": "eingestimmt",
+            "AttunementBroken": "Einstimmung verloren",
             "Enabled": "aktiviert",
             "Disabled": "deaktiviert",
             "Added": "hinzugefügt",
             "Deleted": "entfernt",
             "Identified": "identifiziert",
-            "Unidentified": "nicht identifiziert",
-            "Old": "Vorher",
-            "New": "Nachher",
-            "MemberAdded": "fügt Mitglied hinzu",
-            "MemberRemoved": "entfernt Mitglied",
+            "Unidentified": "unidentifiziert",
+            "MemberAdded": "hinzugefügt",
+            "MemberRemoved": "entfernt",
             "ChangedBy": "Geändert von: {name}",
-            "Inventory": "Inventar"
+            "GM": "SL",
+            "ItemName": "Name"
+        },
+        "ContextMenu": {
+            "Clear": "Monitornachrichten löschen",
+            "ClearConfirm": "Alle Monitornachrichten ({count}) löschen? Das kann nicht rückgängig gemacht werden."
         }
     }
 }

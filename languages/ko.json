@@ -3,154 +3,163 @@
         "SettingChoices": {
             "NpcMonitorMode": {
                 "Disabled": "비활성화",
-                "Owned": "플레이어 제어 대상",
+                "Owned": "플레이어 조종만",
                 "All": "전체"
             },
             "VisibilityMode": {
                 "Disabled": "비활성화",
-                "GM": "GM 전용",
-                "Owner": "GM 및 소유자",
-                "All": "모두에게"
+                "GM": "GM만",
+                "Owner": "GM과 소유자",
+                "All": "모두"
             }
         },
         "Settings": {
             "NpcMonitorMode": {
                 "Name": "NPC 모니터링",
-                "Hint": "Non-Player Character(NPC)의 변경 사항을 추적합니다."
+                "Hint": "모니터링할 NPC 시트의 범위입니다."
             },
             "PartyMonitor": {
                 "Name": "파티 시트 모니터링",
-                "Hint": "파티 시트의 변경 사항(멤버, 통화, 공유 인벤토리)을 모니터링합니다"
+                "Hint": "파티 시트의 멤버, 화폐, 공유 인벤토리를 모니터링합니다."
             },
             "MonitorHP": {
-                "Name": "HP 추적",
-                "Hint": "캐릭터의 생명점 변화를 추적합니다"
+                "Name": "HP 모니터링",
+                "Hint": "현재 HP, 최대 HP, 임시 HP, 임시 최대 HP."
             },
             "MonitorHitDice": {
-                "Name": "히트 다이스 추적",
-                "Hint": "캐릭터의 히트 다이스 변경 사항을 추적합니다"
+                "Name": "히트 다이스 모니터링",
+                "Hint": "소모하거나 회복한 히트 다이스."
             },
             "MonitorXP": {
-                "Name": "경험치 추적",
-                "Hint": "캐릭터 시트의 경험치 변화를 추적합니다"
+                "Name": "경험치 모니터링",
+                "Hint": "경험치 변화."
             },
             "MonitorLevel": {
-                "Name": "레벨 추적",
-                "Hint": "캐릭터 시트의 레벨 변화를 추적합니다"
+                "Name": "레벨 모니터링",
+                "Hint": "클래스 레벨. 클래스 추가와 제거를 포함합니다."
             },
             "MonitorSpellPrep": {
-                "Name": "주문 준비 추적",
-                "Hint": "캐릭터가 주문을 준비하거나 제거할 때 추적합니다"
+                "Name": "주문 준비 모니터링",
+                "Hint": "주문이 준비됨, 준비 안 됨, 항상 준비됨으로 바뀔 때."
             },
             "MonitorSpellSlots": {
-                "Name": "주문 슬롯 추적",
-                "Hint": "캐릭터 시트의 주문 슬롯 변화를 추적합니다"
+                "Name": "주문 슬롯 모니터링",
+                "Hint": "소모하거나 회복한 슬롯과 최대치. 계약 마법을 포함합니다."
             },
             "MonitorAC": {
-                "Name": "방어도(AC) 추적",
-                "Hint": "캐릭터 시트의 AC 변화를 추적합니다"
+                "Name": "방어도 모니터링",
+                "Hint": "방어도 변화."
             },
             "MonitorAbility": {
-                "Name": "능력치 추적",
-                "Hint": "캐릭터 능력치 변화를 추적합니다"
+                "Name": "능력치 모니터링",
+                "Hint": "능력치 변화."
             },
             "MonitorSkillProficiency": {
-                "Name": "기술 숙련 추적",
-                "Hint": "캐릭터 기술 숙련 변화를 추적합니다"
+                "Name": "기술 숙련 모니터링",
+                "Hint": "기술 숙련 변화."
             },
             "MonitorSaveProficiency": {
-                "Name": "저항 굴림 숙련 추적",
-                "Hint": "캐릭터 저항 굴림 숙련 변화를 추적합니다"
+                "Name": "내성 굴림 숙련 모니터링",
+                "Hint": "내성 굴림 숙련 변화."
             },
             "MonitorToolProficiency": {
-                "Name": "도구 숙련 추적",
-                "Hint": "캐릭터 도구 숙련 변화를 추적합니다"
+                "Name": "도구 숙련 모니터링",
+                "Hint": "도구 숙련 변화."
             },
             "MonitorCurrency": {
-                "Name": "화폐 추적",
-                "Hint": "캐릭터 시트의 화폐 변화를 추적합니다"
+                "Name": "화폐 모니터링",
+                "Hint": "시트와 보관함 안의 화폐."
             },
             "MonitorPartyMembers": {
                 "Name": "파티 멤버 모니터링",
-                "Hint": "파티 멤버의 추가 및 제거를 모니터링합니다"
+                "Hint": "파티에 멤버가 추가되거나 제거될 때."
             },
             "MonitorEffects": {
-                "Name": "활성 효과 추적",
-                "Hint": "캐릭터 시트의 활성 효과 변화를 추적합니다"
+                "Name": "활성 효과 모니터링",
+                "Hint": "효과가 추가, 제거, 활성화, 비활성화될 때."
             },
             "MonitorItemQuantity": {
-                "Name": "아이템 수량 추적",
-                "Hint": "캐릭터 아이템 수량 변화를 추적합니다"
+                "Name": "아이템 모니터링",
+                "Hint": "아이템이 추가되거나 제거되거나 수량이 바뀔 때."
             },
             "MonitorItemNameDesc": {
-                "Name": "아이템 이름 및 설명 추적",
-                "Hint": "캐릭터 시트의 아이템 이름/설명 변화를 추적합니다"
+                "Name": "이름과 설명 모니터링",
+                "Hint": "아이템 이름 변경과 설명 변경을 비교로 보여 줍니다. 긴 설명을 비교하면 느린 컴퓨터에 부담이 됩니다."
             },
             "MonitorItemEquip": {
-                "Name": "장비 착용 추적",
-                "Hint": "캐릭터가 장비를 착용하거나 벗을 때 추적합니다"
+                "Name": "장비 모니터링",
+                "Hint": "아이템을 장착하거나 해제할 때."
             },
             "MonitorItemAttune": {
-                "Name": "조율 추적",
-                "Hint": "캐릭터가 아이템을 조율하거나 조율을 잃을 때 추적합니다"
+                "Name": "조율 모니터링",
+                "Hint": "아이템 조율을 얻거나 잃을 때."
             },
             "MonitorItemIdentify": {
-                "Name": "아이템 식별 추적",
-                "Hint": "캐릭터 시트에서 아이템 식별/미식별 상태 변화를 추적합니다"
+                "Name": "감정 모니터링",
+                "Hint": "아이템이 감정되거나 감정이 해제될 때."
             },
             "MonitorItemCharges": {
-                "Name": "아이템 사용 횟수 추적",
-                "Hint": "캐릭터 시트에서 아이템 사용 횟수 변화를 추적합니다"
-            },
-            "MonitorSheetMode": {
-                "Name": "시트 모드 추적",
-                "Hint": "캐릭터 시트의 게임 모드/편집 모드 전환을 추적합니다"
-            },
-            "MonitorInspiration": {
-                "Name": "영감 추적",
-                "Hint": "캐릭터 시트의 영감 상태 변화를 추적합니다"
-            },
-            "MonitorDeathSave": {
-                "Name": "죽음 세이브 추적",
-                "Hint": "캐릭터 시트의 죽음 세이브 결과 변화를 추적합니다"
-            },
-            "ShowChangedBy": {
-                "Name": "변경자 표시",
-                "Hint": "변경을 수행한 플레이어(또는 GM)의 이름을 각 메시지에 추가합니다"
+                "Name": "충전 모니터링",
+                "Hint": "아이템과 특성의 사용 횟수 소모·회복과 최대치."
             },
             "MonitorItemContainer": {
-                "Name": "보관함 아이템 이동 모니터링",
-                "Hint": "아이템을 보관함에 넣거나, 빼거나, 보관함 간에 이동하는 것을 모니터링합니다"
+                "Name": "보관함 모니터링",
+                "Hint": "아이템을 보관함에 넣거나 꺼내거나 다른 보관함으로 옮길 때."
+            },
+            "MonitorSheetMode": {
+                "Name": "시트 모드 모니터링",
+                "Hint": "시트가 플레이 모드와 편집 모드 사이를 전환할 때. libWrapper가 필요합니다."
+            },
+            "MonitorInspiration": {
+                "Name": "영감 모니터링",
+                "Hint": "영감을 얻거나 사용할 때."
+            },
+            "MonitorDeathSave": {
+                "Name": "죽음 내성 모니터링",
+                "Hint": "죽음 내성 굴림의 성공과 실패."
+            },
+            "BatchMs": {
+                "Name": "묶음 시간(ms)",
+                "Hint": "한 캐릭터의 변경을 첫 변경부터 이 시간 동안 모았다가 함께 보냅니다. 변경마다 별도의 메시지가 됩니다."
+            },
+            "ShowAuthorMark": {
+                "Name": "다른 사람의 변경 표시",
+                "Hint": "다른 사람이 변경했을 때 메시지 모서리에 작은 왕관(GM) 또는 펜(플레이어)을 표시합니다. 누가 언제 했는지는 아이콘 툴팁에 있습니다. 나에게만 적용됩니다."
+            },
+            "HideOwnChanges": {
+                "Name": "내 변경 숨기기",
+                "Hint": "직접 한 변경에 대한 메시지를 숨깁니다. 나에게만 적용됩니다."
             }
         },
         "ChatMessage": {
             "SheetMode": "시트 모드",
-            "Description": "설명",
-            "DescriptionChanged": "설명이 변경됨",
+            "DescriptionChanged": "설명 변경됨",
+            "ShowFull": "전체 텍스트 보기",
             "HP": {
                 "Value": "HP",
                 "Max": "최대 HP",
                 "Temp": "임시 HP",
                 "Tempmax": "임시 최대 HP"
             },
-            "Equipped": "착용함",
-            "Unequipped": "벗음",
-            "Prepared": "준비함",
-            "Unprepared": "준비 해제",
-            "AttunesTo": "조율함",
-            "BreaksAttune": "조율 해제",
+            "Equipped": "장착",
+            "Unequipped": "해제",
+            "Attuned": "조율됨",
+            "AttunementBroken": "조율 해제",
             "Enabled": "활성",
             "Disabled": "비활성",
             "Added": "추가됨",
-            "Deleted": "삭제됨",
-            "Identified": "식별됨",
-            "Unidentified": "미식별",
-            "Old": "이전",
-            "New": "현재",
-            "MemberAdded": "님이 멤버를 추가함",
-            "MemberRemoved": "님이 멤버를 제외함",
+            "Deleted": "제거됨",
+            "Identified": "감정됨",
+            "Unidentified": "미감정",
+            "MemberAdded": "추가됨",
+            "MemberRemoved": "제거됨",
             "ChangedBy": "변경자: {name}",
-            "Inventory": "인벤토리"
+            "GM": "GM",
+            "ItemName": "이름"
+        },
+        "ContextMenu": {
+            "Clear": "모니터 메시지 지우기",
+            "ClearConfirm": "모니터 메시지를 모두 삭제할까요({count}개)? 되돌릴 수 없습니다."
         }
     }
 }

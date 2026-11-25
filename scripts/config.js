@@ -1,10 +1,13 @@
 export const MODULE_ID = 'simraki-character-monitor'
-export const MAX_NAME_CHARS = 25
+export const MAX_NAME_CHARS = 20
 export const DEBOUNCE_MS = 300
 
-export const SCM_CHANGED_BY_HTML_TAG = '<!--SCM_CHANGED_BY-->'
+export const DEFAULT_BATCH_MS = 600
+export const MAX_BATCH_MS = 5000
 
-export const VALID_TYPES = ['feat', 'spell', 'consumable', 'container', 'equipment', 'loot', 'tool', 'weapon']
+export const SHORT_NAME_CHARS = 10
+
+export const BIG_DELTA = 10000
 
 export const SETTING = {
     // Actor
@@ -44,14 +47,24 @@ export const SETTING = {
     // Mode / display
     NPC_MONITOR_MODE: 'npcMonitorMode',
     PARTY_MONITOR: 'partyMonitor',
-    SHOW_CHANGED_BY: 'showChangedBy',
+
+    // Other
+    SHOW_AUTHOR_MARK: 'showAuthorMark',
+    BATCH_MS: 'batchMs',
+    HIDE_OWN: 'hideOwnChanges',
 }
 
 /**
  * Settings that configure the module itself rather than the visibility of a specific kind of message.
  * They are not valid targets for a log message (see LOGGABLE_SETTINGS).
  */
-export const MODE_SETTINGS = new Set([SETTING.NPC_MONITOR_MODE, SETTING.PARTY_MONITOR, SETTING.SHOW_CHANGED_BY])
+export const MODE_SETTINGS = new Set([
+    SETTING.NPC_MONITOR_MODE,
+    SETTING.PARTY_MONITOR,
+    SETTING.SHOW_AUTHOR_MARK,
+    SETTING.BATCH_MS,
+    SETTING.HIDE_OWN,
+])
 
 /**
  * Settings that control whether something is monitored, as opposed to the per-parameter
@@ -72,110 +85,61 @@ export const VISIBILITY_MODE = {
     ALL: 'ALL',
 }
 
-export const icons = {
-    // Health
-    hp: '<i class="fas fa-heart"></i>',
-    tempHp: '<i class="fas fa-shield-heart"></i>',
-    maxHp: '<i class="fas fa-heart-circle-plus"></i>',
-    tempMaxHp: '<i class="fas fa-shield-plus"></i>',
-    hitDice: '<i class="fa-solid fa-moon"></i>',
-
-    // Progress
-    xp: '<i class="fas fa-star"></i>',
-    level: '<i class="fas fa-arrow-up-wide-short"></i>',
-
-    // Magic
-    spellSlot: '<i class="fas fa-hat-wizard"></i>',
-    spellPrep: '<i class="fas fa-book-sparkles"></i>',
-
-    // AC & Proficiency & Ability
-    ac: '<i class="fas fa-shield"></i>',
-    ability: '<i class="fas fa-dumbbell"></i>',
-    skillProf: '<i class="fas fa-list-check"></i>',
-    saveProf: '<i class="fas fa-shield"></i>',
-    toolProf: '<i class="fas fa-screwdriver-wrench"></i>',
-
-    // Currency
-    currency: '<i class="fas fa-coins"></i>',
-
-    // Effects
-    effect: '<i class="fas fa-hourglass-half"></i>',
-
-    // Party
-    partyMember: '<i class="fas fa-users"></i>',
-
-    // Items
-    itemQty: '<i class="fas fa-backpack"></i>',
-    itemNameDesc: '<i class="fas fa-pen-to-square"></i>',
-    itemEquip: '<i class="fas fa-shirt"></i>',
-    itemAttune: '<i class="fas fa-wand-magic"></i>',
-    itemIdentify: '<i class="fas fa-eye"></i>',
-    itemCharges: '<i class="fas fa-battery-half"></i>',
-    itemContainer: '<i class="fas fa-box-open"></i>',
-
-    // Sheet mode
-    sheetMode: '<i class="fas fa-toggle-on"></i>',
-
-    // Inspiration
-    inspiration: '<i class="fas fa-certificate"></i>',
-
-    // Death save
-    deathSuccess: '<i class="fas fa-heart-pulse"></i>',
-    deathFailure: '<i class="fas fa-skull"></i>',
+export const LIMITS = {
+    KEY: 120,
+    LABEL: 160,
+    TEXT: 120,
 }
 
-export const classes = {
-    // General
-    plus: 'scm-plus',
-    minus: 'scm-minus',
-
-    // HP
-    hpPlus: 'scm-hp-plus',
-    hpMinus: 'scm-hp-minus',
-    maxHp: 'scm-max-hp',
-    tempHp: 'scm-temp-hp',
-    tempMaxHp: 'scm-temp-max-hp',
-    hitDice: 'scm-hit-dice',
-
-    // XP / Level
-    xp: 'scm-xp',
-    level: 'scm-level',
-
-    // Currency
-    currencyPlus: 'scm-currency-plus',
-    currencyMinus: 'scm-currency-minus',
-
-    // Spell slots
-    spellSlotPlus: 'scm-spellslot-plus',
-    spellSlotMinus: 'scm-spellslot-minus',
-    spellPrep: 'scm-spellprep',
-
-    // AC & Proficiency & Ability
-    ac: 'scm-ac',
-    ability: 'scm-ability',
-    skill: 'scm-skill-prof',
-    save: 'scm-save-prof',
-    tool: 'scm-tool-prof',
-
-    // Items
-    itemPlus: 'scm-item-plus',
-    itemMinus: 'scm-item-minus',
-    itemNameDesc: 'scm-item-name-desc',
-    itemEquip: 'scm-item-equip',
-    itemUnequip: 'scm-item-unequip',
-    itemAttune: 'scm-item-attune',
-    itemCharges: 'scm-item-charges',
-    itemDescription: 'scm-item-description',
-    itemIdentify: 'scm-item-identify',
-    itemContainer: 'scm-item-container',
-
-    // Effects
-    effect: 'scm-effect',
-    effectLose: 'scm-effect-lose',
-
-    // Sheet Mode
-    sheetMode: 'scm-sheet-mode',
-
-    // Inspiration
-    inspiration: 'scm-inspiration',
+/**
+ * Every message describes one change of one of these kinds. The kind decides the icon, the way the change is drawn
+ * (`type`), the color category of the left zone (`cat`) and which visibility setting it belongs to.
+ * `pool`: shown as fractions (`1/2 → 2/3`). `inv`: going up is bad (death save failures), the delta color flips.
+ * The GM rejects entries whose kind does not belong to the setting they were sent under.
+ */
+export const KIND_META = {
+    hp: { icon: 'fa-heart', setting: SETTING.MONITOR_HP, type: 'num', cat: 'health' },
+    maxHp: { icon: 'fa-heart-circle-plus', setting: SETTING.MONITOR_HP, type: 'num', cat: 'health' },
+    tempHp: { icon: 'fa-shield-heart', setting: SETTING.MONITOR_HP, type: 'num', cat: 'health' },
+    tempMaxHp: { icon: 'fa-shield-plus', setting: SETTING.MONITOR_HP, type: 'num', cat: 'health' },
+    hitDice: { icon: 'fa-moon', setting: SETTING.MONITOR_HIT_DICE, type: 'num', cat: 'health', pool: true },
+    deathSuccess: {
+        icon: 'fa-heart-pulse',
+        setting: SETTING.MONITOR_DEATH_SAVE,
+        type: 'num',
+        cat: 'health',
+        pool: true,
+    },
+    deathFailure: {
+        icon: 'fa-skull',
+        setting: SETTING.MONITOR_DEATH_SAVE,
+        type: 'num',
+        cat: 'health',
+        pool: true,
+        inv: true,
+    },
+    slot: { icon: 'fa-hat-wizard', setting: SETTING.MONITOR_SPELL_SLOTS, type: 'num', cat: 'magic', pool: true },
+    pact: { icon: 'fa-gem', setting: SETTING.MONITOR_SPELL_SLOTS, type: 'num', cat: 'magic', pool: true },
+    prep: { icon: 'fa-book-sparkles', setting: SETTING.MONITOR_SPELL_PREP, type: 'state', cat: 'magic' },
+    ac: { icon: 'fa-shield', setting: SETTING.MONITOR_AC, type: 'num', cat: 'guard' },
+    xp: { icon: 'fa-star', setting: SETTING.MONITOR_XP, type: 'num', cat: 'wealth' },
+    level: { icon: 'fa-arrow-up-wide-short', setting: SETTING.MONITOR_LEVEL, type: 'num', cat: 'wealth' },
+    ability: { icon: 'fa-dumbbell', setting: SETTING.MONITOR_ABILITY, type: 'num', cat: 'skill' },
+    skill: { icon: 'fa-list-check', setting: SETTING.MONITOR_SKILL_PROF, type: 'trans', cat: 'skill' },
+    save: { icon: 'fa-shield-halved', setting: SETTING.MONITOR_SAVE_PROF, type: 'trans', cat: 'skill' },
+    tool: { icon: 'fa-screwdriver-wrench', setting: SETTING.MONITOR_TOOL_PROF, type: 'trans', cat: 'skill' },
+    currency: { icon: 'fa-coins', setting: SETTING.MONITOR_CURRENCY, type: 'num', cat: 'wealth' },
+    item: { icon: 'fa-backpack', setting: SETTING.MONITOR_ITEM_QUANTITY, type: 'state', cat: 'gear' },
+    quantity: { icon: 'fa-backpack', setting: SETTING.MONITOR_ITEM_QUANTITY, type: 'num', cat: 'gear' },
+    equip: { icon: 'fa-shirt', setting: SETTING.MONITOR_ITEM_EQUIP, type: 'state', cat: 'gear' },
+    attune: { icon: 'fa-wand-magic', setting: SETTING.MONITOR_ITEM_ATTUNE, type: 'state', cat: 'magic' },
+    identify: { icon: 'fa-eye', setting: SETTING.MONITOR_ITEM_IDENTIFY, type: 'trans', cat: 'gear' },
+    charges: { icon: 'fa-battery-half', setting: SETTING.MONITOR_ITEM_CHARGES, type: 'num', cat: 'magic', pool: true },
+    container: { icon: 'fa-box-open', setting: SETTING.MONITOR_ITEM_CONTAINER, type: 'trans', cat: 'gear' },
+    rename: { icon: 'fa-pen-to-square', setting: SETTING.MONITOR_ITEM_NAME_DESC, type: 'trans', cat: 'meta' },
+    description: { icon: 'fa-file-lines', setting: SETTING.MONITOR_ITEM_NAME_DESC, type: 'diff', cat: 'meta' },
+    effect: { icon: 'fa-hourglass-half', setting: SETTING.MONITOR_EFFECTS, type: 'state', cat: 'effect' },
+    inspiration: { icon: 'fa-certificate', setting: SETTING.MONITOR_INSPIRATION, type: 'state', cat: 'boon' },
+    sheetMode: { icon: 'fa-toggle-on', setting: SETTING.MONITOR_SHEET_MODE, type: 'state', cat: 'meta' },
+    member: { icon: 'fa-users', setting: SETTING.MONITOR_PARTY_MEMBERS, type: 'state', cat: 'meta' },
 }

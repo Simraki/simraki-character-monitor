@@ -8,149 +8,158 @@
             },
             "VisibilityMode": {
                 "Disabled": "Desactivado",
-                "GM": "Solo Director de Juego (GM)",
-                "Owner": "Director de Juego & Propietario",
+                "GM": "Solo DM",
+                "Owner": "DM y propietarios",
                 "All": "Todos"
             }
         },
         "Settings": {
             "NpcMonitorMode": {
-                "Name": "Monitoreo de NPCs",
-                "Hint": "Seguir los cambios realizados en Personajes No Jugadores (NPCs)."
+                "Name": "Seguimiento de PNJ",
+                "Hint": "Qué hojas de PNJ se siguen."
             },
             "PartyMonitor": {
-                "Name": "Monitor de hoja de grupo",
-                "Hint": "Monitorear cambios en las hojas de grupo: miembros, dinero e inventario compartido"
+                "Name": "Seguimiento de la hoja de grupo",
+                "Hint": "Sigue las hojas de grupo: miembros, dinero e inventario compartido."
             },
             "MonitorHP": {
-                "Name": "Rastrear HP",
-                "Hint": "Rastrea los cambios de puntos de vida del personaje"
+                "Name": "Seguir PG",
+                "Hint": "PG actuales, máximos, temporales y máximos temporales."
             },
             "MonitorHitDice": {
-                "Name": "Monitorear dados de golpe",
-                "Hint": "Monitorea los cambios en los dados de golpe del personaje"
+                "Name": "Seguir dados de golpe",
+                "Hint": "Dados de golpe gastados y recuperados."
             },
             "MonitorXP": {
-                "Name": "Rastrear puntos de experiencia",
-                "Hint": "Rastrea los cambios de puntos de experiencia en la hoja de personaje"
+                "Name": "Seguir puntos de experiencia",
+                "Hint": "Cambios de los puntos de experiencia."
             },
             "MonitorLevel": {
-                "Name": "Rastrear nivel",
-                "Hint": "Rastrea los cambios de nivel en la hoja de personaje"
+                "Name": "Seguir nivel",
+                "Hint": "Niveles de clase, incluido añadir o quitar una clase."
             },
             "MonitorSpellPrep": {
-                "Name": "Rastrear preparación de hechizos",
-                "Hint": "Rastrea cuando un personaje prepara o retira un hechizo"
+                "Name": "Seguir preparación de conjuros",
+                "Hint": "Un conjuro pasa a preparado, no preparado o siempre preparado."
             },
             "MonitorSpellSlots": {
-                "Name": "Rastrear ranuras de hechizo",
-                "Hint": "Rastrea los cambios en las ranuras de hechizo"
+                "Name": "Seguir espacios de conjuro",
+                "Hint": "Espacios gastados y recuperados y su máximo, magia de pacto incluida."
             },
             "MonitorAC": {
-                "Name": "Rastrear clase de armadura (AC)",
-                "Hint": "Rastrea cambios en la clase de armadura del personaje"
+                "Name": "Seguir clase de armadura",
+                "Hint": "Cambios de la clase de armadura."
             },
             "MonitorAbility": {
-                "Name": "Rastrear características",
-                "Hint": "Rastrea cambios en los valores de las características del personaje"
+                "Name": "Seguir características",
+                "Hint": "Cambios de las puntuaciones de característica."
             },
             "MonitorSkillProficiency": {
-                "Name": "Rastrear competencias",
-                "Hint": "Rastrea cambios en la competencia en habilidades del personaje"
+                "Name": "Seguir competencia en habilidades",
+                "Hint": "Cambios de la competencia en habilidades."
             },
             "MonitorSaveProficiency": {
-                "Name": "Rastrear tiradas de salvación",
-                "Hint": "Rastrea cambios en la competencia en tiradas de salvación"
+                "Name": "Seguir competencia en salvaciones",
+                "Hint": "Cambios de la competencia en tiradas de salvación."
             },
             "MonitorToolProficiency": {
-                "Name": "Rastrear herramientas",
-                "Hint": "Rastrea cambios en la competencia en herramientas"
+                "Name": "Seguir competencia con herramientas",
+                "Hint": "Cambios de la competencia con herramientas."
             },
             "MonitorCurrency": {
-                "Name": "Rastrear moneda",
-                "Hint": "Rastrea cambios en la moneda del personaje"
+                "Name": "Seguir dinero",
+                "Hint": "Dinero en la hoja y en contenedores."
             },
             "MonitorPartyMembers": {
-                "Name": "Monitorear miembros del grupo",
-                "Hint": "Monitorea la adición y eliminación de miembros del grupo"
+                "Name": "Seguir miembros del grupo",
+                "Hint": "Un miembro se añade a un grupo o se quita de él."
             },
             "MonitorEffects": {
-                "Name": "Rastrear efectos activos",
-                "Hint": "Rastrea cambios en efectos activos"
+                "Name": "Seguir efectos activos",
+                "Hint": "Un efecto se añade, se quita, se activa o se desactiva."
             },
             "MonitorItemQuantity": {
-                "Name": "Rastrear cantidad de objetos",
-                "Hint": "Rastrea cambios en la cantidad de objetos del personaje"
+                "Name": "Seguir objetos",
+                "Hint": "Un objeto se añade o se quita, o cambia su cantidad."
             },
             "MonitorItemNameDesc": {
-                "Name": "Rastrear nombre y descripción de objetos",
-                "Hint": "Rastrea cambios en el nombre y/o descripción de objetos"
+                "Name": "Seguir nombres y descripciones",
+                "Hint": "Objetos renombrados y cambios de descripción, mostrados como comparación. Comparar descripciones largas exige trabajo a los equipos lentos."
             },
             "MonitorItemEquip": {
-                "Name": "Rastrear equipamiento",
-                "Hint": "Rastrea cuando el personaje equipa o desequipa un objeto"
+                "Name": "Seguir equipo",
+                "Hint": "Un objeto se equipa o se desequipa."
             },
             "MonitorItemAttune": {
-                "Name": "Rastrear sintonización",
-                "Hint": "Rastrea cuando el personaje se sintoniza o pierde la sintonización de un objeto"
+                "Name": "Seguir sintonía",
+                "Hint": "Se gana o se pierde la sintonía con un objeto."
             },
             "MonitorItemIdentify": {
-                "Name": "Rastrear identificación de objetos",
-                "Hint": "Rastrea cambios en identificado/no identificado de objetos"
+                "Name": "Seguir identificación",
+                "Hint": "Un objeto se identifica o deja de estar identificado."
             },
             "MonitorItemCharges": {
-                "Name": "Rastrear cargas de objetos",
-                "Hint": "Rastrea cambios en las cargas de los objetos"
-            },
-            "MonitorSheetMode": {
-                "Name": "Rastrear modo de hoja",
-                "Hint": "Rastrea cambios entre modo juego y edición"
-            },
-            "MonitorInspiration": {
-                "Name": "Rastrear inspiración",
-                "Hint": "Rastrea cambios en la inspiración del personaje"
-            },
-            "MonitorDeathSave": {
-                "Name": "Rastrear tiradas de salvación de muerte",
-                "Hint": "Rastrea cambios en las tiradas de salvación de muerte"
-            },
-            "ShowChangedBy": {
-                "Name": "Mostrar quién modificó",
-                "Hint": "Añade a cada mensaje el nombre del jugador (o DM) que realizó el cambio"
+                "Name": "Seguir cargas",
+                "Hint": "Usos gastados y recuperados de objetos y rasgos, y su máximo."
             },
             "MonitorItemContainer": {
-                "Name": "Monitorear movimiento a contenedores",
-                "Hint": "Monitorea el movimiento de un objeto hacia un contenedor, fuera de él o entre contenedores"
+                "Name": "Seguir contenedores",
+                "Hint": "Un objeto se mueve a un contenedor, fuera de él o entre contenedores."
+            },
+            "MonitorSheetMode": {
+                "Name": "Seguir modo de hoja",
+                "Hint": "La hoja cambia entre modo de juego y de edición. Necesita libWrapper."
+            },
+            "MonitorInspiration": {
+                "Name": "Seguir inspiración",
+                "Hint": "La inspiración se obtiene o se gasta."
+            },
+            "MonitorDeathSave": {
+                "Name": "Seguir salvaciones contra muerte",
+                "Hint": "Éxitos y fallos de las salvaciones contra muerte."
+            },
+            "BatchMs": {
+                "Name": "Tiempo de lote (ms)",
+                "Hint": "Los cambios de un personaje se reúnen durante este tiempo, contado desde el primero, y luego se envían juntos. Cada cambio sigue siendo su propio mensaje."
+            },
+            "ShowAuthorMark": {
+                "Name": "Marcar cambios de otros",
+                "Hint": "Una pequeña corona (DM) o pluma (jugador) en la esquina de un mensaje cuando otra persona hizo el cambio. Quién y cuándo aparecen en la descripción emergente del icono. Solo te afecta a ti."
+            },
+            "HideOwnChanges": {
+                "Name": "Ocultar mis cambios",
+                "Hint": "Oculta los mensajes sobre cambios que hiciste tú. Solo te afecta a ti."
             }
         },
         "ChatMessage": {
             "SheetMode": "Modo de hoja",
-            "Description": "Descripción",
-            "DescriptionChanged": "Descripción cambiada",
+            "DescriptionChanged": "descripción cambiada",
+            "ShowFull": "Mostrar todo el texto",
             "HP": {
-                "Value": "HP",
-                "Max": "Max HP",
-                "Temp": "Temp HP",
-                "Tempmax": "Temp Max HP"
+                "Value": "PG",
+                "Max": "PG máx.",
+                "Temp": "PG temp.",
+                "Tempmax": "PG máx. temp."
             },
-            "Equipped": "equipa",
-            "Unequipped": "desequipa",
-            "Prepared": "prepara",
-            "Unprepared": "no prepara",
-            "AttunesTo": "sintoniza",
-            "BreaksAttune": "pierde sintonización en",
+            "Equipped": "equipado",
+            "Unequipped": "desequipado",
+            "Attuned": "sintonizado",
+            "AttunementBroken": "sintonía perdida",
             "Enabled": "activado",
             "Disabled": "desactivado",
             "Added": "añadido",
             "Deleted": "eliminado",
             "Identified": "identificado",
-            "Unidentified": "no identificado",
-            "Old": "Antes",
-            "New": "Después",
-            "MemberAdded": "añade un miembro",
-            "MemberRemoved": "elimina un miembro",
-            "ChangedBy": "Modificado por: {name}",
-            "Inventory": "Inventario"
+            "Unidentified": "sin identificar",
+            "MemberAdded": "añadido",
+            "MemberRemoved": "quitado",
+            "ChangedBy": "Cambiado por: {name}",
+            "GM": "DM",
+            "ItemName": "Nombre"
+        },
+        "ContextMenu": {
+            "Clear": "Borrar mensajes del monitor",
+            "ClearConfirm": "¿Borrar todos los mensajes del monitor ({count})? No se puede deshacer."
         }
     }
 }

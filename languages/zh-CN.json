@@ -2,155 +2,164 @@
     "simraki-character-monitor": {
         "SettingChoices": {
             "NpcMonitorMode": {
-                "Disabled": "已禁用",
+                "Disabled": "禁用",
                 "Owned": "玩家控制的",
-                "All": "所有"
+                "All": "全部"
             },
             "VisibilityMode": {
-                "Disabled": "已禁用",
+                "Disabled": "禁用",
                 "GM": "仅GM",
-                "Owner": "GM与所有者",
+                "Owner": "GM和拥有者",
                 "All": "所有人"
             }
         },
         "Settings": {
             "NpcMonitorMode": {
                 "Name": "NPC 监视",
-                "Hint": "追踪非玩家角色（NPC）的变更信息。"
+                "Hint": "监视哪些 NPC 角色卡。"
             },
             "PartyMonitor": {
-                "Name": "队伍图纸监视",
-                "Hint": "监视队伍图纸的更改：成员、货币和共享背包"
+                "Name": "队伍角色卡监视",
+                "Hint": "监视队伍角色卡：成员、货币和共享物品栏。"
             },
             "MonitorHP": {
-                "Name": "监控生命值",
-                "Hint": "追踪角色生命值的变化。"
+                "Name": "监视生命值",
+                "Hint": "当前、最大、临时和临时最大生命值。"
             },
             "MonitorHitDice": {
-                "Name": "追踪生命骰",
-                "Hint": "追踪角色生命骰的变化"
+                "Name": "监视生命骰",
+                "Hint": "消耗和恢复的生命骰。"
             },
             "MonitorXP": {
-                "Name": "监控经验值",
-                "Hint": "追踪角色经验值的变化。"
+                "Name": "监视经验值",
+                "Hint": "经验值的变化。"
             },
             "MonitorLevel": {
-                "Name": "监控等级",
-                "Hint": "追踪角色等级的变化。"
+                "Name": "监视等级",
+                "Hint": "职业等级，包括添加和移除职业。"
             },
             "MonitorSpellPrep": {
-                "Name": "监控法术准备",
-                "Hint": "追踪角色准备或移除法术的情况。"
+                "Name": "监视法术准备",
+                "Hint": "法术变为已准备、未准备或始终准备。"
             },
             "MonitorSpellSlots": {
-                "Name": "监控法术位",
-                "Hint": "追踪角色法术位的变化。"
+                "Name": "监视法术位",
+                "Hint": "消耗和恢复的法术位及其上限，包括契约魔法。"
             },
             "MonitorAC": {
-                "Name": "监控护甲等级(AC)",
-                "Hint": "追踪角色护甲等级的变化。"
+                "Name": "监视护甲等级",
+                "Hint": "护甲等级的变化。"
             },
             "MonitorAbility": {
-                "Name": "监控能力值",
-                "Hint": "追踪角色能力值的变化。"
+                "Name": "监视属性值",
+                "Hint": "属性值的变化。"
             },
             "MonitorSkillProficiency": {
-                "Name": "监控技能熟练",
-                "Hint": "追踪角色技能熟练的变化。"
+                "Name": "监视技能熟练",
+                "Hint": "技能熟练的变化。"
             },
             "MonitorSaveProficiency": {
-                "Name": "监控豁免熟练",
-                "Hint": "追踪角色豁免熟练的变化。"
+                "Name": "监视豁免熟练",
+                "Hint": "豁免检定熟练的变化。"
             },
             "MonitorToolProficiency": {
-                "Name": "监控工具熟练",
-                "Hint": "追踪角色工具熟练的变化。"
+                "Name": "监视工具熟练",
+                "Hint": "工具熟练的变化。"
             },
             "MonitorCurrency": {
-                "Name": "监控货币",
-                "Hint": "追踪角色货币的变化。"
+                "Name": "监视货币",
+                "Hint": "角色卡上和容器中的货币。"
             },
             "MonitorPartyMembers": {
                 "Name": "监视队伍成员",
-                "Hint": "监视队伍成员的加入和移除"
+                "Hint": "成员加入或离开队伍。"
             },
             "MonitorEffects": {
-                "Name": "监控活跃效果",
-                "Hint": "追踪角色活跃效果的变化。"
+                "Name": "监视激活效果",
+                "Hint": "效果被添加、移除、启用或禁用。"
             },
             "MonitorItemQuantity": {
-                "Name": "监控物品数量",
-                "Hint": "追踪角色物品数量的变化。"
+                "Name": "监视物品",
+                "Hint": "物品被添加或移除，或数量变化。"
             },
             "MonitorItemNameDesc": {
-                "Name": "监控物品名称和描述",
-                "Hint": "追踪角色物品名称和/或描述的变化。"
+                "Name": "监视名称和描述",
+                "Hint": "物品改名和描述变化，以对比形式显示。比较较长的描述会加重低配电脑的负担。"
             },
             "MonitorItemEquip": {
-                "Name": "监控装备",
-                "Hint": "追踪角色装备或卸下物品的情况。"
+                "Name": "监视装备",
+                "Hint": "物品被装备或卸下。"
             },
             "MonitorItemAttune": {
-                "Name": "监控调谐",
-                "Hint": "追踪角色调谐或失去调谐的情况。"
+                "Name": "监视同调",
+                "Hint": "获得或失去对物品的同调。"
             },
             "MonitorItemIdentify": {
-                "Name": "监控物品识别",
-                "Hint": "追踪角色物品的识别/未识别状态变化。"
+                "Name": "监视鉴定",
+                "Hint": "物品被鉴定或变为未鉴定。"
             },
             "MonitorItemCharges": {
-                "Name": "监控物品充能",
-                "Hint": "追踪角色物品充能的变化。"
-            },
-            "MonitorSheetMode": {
-                "Name": "监控角色表模式",
-                "Hint": "追踪角色表在游戏模式和编辑模式之间的切换。"
-            },
-            "MonitorInspiration": {
-                "Name": "监控灵感",
-                "Hint": "追踪角色灵感的变化。"
-            },
-            "MonitorDeathSave": {
-                "Name": "监控死亡豁免",
-                "Hint": "追踪角色死亡豁免结果的变化。"
-            },
-            "ShowChangedBy": {
-                "Name": "显示修改人员",
-                "Hint": "在每条消息中添加进行修改的玩家（或 GM）的名称"
+                "Name": "监视充能",
+                "Hint": "物品和特性使用次数的消耗、恢复及上限。"
             },
             "MonitorItemContainer": {
-                "Name": "监视容器物品移动",
-                "Hint": "监视物品移入容器、移出容器或在容器之间的移动"
+                "Name": "监视容器",
+                "Hint": "物品放入容器、取出或移到其他容器。"
+            },
+            "MonitorSheetMode": {
+                "Name": "监视角色卡模式",
+                "Hint": "角色卡在游玩模式和编辑模式之间切换。需要 libWrapper。"
+            },
+            "MonitorInspiration": {
+                "Name": "监视激励",
+                "Hint": "获得或消耗激励。"
+            },
+            "MonitorDeathSave": {
+                "Name": "监视死亡豁免",
+                "Hint": "死亡豁免的成功和失败。"
+            },
+            "BatchMs": {
+                "Name": "合并时间（毫秒）",
+                "Hint": "一个角色的变化从第一次变化起收集这么长时间，然后一起发送。每个变化仍是单独的消息。"
+            },
+            "ShowAuthorMark": {
+                "Name": "标记他人的修改",
+                "Hint": "当其他人做出修改时，在消息角落显示小王冠（GM）或钢笔（玩家）。是谁、何时修改显示在图标的提示中。仅对你生效。"
+            },
+            "HideOwnChanges": {
+                "Name": "隐藏我的修改",
+                "Hint": "隐藏关于你自己所做修改的消息。仅对你生效。"
             }
         },
         "ChatMessage": {
-            "SheetMode": "角色表模式",
-            "Description": "描述",
-            "DescriptionChanged": "描述已更改",
+            "SheetMode": "角色卡模式",
+            "DescriptionChanged": "描述已修改",
+            "ShowFull": "显示全文",
             "HP": {
                 "Value": "生命值",
                 "Max": "最大生命值",
                 "Temp": "临时生命值",
-                "Tempmax": "最大临时生命值"
+                "Tempmax": "临时最大生命值"
             },
-            "Equipped": "装备了",
-            "Unequipped": "卸下了",
-            "Prepared": "准备了",
-            "Unprepared": "取消准备",
-            "AttunesTo": "调谐了",
-            "BreaksAttune": "失去调谐",
-            "Enabled": "启用",
-            "Disabled": "禁用",
-            "Added": "添加",
-            "Deleted": "删除",
-            "Identified": "已识别",
-            "Unidentified": "未识别",
-            "Old": "之前",
-            "New": "现在",
-            "MemberAdded": "添加了成员",
-            "MemberRemoved": "移除了成员",
-            "ChangedBy": "修改者: {name}",
-            "Inventory": "背包"
+            "Equipped": "已装备",
+            "Unequipped": "已卸下",
+            "Attuned": "已同调",
+            "AttunementBroken": "失去同调",
+            "Enabled": "已启用",
+            "Disabled": "已禁用",
+            "Added": "已添加",
+            "Deleted": "已移除",
+            "Identified": "已鉴定",
+            "Unidentified": "未鉴定",
+            "MemberAdded": "已加入",
+            "MemberRemoved": "已移除",
+            "ChangedBy": "修改者：{name}",
+            "GM": "GM",
+            "ItemName": "名称"
+        },
+        "ContextMenu": {
+            "Clear": "清除监视消息",
+            "ClearConfirm": "删除所有监视消息（{count} 条）？此操作无法撤销。"
         }
     }
 }

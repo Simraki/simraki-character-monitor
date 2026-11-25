@@ -14,6 +14,7 @@ export class BaseMonitor {
     }
 
     _getEntityActor(entity) {
+        const { Actor } = foundry.documents
         if (entity instanceof Actor) return entity
         if (entity.actor instanceof Actor) return entity.actor
         if (entity.parent instanceof Actor) return entity.parent
@@ -36,15 +37,6 @@ export class BaseMonitor {
             await fn()
         } catch (err) {
             console.error(`${MODULE_ID} | ${this.constructor.name}: ${label} failed`, err)
-        }
-    }
-
-    async _settleAll(promises) {
-        const results = await Promise.allSettled(promises)
-        for (const result of results) {
-            if (result.status === 'rejected') {
-                console.error(`${MODULE_ID} | ${this.constructor.name}: failed to write a log message`, result.reason)
-            }
         }
     }
 

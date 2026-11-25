@@ -8,13 +8,17 @@ const foundryKeys = [
     'game',
     'foundry',
     'Hooks',
-    'CONFIG',
+    'fromUuidSync',
+    'fromUuid',
+    'ui',
+    'canvas',
     'CONST',
+    'CONFIG',
     'libWrapper',
     'socketlib',
-    'fromUuid',
-    'Actor',
-    'ChatMessage',
+    '_loc',
+    'PIXI',
+    'dnd5e',
 ]
 
 export default defineConfig([
@@ -23,7 +27,7 @@ export default defineConfig([
         plugins: { js },
         extends: ['js/recommended'],
         languageOptions: {
-            globals: { ...globals.browser, ...foundryKeys.reduce((acc, key) => ({ ...acc, [key]: 'writable' }), {}) },
+            globals: { ...globals.browser, ...foundryKeys.reduce((acc, key) => ({ ...acc, [key]: 'readonly' }), {}) },
         },
     },
     { files: ['**/*.json'], plugins: { json }, language: 'json/json', extends: ['json/recommended'] },
@@ -31,7 +35,7 @@ export default defineConfig([
     {
         rules: {
             'no-unused-vars': 'warn',
-            'no-undef': 'warn',
+            'no-undef': 'error',
             'no-console': ['error', { allow: ['error'] }],
         },
     },

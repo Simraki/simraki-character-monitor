@@ -1,4 +1,4 @@
-import { MAX_NAME_CHARS, MODULE_ID, NPC_MONITOR_MODE, SETTING, VISIBILITY_MODE } from './config.js'
+import { MAX_NAME_CHARS, MODULE_ID, NPC_MONITOR_MODE, SETTING, SHORT_NAME_CHARS, VISIBILITY_MODE } from './config.js'
 
 export function truncateName(name) {
     name = String(name ?? '')
@@ -9,33 +9,29 @@ export function truncateName(name) {
     }
 }
 
-export function escapeHtml(value) {
-    return String(value ?? '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;')
-}
+export const escapeHtml = (value) => foundry.utils.escapeHTML(String(value ?? ''))
 
-export function uuidLink(uuid, name) {
-    const label = truncateName(name).replace(/[[\]{}]/g, '')
+export function uuidLink(uuid, name, transformName = truncateName) {
+    const label = transformName(name).replace(/[[\]{}]/g, '')
     return `@UUID[${uuid}]{${label}}`
 }
 
-export function getActorLink(actor) {
-    const token = actor.token || actor.getActiveTokens?.()[0]
-    const name = token?.name || actor.name
-    return escapeHtml(uuidLink(actor.uuid, name))
+export function actorDisplayName(actor) {
+    return String(actor?.token?.name || actor?.prototypeToken?.name || actor?.name || '').trim()
 }
 
-export function getDeltaText(newValue, oldValue) {
-    if (typeof newValue === 'number' && typeof oldValue === 'number') {
-        const delta = Math.abs(newValue - oldValue)
-        const sign = newValue - oldValue > 0 ? '+' : '-'
-        return `${oldValue} ${sign} ${delta} → ${newValue}`
-    }
-    return `${oldValue} → ${newValue}`
+export function shortName(name, limit = SHORT_NAME_CHARS) {
+    const words = String(name ?? '')
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+    if (!words.length) return ''
+    const chars = (text) => [...text].length
+    if (chars(words[0]) > limit) return [...words[0]].slice(0, limit - 1).join('') + '…'
+    let out = words[0]
+    let used = 1
+    while (used < words.length && chars(`${out} ${words[used]}`) <= limit) out += ` ${words[used++]}`
+    return used < words.length ? `${out}…` : out
 }
 
 export function revalueMap(obj, iteratee) {
@@ -54,10 +50,6 @@ export function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function _loc(key) {
-    return game.i18n.localize(key)
-}
-
 export function getSetting(key) {
     return game.settings.get(MODULE_ID, key)
 }
@@ -68,7 +60,7 @@ export function isMonitorEnabled(key) {
 
 export function isMonitoredActor(actor) {
     if (!actor) return false
-    if (!(actor instanceof Actor)) return false
+    if (!(actor instanceof foundry.documents.Actor)) return false
     if (actor.type === 'character') return true
 
     if (actor.type === 'npc') {

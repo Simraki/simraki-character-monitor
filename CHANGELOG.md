@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.1.0 (2026-11-25)
+
+- Verified with D&D5e 6.1.1
+- New message layout (dark two-zone card). The left zone has a tooltip
+- Reduced the number of color categories
+- Numbers read as `old → new` followed by the delta. Hit dice, spell slots, charges and death saves read as
+  fractions: `1/2 → 2/3 +1/+1`. Deltas of 10 000 and more are left out
+- Item, effect and tool names are now links
+- Currency uses full names instead of abbreviations
+- "Old / New" spoiler is replaced by a diff
+- Active effect messages no longer include the effect description.
+- "Show Changed By" setting is removed.
+- New client setting "Mark changes made by others"
+- New client setting "Hide my changes"
+- New world setting "Batch time": changes of one character are collected for this long, counted from the first one,
+  and sent to the GM in a single request
+- New GM context menu option "Clear monitor messages": deletes all messages of this module
+- Fix label of spell preparation
+- Switching a spell between prepared and always prepared is logged
+- Tool proficiencies without a compendium entry are logged.
+- Messages created by earlier versions keep their text but lose the module styling.
+- "Nik's DnD5e Tweaks": styles for compatibility with the whisper styling
+
 ## 2.0.0 (2026-10-15)
 
 - Support D&D5e 6.x (requires dnd5e 6+ and Foundry 14+, 5.x is no longer supported)

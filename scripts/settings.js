@@ -1,4 +1,4 @@
-import { MODULE_ID, NPC_MONITOR_MODE, SETTING, VISIBILITY_MODE } from './config.js'
+import { DEFAULT_BATCH_MS, MAX_BATCH_MS, MODULE_ID, NPC_MONITOR_MODE, SETTING, VISIBILITY_MODE } from './config.js'
 import { capitalize } from './utils.js'
 
 export function registerSettings() {
@@ -25,16 +25,35 @@ export function registerSettings() {
         default: false,
     })
 
-    game.settings.register(MODULE_ID, SETTING.SHOW_CHANGED_BY, {
-        name: `${MODULE_ID}.Settings.ShowChangedBy.Name`,
-        hint: `${MODULE_ID}.Settings.ShowChangedBy.Hint`,
-        scope: 'world',
+    game.settings.register(MODULE_ID, SETTING.SHOW_AUTHOR_MARK, {
+        name: `${MODULE_ID}.Settings.ShowAuthorMark.Name`,
+        hint: `${MODULE_ID}.Settings.ShowAuthorMark.Hint`,
+        scope: 'client',
         config: true,
         type: Boolean,
         default: false,
     })
 
-    const booleanSettings = [
+    game.settings.register(MODULE_ID, SETTING.HIDE_OWN, {
+        name: `${MODULE_ID}.Settings.HideOwnChanges.Name`,
+        hint: `${MODULE_ID}.Settings.HideOwnChanges.Hint`,
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTING.BATCH_MS, {
+        name: `${MODULE_ID}.Settings.BatchMs.Name`,
+        hint: `${MODULE_ID}.Settings.BatchMs.Hint`,
+        scope: 'world',
+        config: true,
+        type: Number,
+        range: { min: 0, max: MAX_BATCH_MS, step: 100 },
+        default: DEFAULT_BATCH_MS,
+    })
+
+    const visibilitySettings = [
         { key: SETTING.MONITOR_PARTY_MEMBERS, default: VISIBILITY_MODE.DISABLED },
         { key: SETTING.MONITOR_HP },
         { key: SETTING.MONITOR_HIT_DICE },
@@ -61,7 +80,7 @@ export function registerSettings() {
         { key: SETTING.MONITOR_EFFECTS, default: VISIBILITY_MODE.DISABLED },
     ]
 
-    for (const setting of booleanSettings) {
+    for (const setting of visibilitySettings) {
         const translationKey = capitalize(setting.key)
 
         game.settings.register(MODULE_ID, setting.key, {

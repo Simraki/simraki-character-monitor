@@ -1,7 +1,8 @@
 import { BaseMonitor } from './base.js'
 import { Logger } from '../logger.js'
-import { _loc, isMonitorEnabled } from '../utils.js'
-import { classes, icons, MODULE_ID, SETTING } from '../config.js'
+import { state } from '../entries.js'
+import { isMonitorEnabled, truncateName } from '../utils.js'
+import { MODULE_ID, SETTING } from '../config.js'
 
 export class EffectMonitor extends BaseMonitor {
     init() {
@@ -25,53 +26,37 @@ export class EffectMonitor extends BaseMonitor {
         return stash
     }
 
-    async processChanges(effect, old, userId) {
-        const actor = this._getEntityActor(effect)
-        const effectName = effect.name
+    /** @param {'Enabled'|'Disabled'|'Added'|'Deleted'} action */
+    _log(effect, actor, action) {
+        const on = action === 'Enabled' || action === 'Added'
+        const ref = action === 'Deleted' ? undefined : effect.uuid
+        Logger.log(
+            actor,
+            SETTING.MONITOR_EFFECTS,
+            state(
+                'effect',
+                `ae:${effect.uuid}`,
+                truncateName(effect.name),
+                _loc(`${MODULE_ID}.ChatMessage.${action}`),
+                { on, ref },
+            ),
+        )
+    }
 
+    async processChanges(effect, old) {
         if (old.disabled !== undefined && effect.disabled !== old.disabled) {
-            const enabled = !effect.disabled
-            const actionText = _loc(enabled ? `${MODULE_ID}.ChatMessage.Enabled` : `${MODULE_ID}.ChatMessage.Disabled`)
-            const text = `${actionText} ${effectName}`
-            await Logger.spoilerLog(
-                actor,
-                text,
-                _loc(`${MODULE_ID}.ChatMessage.Description`),
-                effect.description,
-                enabled ? classes.effect : classes.effectLose,
-                icons.effect,
-                SETTING.MONITOR_EFFECTS,
-            )
+            const actor = this._getEntityActor(effect)
+            this._log(effect, actor, effect.disabled ? 'Disabled' : 'Enabled')
         }
     }
 
-    async onCreateEntity(effect, actor, userId) {
+    async onCreateEntity(effect, actor) {
         if (!isMonitorEnabled(SETTING.MONITOR_EFFECTS)) return
-
-        const text = `${_loc(`${MODULE_ID}.ChatMessage.Added`)} ${effect.name}`
-        await Logger.spoilerLog(
-            actor,
-            text,
-            _loc(`${MODULE_ID}.ChatMessage.Description`),
-            effect.description,
-            classes.effect,
-            icons.effect,
-            SETTING.MONITOR_EFFECTS,
-        )
+        this._log(effect, actor, 'Added')
     }
 
-    async onDeleteEntity(effect, actor, userId) {
+    async onDeleteEntity(effect, actor) {
         if (!isMonitorEnabled(SETTING.MONITOR_EFFECTS)) return
-
-        const text = `${_loc(`${MODULE_ID}.ChatMessage.Deleted`)} ${effect.name}`
-        await Logger.spoilerLog(
-            actor,
-            text,
-            _loc(`${MODULE_ID}.ChatMessage.Description`),
-            effect.description,
-            classes.effectLose,
-            icons.effect,
-            SETTING.MONITOR_EFFECTS,
-        )
+        this._log(effect, actor, 'Deleted')
     }
 }

@@ -1,7 +1,9 @@
 import { BaseMonitor } from './base.js'
 import { Logger } from '../logger.js'
-import { _loc, capitalize, getDeltaText, isMonitorEnabled, truncateName, uuidLink, will } from '../utils.js'
-import { classes, icons, MODULE_ID, SETTING, VALID_TYPES } from '../config.js'
+import { diffWords, htmlToText } from '../diff.js'
+import { numeric, state, transition } from '../entries.js'
+import { isMonitorEnabled, truncateName, will } from '../utils.js'
+import { MODULE_ID, SETTING } from '../config.js'
 
 export class ItemMonitor extends BaseMonitor {
     init() {
@@ -43,11 +45,11 @@ export class ItemMonitor extends BaseMonitor {
         }
 
         if (isMonitorEnabled(SETTING.MONITOR_SPELL_PREP) && item.type === 'spell' && will(update, 'system.prepared')) {
-            stash.prepared = Boolean(sys.prepared)
+            stash.prepared = Number(sys.prepared ?? 0)
         }
 
         if (isMonitorEnabled(SETTING.MONITOR_ITEM_CHARGES) && sys.uses && will(update, 'system.uses')) {
-            stash.uses = foundry.utils.duplicate(sys.uses)
+            stash.uses = foundry.utils.deepClone(sys.uses)
         }
 
         if (isMonitorEnabled(SETTING.MONITOR_ITEM_IDENTIFY) && will(update, 'system.identified')) {
@@ -65,7 +67,7 @@ export class ItemMonitor extends BaseMonitor {
         }
 
         if (isMonitorEnabled(SETTING.MONITOR_CURRENCY) && will(update, 'system.currency')) {
-            stash.currency = foundry.utils.duplicate(sys.currency)
+            stash.currency = foundry.utils.deepClone(sys.currency)
         }
 
         if (isMonitorEnabled(SETTING.MONITOR_HIT_DICE) && item.type === 'class' && will(update, 'system.hd.spent')) {
@@ -75,52 +77,43 @@ export class ItemMonitor extends BaseMonitor {
         return stash
     }
 
-    async processChanges(item, old, userId) {
-        const logPromises = []
-
+    async processChanges(item, old) {
         const actor = this._getEntityActor(item)
         const sys = item.system
         const itemName = truncateName(item.name)
+        const ref = item.uuid
 
-        const log = (text, cls, icon, settingKey) => {
-            logPromises.push(Logger.log(actor, text, cls, icon, settingKey))
-        }
-
-        const spoilerLog = (summaryText, detailsText, cls, icon, settingKey) => {
-            logPromises.push(Logger.spoilerLog(actor, itemName, summaryText, detailsText, cls, icon, settingKey))
-        }
+        const log = (settingKey, entry) => Logger.log(actor, settingKey, entry)
+        const word = (key) => _loc(`${MODULE_ID}.ChatMessage.${key}`)
 
         /* Level */
         if (old.classLevels !== undefined && sys.levels !== old.classLevels) {
-            const curr = sys.levels
-            const prev = old.classLevels
-            const text = `${_loc('DND5E.Level')} (${itemName}): ${getDeltaText(curr, prev)}`
-            log(text, classes.level, icons.level, SETTING.MONITOR_LEVEL)
+            log(
+                SETTING.MONITOR_LEVEL,
+                numeric('level', `level:${ref}`, `${_loc('DND5E.Level')} (${itemName})`, old.classLevels, sys.levels, {
+                    ref,
+                }),
+            )
         }
 
         /* Quantity */
         if (old.quantity !== undefined && sys.quantity !== old.quantity) {
-            const deltaText = getDeltaText(sys.quantity, old.quantity)
-            const text = `${itemName}: ${deltaText}`
             log(
-                text,
-                sys.quantity > old.quantity ? classes.itemPlus : classes.itemMinus,
-                icons.itemQty,
                 SETTING.MONITOR_ITEM_QUANTITY,
+                numeric('quantity', `qty:${ref}`, itemName, old.quantity, sys.quantity, {
+                    ref,
+                }),
             )
         }
 
         /* Equip */
         if (old.equipped !== undefined && sys.equipped !== old.equipped) {
-            const preText = _loc(
-                sys.equipped ? `${MODULE_ID}.ChatMessage.Equipped` : `${MODULE_ID}.ChatMessage.Unequipped`,
-            )
-            const text = `${preText} ${itemName}`
             log(
-                text,
-                sys.equipped ? classes.itemEquip : classes.itemUnequip,
-                icons.itemEquip,
                 SETTING.MONITOR_ITEM_EQUIP,
+                state('equip', `equip:${ref}`, itemName, word(sys.equipped ? 'Equipped' : 'Unequipped'), {
+                    ref,
+                    on: !!sys.equipped,
+                }),
             )
         }
 
@@ -128,34 +121,58 @@ export class ItemMonitor extends BaseMonitor {
         if (old.container !== undefined) {
             const curr = sys.container ?? null
             if (curr !== old.container) {
-                const containerLabel = (id) => {
-                    const container = id ? actor?.items.get(id) : null
-                    return container
-                        ? uuidLink(container.uuid, container.name)
-                        : _loc(`${MODULE_ID}.ChatMessage.Inventory`)
-                }
-                const text = `${itemName}: ${getDeltaText(containerLabel(curr), containerLabel(old.container))}`
-                log(text, classes.itemContainer, icons.itemContainer, SETTING.MONITOR_ITEM_CONTAINER)
+                const container = (id) => (id ? actor?.items.get(id) : null)
+                const containerName = (id) =>
+                    container(id) ? truncateName(container(id).name) : _loc('DND5E.Inventory')
+                log(
+                    SETTING.MONITOR_ITEM_CONTAINER,
+                    transition(
+                        'container',
+                        `cont:${ref}`,
+                        itemName,
+                        containerName(old.container),
+                        containerName(curr),
+                        {
+                            ref,
+                            fromRef: container(old.container)?.uuid,
+                            toRef: container(curr)?.uuid,
+                        },
+                    ),
+                )
             }
         }
 
         /* Attunement */
         if (old.attuned !== undefined && sys.attuned !== old.attuned) {
-            const preText = _loc(
-                sys.attuned ? `${MODULE_ID}.ChatMessage.AttunesTo` : `${MODULE_ID}.ChatMessage.BreaksAttune`,
+            log(
+                SETTING.MONITOR_ITEM_ATTUNE,
+                state('attune', `attune:${ref}`, itemName, word(sys.attuned ? 'Attuned' : 'AttunementBroken'), {
+                    ref,
+                    on: !!sys.attuned,
+                }),
             )
-            const text = `${preText} ${itemName}`
-            log(text, classes.itemAttune, icons.itemAttune, SETTING.MONITOR_ITEM_ATTUNE)
         }
 
-        /* Spell Prepared */
-        if (old.prepared !== undefined && Boolean(sys.prepared) !== old.prepared) {
-            const preText = _loc(
-                sys.prepared ? `${MODULE_ID}.ChatMessage.Prepared` : `${MODULE_ID}.ChatMessage.Unprepared`,
-            )
-            const lvlText = sys.level === undefined ? '' : CONFIG.DND5E.spellLevels[sys.level]
-            const text = `${preText} ${itemName}${lvlText}`
-            log(text, classes.spellPrep, icons.spellPrep, SETTING.MONITOR_SPELL_PREP)
+        /* Spell preparation: 0 - unprepared, 1 - prepared, 2 - always prepared */
+        if (old.prepared !== undefined) {
+            const curr = Number(sys.prepared ?? 0)
+            if (curr !== old.prepared) {
+                const level = sys.level === undefined ? '' : ` (${CONFIG.DND5E.spellLevels?.[sys.level] ?? sys.level})`
+                const spellState = ['Unprepared', 'Prepared', 'AlwaysPrepared'][curr] ?? 'Prepared'
+                log(
+                    SETTING.MONITOR_SPELL_PREP,
+                    state(
+                        'prep',
+                        `prep:${ref}`,
+                        `${itemName}${level}`,
+                        _loc(`DND5E.SPELLCASTING.STATES.${spellState}`),
+                        {
+                            ref,
+                            on: curr > 0,
+                        },
+                    ),
+                )
+            }
         }
 
         /* Uses / Charges */
@@ -163,49 +180,54 @@ export class ItemMonitor extends BaseMonitor {
             const prev = old.uses
             const curr = sys.uses
             if (curr && (curr.value !== prev.value || curr.max !== prev.max)) {
-                const usesText = capitalize(_loc('DND5E.CONSUMPTION.Type.Use.other'))
-                const deltaText = getDeltaText(`${curr.value}/${curr.max}`, `${prev.value}/${prev.max}`)
-                const text = `${itemName}: ${usesText}: ${deltaText}`
-                log(text, classes.itemCharges, icons.itemCharges, SETTING.MONITOR_ITEM_CHARGES)
+                log(
+                    SETTING.MONITOR_ITEM_CHARGES,
+                    numeric('charges', `uses:${ref}`, itemName, prev.value ?? 0, curr.value ?? 0, {
+                        ref,
+                        max: curr.max ?? 0,
+                        oldMax: prev.max ?? 0,
+                    }),
+                )
             }
         }
 
         /* Rename */
         if (old.name && item.name !== old.name) {
-            const text = `${old.name} → ${item.name}`
-            log(text, classes.itemNameDesc, icons.itemNameDesc, SETTING.MONITOR_ITEM_NAME_DESC)
+            log(
+                SETTING.MONITOR_ITEM_NAME_DESC,
+                transition('rename', `name:${ref}`, word('ItemName'), truncateName(old.name), itemName, { toRef: ref }),
+            )
         }
 
         /* Identify */
         if (old.identified !== undefined && Boolean(sys.identified) !== old.identified) {
-            const preText = _loc(
-                sys.identified ? `${MODULE_ID}.ChatMessage.Identified` : `${MODULE_ID}.ChatMessage.Unidentified`,
+            log(
+                SETTING.MONITOR_ITEM_IDENTIFY,
+                transition(
+                    'identify',
+                    `ident:${ref}`,
+                    word(sys.identified ? 'Identified' : 'Unidentified'),
+                    truncateName(old.identifiedName),
+                    itemName,
+                    { toRef: ref },
+                ),
             )
-            const prevName = truncateName(old.identifiedName)
-            const text = `${preText} ${prevName} → ${itemName}`
-            log(text, classes.itemIdentify, icons.itemIdentify, SETTING.MONITOR_ITEM_IDENTIFY)
         }
 
-        /* Description */
+        /* Description: a word diff */
         if (old.description !== undefined) {
             const curr = sys.description?.value ?? ''
             if (curr !== old.description) {
-                const text = `
-                          <hr>
-                          <strong>${_loc(`${MODULE_ID}.ChatMessage.Old`)}</strong>
-                          ${old.description || '<em>—</em>'}
-                          <hr>
-                          <strong>${_loc(`${MODULE_ID}.ChatMessage.New`)}</strong>
-                          ${curr || '<em>—</em>'}
-                        `
-
-                spoilerLog(
-                    _loc(`${MODULE_ID}.ChatMessage.DescriptionChanged`),
-                    text,
-                    classes.itemNameDesc,
-                    icons.itemNameDesc,
-                    SETTING.MONITOR_ITEM_NAME_DESC,
-                )
+                const diff = diffWords(htmlToText(old.description), htmlToText(curr))
+                if (diff.add || diff.del) {
+                    log(SETTING.MONITOR_ITEM_NAME_DESC, {
+                        kind: 'description',
+                        key: `desc:${ref}`,
+                        label: itemName,
+                        ref,
+                        diff,
+                    })
+                }
             }
         }
 
@@ -213,91 +235,72 @@ export class ItemMonitor extends BaseMonitor {
         if (old.currency !== undefined) {
             const prev = old.currency
             const curr = sys.currency ?? {}
-
             for (const c in { ...prev, ...curr }) {
                 const p = prev[c] ?? 0
                 const n = curr[c] ?? 0
                 if (p === n) continue
-
-                const label = _loc(`DND5E.CurrencyAbbr${c.toUpperCase()}`)
-                const deltaText = getDeltaText(n, p)
-                const text = `${itemName}: ${label}: ${deltaText}`
-
-                log(
-                    text,
-                    n > p ? classes.currencyPlus : classes.currencyMinus,
-                    icons.currency,
-                    SETTING.MONITOR_CURRENCY,
-                )
+                const label = `${itemName}: ${CONFIG.DND5E.currencies[c]?.label ?? c}`
+                log(SETTING.MONITOR_CURRENCY, numeric('currency', `cur:${ref}:${c}`, label, p, n, { ref }))
             }
         }
 
         /* Hit Dice */
         if (old.hitDiceSpent !== undefined) {
-            const prev = old.hitDiceSpent
             const curr = sys.hd?.spent
-
-            if (curr !== undefined && curr !== prev) {
-                const prevV = sys.hd.max - prev
-                const currV = sys.hd.max - curr
-                const deltaText = getDeltaText(currV, prevV)
-
-                const hdText = _loc('DND5E.HITDICE.Abbreviation')
-
-                const text = `${itemName} (${hdText} ${sys.hd.denomination}): ${deltaText}`
-                log(text, classes.hitDice, icons.hitDice, SETTING.MONITOR_HIT_DICE)
+            if (curr !== undefined && curr !== old.hitDiceSpent) {
+                const max = sys.hd.max
+                const label = `${itemName} (${_loc('DND5E.HITDICE.Abbreviation')} ${sys.hd.denomination})`
+                log(
+                    SETTING.MONITOR_HIT_DICE,
+                    numeric('hitDice', `hd:${ref}`, label, max - old.hitDiceSpent, max - curr, {
+                        ref,
+                        max,
+                        oldMax: max,
+                    }),
+                )
             }
         }
-
-        await this._settleAll(logPromises)
     }
 
-    async _trackItemQuantity(item, actor, userId, isCreation) {
+    _trackItemQuantity(item, actor, isCreation) {
         if (!isMonitorEnabled(SETTING.MONITOR_ITEM_QUANTITY)) return
 
         const qty = item.system.quantity ?? 1
+        const action = _loc(`${MODULE_ID}.ChatMessage.${isCreation ? 'Added' : 'Deleted'}`)
 
-        const typeText = VALID_TYPES.includes(item.type) ? ` (${_loc(`TYPES.Item.${item.type}`)})` : ''
-        const actionText = isCreation
-            ? _loc(`${MODULE_ID}.ChatMessage.Added`)
-            : _loc(`${MODULE_ID}.ChatMessage.Deleted`)
-
-        const text = `${actionText} ${truncateName(item.name)} x${qty}${typeText}`
-
-        await Logger.log(
+        Logger.log(
             actor,
-            text,
-            isCreation ? classes.itemPlus : classes.itemMinus,
-            icons.itemQty,
             SETTING.MONITOR_ITEM_QUANTITY,
+            state('item', `item:${item.uuid}`, truncateName(item.name), qty > 1 ? `${action} ×${qty}` : action, {
+                on: isCreation,
+                ref: isCreation ? item.uuid : undefined,
+            }),
         )
     }
 
-    async _trackClassLevel(item, actor, isCreation) {
+    _trackClassLevel(item, actor, isCreation) {
         if (item.type !== 'class' || !isMonitorEnabled(SETTING.MONITOR_LEVEL)) return
 
-        const currLvl = item.system?.levels ?? 0
+        const currLvl = item.system?.levels
         if (currLvl === undefined || currLvl === null) return
 
         const prev = isCreation ? 0 : currLvl
         const curr = isCreation ? currLvl : 0
 
-        const text = `${_loc('DND5E.Level')} (${truncateName(item.name)}): ${getDeltaText(curr, prev)}`
-
-        await Logger.log(actor, text, classes.level, icons.level, SETTING.MONITOR_LEVEL)
+        Logger.log(
+            actor,
+            SETTING.MONITOR_LEVEL,
+            numeric('level', `level:${item.uuid}`, `${_loc('DND5E.Level')} (${truncateName(item.name)})`, prev, curr),
+        )
     }
 
-    async onCreateEntity(item, actor, userId) {
-        await Promise.allSettled([
-            this._trackItemQuantity(item, actor, userId, true),
-            this._trackClassLevel(item, actor, true),
-        ])
+    async onCreateEntity(item, actor) {
+        this._trackItemQuantity(item, actor, true)
+        this._trackClassLevel(item, actor, true)
     }
 
-    async onDeleteEntity(item, actor, userId) {
-        await Promise.allSettled([
-            this._trackItemQuantity(item, actor, userId, false),
-            this._trackClassLevel(item, actor, false),
-        ])
+    async onDeleteEntity(item, actor) {
+        this._trackItemQuantity(item, actor, false)
+        this._trackClassLevel(item, actor, false)
     }
 }

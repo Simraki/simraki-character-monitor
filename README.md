@@ -11,7 +11,7 @@
 
 **Simraki's Character Monitor** is an advanced sheet monitoring module for **D&D5e**.
 
-The module automatically logs critical changes made to character and NPC sheets directly into the chat, allowing the GM
+The module automatically logs changes made to character, NPC or Party sheets directly into the chat, allowing the GM
 to passively observe progression, inventory management, and tactical updates. It features powerful privacy controls and
 filtering options to seamlessly integrate into any table's playstyle.
 
@@ -21,91 +21,97 @@ filtering options to seamlessly integrate into any table's playstyle.
 
 ### Advanced Log Visibility
 
-Every single monitored parameter can be independently configured with one of four visibility levels:
+Every monitored parameter has one of four visibility levels:
 
-- **Disabled**: No logs will be generated for this parameter.
-- **GM Only**: Messages are completely hidden from players and whispered directly to the Game Master (default).
-- **GM & Token Owner**: Logs are visible to the GM and the specific player(-s) who owns that character.
-- **Everyone**: Logs are posted to all players.
+- **Disabled**: nothing is logged for this parameter.
+- **GM Only**: messages are whispered to the GMs.
+- **GM & Token Owner**: messages are whispered to the GMs and the owners of the character.
+- **Everyone**: messages are public.
+
+Most parameters default to **GM Only**
 
 ### NPC Sheet Monitoring
 
-You can extend monitoring beyond standard Player Characters. The module includes an NPC Filter Mode to help
-track:
+The **NPC Monitoring** setting extends monitoring beyond player characters:
 
-- **Disabled**: Keeps tracking strictly limited to Player Character sheets.
-- **Player-Controlled**: Automatically tracks any NPC that belongs to at least one player (default).
-- **All**: Tracks every single NPC on the canvas (warning: may cause chat spam during heavy combat updates).
+- **Disabled** (default): only player characters are monitored.
+- **Player-controlled**: NPCs owned by at least one player.
+- **All**: every NPC (may flood the chat in heavy combat).
 
 ### Party Sheet Monitoring
 
-The **Party Sheet Monitoring** setting (disabled by default) extends monitoring to Party (Group) sheets. When it is
-enabled, the following parameters are tracked on party sheets, each with its own visibility setting:
-
-- Party members (added / removed)
-- Currency
-- Items in the shared inventory (quantity, name / description, etc.)
+The **Party Sheet Monitor** setting (off by default) extends monitoring to Party (Group) sheets: members, currency and
+items in the shared inventory, each with its own visibility setting.
 
 ---
 
 ## What Is Monitored
 
-When changes are made through a character sheet, the following parameters can be monitored (can be enabled or disabled):
-
-- Current HP
-- Maximum HP
-- Temporary HP
-- Temporary Maximum HP
-- Hit Dice
-- Armor Class
+- Current, maximum, temporary and temporary maximum HP
+- Hit dice
+- Armor class
 - XP
-- Level (changes of class levels, including level-ups, adding or removing a class)
-- Ability Scores
-- Skill Proficiencies
-- Saving Throw Proficiencies
-- Tool Proficiencies
-- Currency
-- Spell Slots (including Pact Magic slots)
-- Spell Preparation
-- Item Quantity
-- Item Equipment
-- Item Attunement
-- Item Identification
-- Item Charges / Uses
-- Item Container Movement (moved into, out of, or between containers such as backpacks or pouches)
-- Item Name Changes
-- Item Description Changes (shown with old/new comparison under a spoiler)
-- Active Effects (add, remove, enable, disable)
+- Level (class levels)
+- Ability scores
+- Skill, saving throw and tool proficiencies
+- Currency (on the sheet and in containers)
+- Spell slots, including pact magic
+- Spell preparation (prepared, not prepared, always prepared)
+- Items: added and removed, quantity, equipped, attunement, identification, charges, moves between containers
+- Item names and descriptions
+- Active effects: added, removed, enabled, disabled
 - Inspiration
-- Death Save Successes and Failures
-- Character Sheet Mode (Play / Edit)
-- Party Members (Party sheet only)
+- Death save successes and failures
+- Sheet mode (play / edit)
+- Party members (party sheets only)
 
 *Spells and features are also included in the "Item"*
 
-All changes are logged in a compact, color-coded format with icons for quick readability.
+---
+
+## How Messages Look
+
+Each change creates a two-zone chat message:
+
+- **Left zone**: Color-coded by category (health, defense, magic, gear, skills, wealth, inspiration, effects, other)
+  with an icon and a short character name. Hovering anywhere over the left zone shows a tooltip with the full character
+  name, who made the edit, and when.
+    - **Author mark**: A corner crown (GM) or person-pen (player) badge indicates edits made by someone else
+- **Right zone**: Shows the change (e.g., `HP 15 → 10 -5`, `Candle 1/2 → 2/3 +1/+1`, `Stealth: Proficient → Expertise`).
+  Old values appear smaller; deltas are green or red and hidden if ≥ 10,000. Pools display as fractions, and long values
+  wrap to the next line.
+
+### Batching
+
+Changes to the same character are buffered for **Batch time** (600 ms from the first change by default) and sent to the
+GM together, while still rendering as individual messages
+
+### Context Menu
+
+Right-click any monitor message and select **Clear monitor messages** (GM only) to delete all messages created by this
+module after confirmation
 
 ---
 
 **Player Monitoring**
 
-<img src="/media/player.jpg" />
+<img src="/media/player.webp" />
 
 **Item Monitoring**
 
-<img src="/media/item.jpg" />
+<img src="/media/item.webp" />
 
 **Spell Monitoring**
 
-<img src="/media/spell.jpg" />
+<img src="/media/spell.webp" />
 
 **Effect Monitoring**
 
-<img src="/media/effect.jpg" />
+<img src="/media/effect.webp" />
 
 **Death Save Monitoring**
 
-<img src="/media/death_save.jpg" />
+<img src="/media/death_save.webp" />
 
 ---
 

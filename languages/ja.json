@@ -3,7 +3,7 @@
         "SettingChoices": {
             "NpcMonitorMode": {
                 "Disabled": "無効",
-                "Owned": "プレイヤー管理下のみ",
+                "Owned": "プレイヤー管理のみ",
                 "All": "すべて"
             },
             "VisibilityMode": {
@@ -15,142 +15,151 @@
         },
         "Settings": {
             "NpcMonitorMode": {
-                "Name": "NPC監視",
-                "Hint": "ノンプレイヤーキャラクター（NPC）の変更を追跡します。"
+                "Name": "NPCの監視",
+                "Hint": "監視するNPCシートの範囲。"
             },
             "PartyMonitor": {
-                "Name": "パーティーシート監視",
-                "Hint": "パーティーシートの変更（メンバー、通貨、共有インベントリ）を監視します"
+                "Name": "パーティーシートの監視",
+                "Hint": "パーティーシートのメンバー、通貨、共有インベントリを監視します。"
             },
             "MonitorHP": {
                 "Name": "HPを監視",
-                "Hint": "キャラクターのヒットポイントの変化を監視します。"
+                "Hint": "現在HP、最大HP、一時HP、一時最大HP。"
             },
             "MonitorHitDice": {
                 "Name": "ヒットダイスを監視",
-                "Hint": "キャラクターのヒットダイスの変更を監視します"
+                "Hint": "消費・回復したヒットダイス。"
             },
             "MonitorXP": {
-                "Name": "経験値を監視",
-                "Hint": "キャラクターシートの経験値の変化を監視します。"
+                "Name": "経験点を監視",
+                "Hint": "経験点の変化。"
             },
             "MonitorLevel": {
                 "Name": "レベルを監視",
-                "Hint": "キャラクターシートのレベル変化を監視します。"
+                "Hint": "クラスレベル。クラスの追加と削除も含みます。"
             },
             "MonitorSpellPrep": {
-                "Name": "呪文準備を監視",
-                "Hint": "キャラクターが呪文を準備/解除したときに監視します。"
+                "Name": "呪文の準備を監視",
+                "Hint": "呪文が準備済み、未準備、常時準備になったとき。"
             },
             "MonitorSpellSlots": {
                 "Name": "呪文スロットを監視",
-                "Hint": "キャラクターシートの呪文スロットの変化を監視します。"
+                "Hint": "消費・回復したスロットとその最大値。契約魔法を含みます。"
             },
             "MonitorAC": {
-                "Name": "アーマークラス(AC)を監視",
-                "Hint": "キャラクターシートのACの変化を監視します。"
+                "Name": "アーマークラスを監視",
+                "Hint": "アーマークラスの変化。"
             },
             "MonitorAbility": {
                 "Name": "能力値を監視",
-                "Hint": "キャラクターの能力値の変化を監視します。"
+                "Hint": "能力値の変化。"
             },
             "MonitorSkillProficiency": {
                 "Name": "技能習熟を監視",
-                "Hint": "キャラクターの技能習熟の変化を監視します。"
+                "Hint": "技能習熟の変化。"
             },
             "MonitorSaveProficiency": {
-                "Name": "セーヴィングスロー習熟を監視",
-                "Hint": "キャラクターのセーヴィングスロー習熟の変化を監視します。"
+                "Name": "セーヴィング・スロー習熟を監視",
+                "Hint": "セーヴィング・スロー習熟の変化。"
             },
             "MonitorToolProficiency": {
                 "Name": "道具習熟を監視",
-                "Hint": "キャラクターの道具習熟の変化を監視します。"
+                "Hint": "道具習熟の変化。"
             },
             "MonitorCurrency": {
                 "Name": "通貨を監視",
-                "Hint": "キャラクターシートの通貨の変化を監視します。"
+                "Hint": "シート上とコンテナ内の通貨。"
             },
             "MonitorPartyMembers": {
-                "Name": "パーティーメンバーの監視",
-                "Hint": "パーティーメンバーの追加と削除を監視します"
+                "Name": "パーティーメンバーを監視",
+                "Hint": "パーティーへのメンバーの追加と削除。"
             },
             "MonitorEffects": {
                 "Name": "アクティブ効果を監視",
-                "Hint": "キャラクターシートのアクティブ効果の変化を監視します。"
+                "Hint": "効果の追加、削除、有効化、無効化。"
             },
             "MonitorItemQuantity": {
-                "Name": "アイテム数量を監視",
-                "Hint": "キャラクターのアイテム数量の変化を監視します。"
+                "Name": "アイテムを監視",
+                "Hint": "アイテムの追加・削除と数量の変化。"
             },
             "MonitorItemNameDesc": {
-                "Name": "アイテム名と説明を監視",
-                "Hint": "キャラクターシートのアイテム名または説明の変化を監視します。"
+                "Name": "名前と説明を監視",
+                "Hint": "アイテム名の変更と説明の変更を差分で表示します。長い説明の比較は低性能なPCに負荷がかかります。"
             },
             "MonitorItemEquip": {
                 "Name": "装備を監視",
-                "Hint": "キャラクターが装備/解除したときに監視します。"
+                "Hint": "アイテムの装備と装備解除。"
             },
             "MonitorItemAttune": {
                 "Name": "同調を監視",
-                "Hint": "キャラクターがアイテムに同調/同調解除したときに監視します。"
+                "Hint": "アイテムへの同調の獲得と喪失。"
             },
             "MonitorItemIdentify": {
-                "Name": "アイテム識別を監視",
-                "Hint": "キャラクターシートのアイテムの識別/未識別の変化を監視します。"
+                "Name": "識別を監視",
+                "Hint": "アイテムの識別と未識別化。"
             },
             "MonitorItemCharges": {
-                "Name": "アイテム使用回数を監視",
-                "Hint": "キャラクターシートのアイテム使用回数の変化を監視します。"
+                "Name": "チャージを監視",
+                "Hint": "アイテムや特徴の使用回数の消費・回復と最大値。"
+            },
+            "MonitorItemContainer": {
+                "Name": "コンテナを監視",
+                "Hint": "アイテムをコンテナへ入れる、取り出す、別のコンテナへ移す操作。"
             },
             "MonitorSheetMode": {
                 "Name": "シートモードを監視",
-                "Hint": "キャラクターシートの編集モードとプレイモードの切替を監視します。"
+                "Hint": "シートのプレイモードと編集モードの切り替え。libWrapperが必要です。"
             },
             "MonitorInspiration": {
                 "Name": "インスピレーションを監視",
-                "Hint": "キャラクターシートのインスピレーションの変化を監視します。"
+                "Hint": "インスピレーションの獲得と消費。"
             },
             "MonitorDeathSave": {
-                "Name": "デスセーヴを監視",
-                "Hint": "キャラクターシートのデスセーヴの結果の変化を監視します。"
+                "Name": "死亡セーヴを監視",
+                "Hint": "死亡セーヴの成功と失敗。"
             },
-            "ShowChangedBy": {
-                "Name": "変更者を表示",
-                "Hint": "変更を行ったプレイヤー（またはGM）の名前を各メッセージに追加します"
+            "BatchMs": {
+                "Name": "まとめ時間（ミリ秒）",
+                "Hint": "1人のキャラクターの変更を最初の変更からこの時間だけ集め、まとめて送信します。変更ごとに別のメッセージになります。"
             },
-            "MonitorItemContainer": {
-                "Name": "コンテナへの移動を監視",
-                "Hint": "アイテムのコンテナへの移動、コンテナからの移動、またはコンテナ間の移動を監視します"
+            "ShowAuthorMark": {
+                "Name": "他人の変更に印を付ける",
+                "Hint": "他の誰かが変更したとき、メッセージの角に小さな王冠（GM）またはペン（プレイヤー）を表示します。誰がいつ変更したかはアイコンのツールチップにあります。自分にだけ適用されます。"
+            },
+            "HideOwnChanges": {
+                "Name": "自分の変更を隠す",
+                "Hint": "自分で行った変更のメッセージを隠します。自分にだけ適用されます。"
             }
         },
         "ChatMessage": {
             "SheetMode": "シートモード",
-            "Description": "説明",
-            "DescriptionChanged": "説明が変更されました",
+            "DescriptionChanged": "説明を変更",
+            "ShowFull": "全文を表示",
             "HP": {
                 "Value": "HP",
                 "Max": "最大HP",
                 "Temp": "一時HP",
-                "Tempmax": "最大一時HP"
+                "Tempmax": "一時最大HP"
             },
-            "Equipped": "装備した",
-            "Unequipped": "装備を外した",
-            "Prepared": "準備した",
-            "Unprepared": "準備解除",
-            "AttunesTo": "同調した",
-            "BreaksAttune": "同調を失った",
+            "Equipped": "装備",
+            "Unequipped": "装備解除",
+            "Attuned": "同調",
+            "AttunementBroken": "同調解除",
             "Enabled": "有効",
             "Disabled": "無効",
-            "Added": "追加された",
-            "Deleted": "削除された",
+            "Added": "追加",
+            "Deleted": "削除",
             "Identified": "識別済み",
             "Unidentified": "未識別",
-            "Old": "以前",
-            "New": "現在",
-            "MemberAdded": "がメンバーを追加しました",
-            "MemberRemoved": "がメンバーを削除しました",
+            "MemberAdded": "追加",
+            "MemberRemoved": "削除",
             "ChangedBy": "変更者: {name}",
-            "Inventory": "インベントリ"
+            "GM": "GM",
+            "ItemName": "名前"
+        },
+        "ContextMenu": {
+            "Clear": "モニターメッセージを消去",
+            "ClearConfirm": "モニターのメッセージをすべて削除しますか（{count}件）？元に戻せません。"
         }
     }
 }

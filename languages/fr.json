@@ -8,149 +8,158 @@
             },
             "VisibilityMode": {
                 "Disabled": "Désactivé",
-                "GM": "Maître de Jeu (MJ) uniquement",
-                "Owner": "Maître de Jeu & Propriétaire",
+                "GM": "MJ uniquement",
+                "Owner": "MJ et propriétaires",
                 "All": "Tout le monde"
             }
         },
         "Settings": {
             "NpcMonitorMode": {
-                "Name": "Surveillance des PNJ",
-                "Hint": "Suivre les modifications apportées aux Personnages Non-Joueurs (PNJ)."
+                "Name": "Suivi des PNJ",
+                "Hint": "Quelles fiches de PNJ sont suivies."
             },
             "PartyMonitor": {
                 "Name": "Suivi de la fiche de groupe",
-                "Hint": "Suivre les modifications de la fiche de groupe : composition, devises et inventaire partagé"
+                "Hint": "Suit les fiches de groupe : membres, monnaie et inventaire partagé."
             },
             "MonitorHP": {
-                "Name": "Surveiller les PV",
-                "Hint": "Surveille les changements de points de vie du personnage"
+                "Name": "Suivre les PV",
+                "Hint": "PV actuels, maximums, temporaires et maximums temporaires."
             },
             "MonitorHitDice": {
                 "Name": "Suivre les dés de vie",
-                "Hint": "Suit les modifications apportées aux dés de vie du personnage"
+                "Hint": "Dés de vie dépensés et récupérés."
             },
             "MonitorXP": {
-                "Name": "Surveiller l'expérience",
-                "Hint": "Surveille les changements de points d'expérience"
+                "Name": "Suivre l'expérience",
+                "Hint": "Changements des points d'expérience."
             },
             "MonitorLevel": {
-                "Name": "Surveiller le niveau",
-                "Hint": "Surveille les changements de niveau du personnage"
+                "Name": "Suivre le niveau",
+                "Hint": "Niveaux de classe, y compris l'ajout et le retrait d'une classe."
             },
             "MonitorSpellPrep": {
-                "Name": "Surveiller la préparation des sorts",
-                "Hint": "Surveille quand un sort est préparé ou retiré"
+                "Name": "Suivre la préparation des sorts",
+                "Hint": "Un sort devient préparé, non préparé ou toujours préparé."
             },
             "MonitorSpellSlots": {
-                "Name": "Surveiller les emplacements de sorts",
-                "Hint": "Surveille les changements d'emplacements de sorts"
+                "Name": "Suivre les emplacements de sorts",
+                "Hint": "Emplacements dépensés et récupérés et leur maximum, magie de pacte comprise."
             },
             "MonitorAC": {
-                "Name": "Surveiller la CA",
-                "Hint": "Surveille les changements de la classe d'armure du personnage"
+                "Name": "Suivre la classe d'armure",
+                "Hint": "Changements de la classe d'armure."
             },
             "MonitorAbility": {
-                "Name": "Surveiller les caractéristiques",
-                "Hint": "Surveille les changements des valeurs de caractéristiques"
+                "Name": "Suivre les caractéristiques",
+                "Hint": "Changements des valeurs de caractéristique."
             },
             "MonitorSkillProficiency": {
-                "Name": "Surveiller les compétences",
-                "Hint": "Surveille les changements de maîtrise des compétences"
+                "Name": "Suivre la maîtrise des compétences",
+                "Hint": "Changements de la maîtrise des compétences."
             },
             "MonitorSaveProficiency": {
-                "Name": "Surveiller les jets de sauvegarde",
-                "Hint": "Surveille les changements de maîtrise des jets de sauvegarde"
+                "Name": "Suivre la maîtrise des sauvegardes",
+                "Hint": "Changements de la maîtrise des jets de sauvegarde."
             },
             "MonitorToolProficiency": {
-                "Name": "Surveiller les outils",
-                "Hint": "Surveille les changements de maîtrise des outils"
+                "Name": "Suivre la maîtrise des outils",
+                "Hint": "Changements de la maîtrise des outils."
             },
             "MonitorCurrency": {
-                "Name": "Surveiller la monnaie",
-                "Hint": "Surveille les changements de la monnaie du personnage"
+                "Name": "Suivre la monnaie",
+                "Hint": "Monnaie sur la fiche et dans les contenants."
             },
             "MonitorPartyMembers": {
                 "Name": "Suivre les membres du groupe",
-                "Hint": "Suit l'ajout et la suppression de membres du groupe"
+                "Hint": "Un membre est ajouté au groupe ou retiré."
             },
             "MonitorEffects": {
-                "Name": "Surveiller les effets actifs",
-                "Hint": "Surveille les changements des effets actifs"
+                "Name": "Suivre les effets actifs",
+                "Hint": "Un effet est ajouté, retiré, activé ou désactivé."
             },
             "MonitorItemQuantity": {
-                "Name": "Surveiller la quantité d'objets",
-                "Hint": "Surveille les changements de quantité d'objets"
+                "Name": "Suivre les objets",
+                "Hint": "Un objet est ajouté ou retiré, ou sa quantité change."
             },
             "MonitorItemNameDesc": {
-                "Name": "Surveiller nom et description des objets",
-                "Hint": "Surveille les changements du nom et/ou de la description des objets"
+                "Name": "Suivre noms et descriptions",
+                "Hint": "Objets renommés et changements de description, affichés sous forme de comparaison. Comparer de longues descriptions sollicite les ordinateurs modestes."
             },
             "MonitorItemEquip": {
-                "Name": "Surveiller l'équipement",
-                "Hint": "Surveille quand un objet est équipé ou retiré"
+                "Name": "Suivre l'équipement",
+                "Hint": "Un objet est équipé ou déséquipé."
             },
             "MonitorItemAttune": {
-                "Name": "Surveiller l'affinité",
-                "Hint": "Surveille quand le personnage s'accorde à un objet ou perd l'affinité"
+                "Name": "Suivre l'harmonisation",
+                "Hint": "L'harmonisation avec un objet est obtenue ou perdue."
             },
             "MonitorItemIdentify": {
-                "Name": "Surveiller l'identification des objets",
-                "Hint": "Surveille les changements identifié/non identifié des objets"
+                "Name": "Suivre l'identification",
+                "Hint": "Un objet est identifié ou ne l'est plus."
             },
             "MonitorItemCharges": {
-                "Name": "Surveiller les charges des objets",
-                "Hint": "Surveille les changements des charges des objets"
-            },
-            "MonitorSheetMode": {
-                "Name": "Surveiller le mode de fiche",
-                "Hint": "Surveille le changement entre mode jeu et édition"
-            },
-            "MonitorInspiration": {
-                "Name": "Surveiller l'inspiration",
-                "Hint": "Surveille les changements d'inspiration"
-            },
-            "MonitorDeathSave": {
-                "Name": "Surveiller les jets de sauvegarde de mort",
-                "Hint": "Surveille les changements des jets de sauvegarde de mort"
-            },
-            "ShowChangedBy": {
-                "Name": "Afficher l'auteur de la modification",
-                "Hint": "Ajoute à chaque message le nom du joueur (ou MJ) ayant effectué la modification"
+                "Name": "Suivre les charges",
+                "Hint": "Utilisations dépensées et récupérées des objets et aptitudes, et leur maximum."
             },
             "MonitorItemContainer": {
-                "Name": "Suivre le mouvement dans les conteneurs",
-                "Hint": "Suit le déplacement d'un objet vers un conteneur, hors d'un conteneur ou entre conteneurs"
+                "Name": "Suivre les contenants",
+                "Hint": "Un objet est placé dans un contenant, en est sorti ou change de contenant."
+            },
+            "MonitorSheetMode": {
+                "Name": "Suivre le mode de la fiche",
+                "Hint": "La fiche passe du mode jeu au mode édition. Nécessite libWrapper."
+            },
+            "MonitorInspiration": {
+                "Name": "Suivre l'inspiration",
+                "Hint": "L'inspiration est obtenue ou dépensée."
+            },
+            "MonitorDeathSave": {
+                "Name": "Suivre les jets contre la mort",
+                "Hint": "Réussites et échecs des jets de sauvegarde contre la mort."
+            },
+            "BatchMs": {
+                "Name": "Durée de regroupement (ms)",
+                "Hint": "Les changements d'un personnage sont rassemblés pendant cette durée, comptée à partir du premier, puis envoyés ensemble. Chaque changement reste un message à part."
+            },
+            "ShowAuthorMark": {
+                "Name": "Marquer les changements des autres",
+                "Hint": "Une petite couronne (MJ) ou plume (joueur) dans le coin d'un message quand quelqu'un d'autre a fait le changement. Qui et quand figurent dans l'infobulle de l'icône. Ne concerne que vous."
+            },
+            "HideOwnChanges": {
+                "Name": "Masquer mes changements",
+                "Hint": "Masque les messages sur les changements que vous avez faits vous-même. Ne concerne que vous."
             }
         },
         "ChatMessage": {
-            "SheetMode": "Mode de fiche",
-            "Description": "Description",
-            "DescriptionChanged": "Description modifiée",
+            "SheetMode": "Mode de la fiche",
+            "DescriptionChanged": "description modifiée",
+            "ShowFull": "Afficher tout le texte",
             "HP": {
                 "Value": "PV",
                 "Max": "PV max",
-                "Temp": "PV temp",
-                "Tempmax": "PV max temp"
+                "Temp": "PV temp.",
+                "Tempmax": "PV max temp."
             },
-            "Equipped": "équipe",
-            "Unequipped": "déséquipe",
-            "Prepared": "prépare",
-            "Unprepared": "retire la préparation",
-            "AttunesTo": "s'accorde à",
-            "BreaksAttune": "perd l'affinité sur",
+            "Equipped": "équipé",
+            "Unequipped": "déséquipé",
+            "Attuned": "harmonisé",
+            "AttunementBroken": "harmonisation perdue",
             "Enabled": "activé",
             "Disabled": "désactivé",
             "Added": "ajouté",
-            "Deleted": "supprimé",
+            "Deleted": "retiré",
             "Identified": "identifié",
             "Unidentified": "non identifié",
-            "Old": "Ancien",
-            "New": "Nouveau",
-            "MemberAdded": "ajoute un membre",
-            "MemberRemoved": "retire un membre",
+            "MemberAdded": "ajouté",
+            "MemberRemoved": "retiré",
             "ChangedBy": "Modifié par : {name}",
-            "Inventory": "Inventaire"
+            "GM": "MJ",
+            "ItemName": "Nom"
+        },
+        "ContextMenu": {
+            "Clear": "Effacer les messages du moniteur",
+            "ClearConfirm": "Supprimer tous les messages du moniteur ({count}) ? Cette action est irréversible."
         }
     }
 }
